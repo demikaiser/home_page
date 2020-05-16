@@ -1,0 +1,5 @@
+{
+  "title": "Network Topology Virtualization with Proxmox and GNS3 Server",
+  "subtitle": "Exploration of Software Defined Network Technologies",
+  "description": "An introduction to construct a distributed virtual environment for network engineering experiments and exercises with the Proxmox, the GNS3 server, and several virtual machines."
+}

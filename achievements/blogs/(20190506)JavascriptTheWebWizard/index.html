@@ -1,0 +1,4195 @@
+<html>
+<head>
+
+</head>
+<body>
+
+  <div style="text-align: center;">
+    <h1><b>Javascript the Web Wizard</b></h1>
+    <p>
+      Introduces the easy-to-miss fundamentals of Javascript for my own reference to the learning process.
+    </p>
+    <p>2019/05/06</p>
+  </div>
+
+  <h2>0. Introduction</h2>
+
+  <p>
+    Recently, I have realized that I have been using Javascript for years but I didn't really write Javascript. What I mean by that is I used libraries and frameworks built on Javascript, but not Javascript itself. I always magically worked for me and gave me the power to abstract out how it worked. As my skills grow, I came to be interested in how all these work from OS-browser communications at lower levels, ECMAScript language specifications, Javascript transpilation, and to barebone AJAX technologies.
+  </p>
+
+  <p>
+    So I decided to learn each part in depth, also making my footprints somewhere so I in the future and others can use it as a reference as well. I found a good course to start, and <b>this article is a summary/notes/annotation based on  the <a target="_blank" href="https://frontendmasters.com/courses/deep-javascript-v3/introduction/">course</a> made be Kyle Simpson (Getify). I deeply appreciate his knowledge and efforts.</b> I liked he is stressing the fundamental understanding of Javascript throughout the course, especially recommending reading the language specification. It is not an easy process but definitely worth if you are serious to be a good Javascript developer.
+  </p>
+
+  <p>
+    <a target="_blank" href="http://www.ecma-international.org/ecma-262/10.0/index.html#Title">ECMAScript Language Specification</a>
+  </p>
+
+  <p>
+    I wrote this article in a way others can rapidly see the overview of the course but not the full details. You can start here to see what subjects are missing in your mental model and delve into those subjects you want to master. Each part is divided into a section that doesn't have dependencies on other sections so you can modulize your learning. Getify says there are three pillars of Javascript, which are <mark>types</mark>, <mark>scopes</mark>, and <mark>objects</mark>. The subjects below belong to one of those subjects.
+  </p>
+
+  <h2>1. Types</h2>
+
+  <h3>1.1. Various Types</h3>
+
+  <h4>1.1.1. Primitive Types</h4>
+
+  <p>
+    It is wrong to say everything is object in Javascirpt. There are primitive types:
+  </p>
+
+  <p>
+    <a target="_blank" href="http://www.ecma-international.org/ecma-262/10.0/index.html#sec-ecmascript-language-types">ECMAScript Language Types</a>
+  </p>
+
+  <p>
+    There are basic 5 primitive types:
+  </p>
+
+  <ul>
+    <li>undefined</li>
+    <li>string</li>
+    <li>number</li>
+    <li>boolean</li>
+    <li>object</li>
+    <li>symbol</li>
+  </ul>
+ 
+  <p>
+    There are several types that behave like a separate type:
+  </p>
+
+  <ul>
+    <li>undeclared: Object Subtype</li>
+    <li>null: Builtin Type</li>
+    <li>function: Callable Object</li>
+    <li>array: Object Subtype</li>
+    <li>bigint: Object Subtype</li>
+  </ul>
+
+  <p>
+    These types above are not called types but act like a type and possibly will be added to the language specification in the future. One thing to remember is in Javascript, variables don't have types but values do.
+  </p>
+
+  <h4>1.1.2. typeof Operator</h4>
+
+  <p>
+    You can check what is the type of the value in a variable with the typeof operator like the following:
+  </p>
+
+  <pre><code class="language-javascript">
+var v;
+typeof v; // "undefined"
+
+v = "1";
+typeof v; // "string"
+
+v = 2;
+typeof v; // "number"
+
+v = true;
+typeof v; // "boolean"
+
+v = {};
+typeof v; // "object"
+
+v = Symbol();
+typeof v; // "symbol"
+  </code></pre>
+
+  <p>
+    <a target="_blank" href="http://www.ecma-international.org/ecma-262/10.0/index.html#sec-typeof-operator">ECMAScript typeof Operator</a>
+  </p>
+
+  <p>
+    There are some interesting behaviors from the types discussed in the previous section:
+  </p>
+
+  <pre><code class="language-javascript">
+typeof doesntExist // "undefined"
+
+var v = null;
+typeof v; // "object" OOPS!!! THIS IS A BUG...
+
+v = function() {};
+typeof v; // "function" Hmmm?
+
+v = [1, 2, 3];
+typeof v; // "object" Hmm?
+  </code></pre>
+
+  <h4>1.1.3. BigInt</h4>
+
+  <p>
+    bitint is coming soon, but it represents a very big number that can be infinitely growing in the limitation of your physical memory.
+  </p>
+
+  <pre><code class="language-javascript">
+var v = 42n; // or: BigInt(42);
+typeof v; // "bigint"
+  </code></pre>
+
+  <h4>1.1.4. Kinds of Empiness</h4>
+
+  <ul>
+    <li>
+      undeclared means there is no variable declared.
+    </li>
+    <li>
+      undefined means there is a variable declared but it doesn't have any value assigned.
+    </li>
+    <li>
+      uninitialized (Temporal Dead Zone) means there is a variable but never has been initialized.
+    </li>
+  </ul>
+
+  <h4>1.1.5. NaN & isNaN</h4>
+
+  <p>
+    NaN is a type of a number, but an invalid number. This is a number representation that tells us this is not a valid number. See the spec below and the code displaying some behaviors of the type itself and associated functions.
+  </p>
+
+  <p>
+    <a target="_blank" href="http://www.ecma-international.org/ecma-262/10.0/index.html#sec-ecmascript-language-types-number-type">ECMAScript Number Type</a>
+  </p>
+
+  <pre><code class="language-javascript">
+var myAge = Number("0o46"); // 38
+var myNextAge = Number("39"); // 39
+var myCatsAge = Number("n/a"); // NaN
+var calc = myAge - "my son's age"; // NaN 
+
+// IEEE says NaNs are not equal to each other.
+myCatsAge === myCatsAge; // false OOPS!
+
+isNaN(myAge); // false
+isNaN(myCatsAge); // true
+
+// string automatically is coerced to Number before getting into isNaN function.
+isNaN("my son's age"); // true OOPS!
+
+Number.isNaN(myCatsAge); // true
+// This ES6 utility does NOT coerce a string to a number.
+Number.isNaN("my son's age"); // false
+  </code></pre>
+
+  <p>
+    NaN could be used as a return value of invalid numeric operations instead of returning null, undefined, or -1. This is because Javascript is a dynamically-typed language which can have all positive, 0, and negative numbers in a type.
+  </p>
+
+  <h4>1.1.6. Negative Zero</h4>
+
+  <p>
+    A negative zero is a mathematically-defined entity that represents a negative side of zero, which can be used in a field as a vector space. Javascript doesn't explicitly support is in all equality operations:
+  </p>
+
+  <pre><code class="language-javascript">
+var trendRate = -0;
+trendRate === -0; // true
+
+trendRate.toString(); // "0" OOPS!
+trendRate === 0; // true OOPS!
+trendRate < 0; // false
+trendRate > 0; // false
+
+// Object.is function is like ====
+Object.is(trendRate, -0); // true
+Object.is(trendRate, +0); // false
+
+// sign(number) is another useful function.
+Math.sign(-3); // -1
+Math.sign(3); // 1
+Math.sign(-0); // -0 WTF?
+Math.sign(0); // 0 WTF?
+
+// "fix" Math.sign(...)
+function sign(v) {
+  return v !== 0 ? Math.sign(v) : Object.is(v, -0) ? -1 : 1;
+}
+
+sign(-3); // -1
+sign(3); // 1
+sign(-0); // -1
+sign(0); // 1
+  </code></pre>
+
+  <h4>1.1.7. Type Check Exercise</h4>
+
+  <p>
+    Polyfill for `Object.is(..)`
+  </p>
+
+  <p>
+    In this exercise, you will define a polyfill for `Object.is(..)`. No cheating and looking it up online!
+  </p>
+
+  <p>
+    Instructions
+  </p>
+
+
+  <ol>
+    <li>
+       `Object.is(..)` should take two parameters.
+    </li>
+    <li>
+      It should return `true` if the passed in parameters are exactly the same value (not just `===` -- see below!), or `false` otherwise.
+    </li>
+    <li>
+      For `NaN` testing, you can use `Number.isNaN(..)`, but first see if you can find a way to test without usage of any utility?
+    </li>
+    <li>
+      For `-0` testing, no built-in utility exists, but here's a hint: `-Infinity`.
+    </li>
+    <li>
+      If the parameters are any other values, just test them for strict equality.
+    </li>
+    <li>
+       You cannot use the built-in `Object.is(..)` -- that's cheating!
+    </li>
+  </ol>
+
+  <p>
+    Polyfill Pattern
+  </p>
+
+  <p>
+    **NOTE:** Since your JS environment probably already has `Object.is(..)`, to test your polyfill you'll have to first unconditionally define it (no `if` guard), and then add the `if` guard when you're done.
+  </p>
+
+  <p>
+    To define a polyfill, it looks like this:
+  </p>
+
+  <pre><code class="language-javascript">
+if (!Object.is || true) {
+	Object.is = function ObjectIs(..) { .. };
+}
+  </code></pre>
+
+  <pre><code class="language-javascript">
+// TODO: define polyfill for `Object.is(..)`
+
+// tests:
+console.log(Object.is(42,42) === true);
+console.log(Object.is("foo","foo") === true);
+console.log(Object.is(false,false) === true);
+console.log(Object.is(null,null) === true);
+console.log(Object.is(undefined,undefined) === true);
+console.log(Object.is(NaN,NaN) === true);
+console.log(Object.is(-0,-0) === true);
+console.log(Object.is(0,0) === true);
+
+console.log(Object.is(-0,0) === false);
+console.log(Object.is(0,-0) === false);
+console.log(Object.is(0,NaN) === false);
+console.log(Object.is(NaN,0) === false);
+console.log(Object.is(42,"42") === false);
+console.log(Object.is("42",42) === false);
+console.log(Object.is("foo","bar") === false);
+console.log(Object.is(false,true) === false);
+console.log(Object.is(null,undefined) === false);
+console.log(Object.is(undefined,null) === false);
+  </code></pre>
+
+  <h4>1.1.8. Type Check Exercise Solution</h4>
+
+  <pre><code class="language-javascript">
+if (!Object.is /*|| true*/) {
+  Object.is = function ObjectIs(x,y) {
+    var xNegZero = isItNegZero(x);
+    var yNegZero = isItNegZero(y);
+
+    if (xNegZero || yNegZero) {
+      return xNegZero && yNegZero;
+    }
+    else if (isItNaN(x) && isItNaN(y)) {
+      return true;
+    }
+    else if (x === y) {
+      return true;
+    }
+
+    return false;
+
+    // **********
+
+    function isItNegZero(x) {
+      return x === 0 && (1 / x) === -Infinity;
+    }
+
+    function isItNaN(x) {
+      return x !== x;
+    }
+  };
+}
+
+
+// tests:
+console.log(Object.is(42,42) === true);
+console.log(Object.is("foo","foo") === true);
+console.log(Object.is(false,false) === true);
+console.log(Object.is(null,null) === true);
+console.log(Object.is(undefined,undefined) === true);
+console.log(Object.is(NaN,NaN) === true);
+console.log(Object.is(-0,-0) === true);
+console.log(Object.is(0,0) === true);
+
+console.log(Object.is(-0,0) === false);
+console.log(Object.is(0,-0) === false);
+console.log(Object.is(0,NaN) === false);
+console.log(Object.is(NaN,0) === false);
+console.log(Object.is(42,"42") === false);
+console.log(Object.is("42",42) === false);
+console.log(Object.is("foo","bar") === false);
+console.log(Object.is(false,true) === false);
+console.log(Object.is(null,undefined) === false);
+console.log(Object.is(undefined,null) === false);
+  </code></pre>
+  
+  <h4>1.1.9. Fundamental Objects</h4>
+
+  <p>
+    Fundamental objects are also called as built-in objects or native functions. This is a wrapper of primitive types to make they act like an object to have functionalities a object would. 
+  </p>
+
+  <p>
+    Use new keyword for the following:
+  </p>
+
+  <ul>
+    <li>Object()</li>
+    <li>Array()</li>
+    <li>Function()</li>
+    <li>Date()</li>
+    <li>RegExp()</li>
+    <li>Error()</li>
+  </ul>
+
+  <p>
+    Do NOT use new keyword for the following:
+  </p>
+
+  <ul>
+    <li>String()</li>
+    <li>Number()</li>
+    <li>Boolean()</li>
+  </ul>
+
+  <p>
+    Here is a simple usage.
+  </p>
+
+  <pre><code class="language-javascript">
+var yesterday = new Date("March 6, 2019");
+yesterday.toUTCString();
+
+var myGPA = String(transcript.gpa);
+// "3.54"
+  </code></pre>
+
+  <h3>1.2. Coercion</h3>
+
+  <h4>1.2.1. Abstract Operations</h4>
+
+  <p>
+    Abstract operations mean the operations that are not dependent on finite, materialistic logic, such as converting one quality to another one. Type conversions are abstract operations, and it is also called coercion because it coerces one quality to another. Find the specification of the abstract operations in the following link:
+  </p>
+
+  <p>
+    <a target="_blank" href="http://www.ecma-international.org/ecma-262/10.0/index.html#sec-type-conversion">ECMAScript Type Conversion</a>
+  </p>
+
+  <h4>1.2.2. toString</h4>
+
+  <p>
+    <a target="_blank" href="http://www.ecma-international.org/ecma-262/10.0/index.html#sec-tostring">ECMAScript Type Conversion ToString</a>
+  </p>
+
+  <p>
+    toString abstract operation generates a string representation from any types or any entities. Usually, they are logical and in common sense, but sometimes they are not. see the following code:
+  </p>
+
+  <pre><code class="language-javascript">
+[].toString() // ""
+[1, 2, 3].toString() // "1,2,3"
+[null, undefined].toString() // ","
+[[[], [], []], []].toString() // ",,,"
+[,,,,].toString() // ",,,"
+{}.toString() // "[object Object]"
+{a:2}.toString() // "[object Object]"
+{toString(){return "X";}}.toString() // "X" // Overridden
+  </code></pre>
+
+  <h4>1.2.3. toNumber</h4>
+
+  <p>
+    <a target="_blank" href="http://www.ecma-international.org/ecma-262/10.0/index.html#sec-tonumber">ECMAScript Type Conversion ToNumber</a>
+  </p>
+
+  <p>
+    toNumber converts things to a number format. If the entity to be converted is not a number or can't be interpreted as a number, it returns NaN. Beware there are many edge cases:
+  </p>
+
+  <pre><code class="language-javascript">
+Number("") // 0 // THIS IS EVIL!
+Number("0") // 0
+Number("-0") // -0
+Number(" 009 ") // 9
+Number("0.") // 0
+Number(".0") // 0
+Number(".") // NaN
+Number("0xaf") // 175
+Number(false) // 0
+Number(true) // 1
+Number(null) // 0
+Number(undefined) // NaN
+Number([""]) // 0
+Number(["0"]) // 0
+Number(["-0"]) // -0
+Number([null]) // 0
+Number([undefined]) // 0
+Number([1,2,3]) // NaN
+Number([[[]]]) // 0
+Number({}) // NaN
+Number( {valueOf {return 3;}} ) // 3 // Overridden
+  </code></pre>
+
+  <h4>1.2.4. toBoolean</h4>
+
+  <p>
+    toBoolean makes things booleans when needed. It is simpler compared to others:
+  </p>
+
+  <p>
+    <a target="_blank" href="http://www.ecma-international.org/ecma-262/10.0/index.html#sec-toboolean">ECMAScript Type Conversion ToBoolean</a>
+  </p>
+
+  <p>
+    The following things are falsy values which translate to false. All others that are not falsy would be truthy:
+  </p>
+
+  <pre><code class="language-javascript">
+Boolean("") // false
+Boolean(0) // false
+Boolean(-0) // false
+Boolean(null) // false
+Boolean(NaN) // false
+Boolean(false) // false
+Boolean(undefined) // false
+  </code></pre>
+
+  <h4>1.2.5. Cases of Coercion</h4>
+
+  <p>
+    You can't avoid using coercion in Javascript. If you can't avoid it, maybe it is a good idea to be explicit like the following for readability. 
+  </p>
+
+  <pre><code class="language-javascript">
+var numStudents = 16;
+console.log(
+  `There are ${numStudents.toString()} students.`
+)
+console.log(
+  `There are ${String(numStudents)} students.`
+)
+  </code></pre>
+
+  <p>
+    Numbers are more complicated, and it is easy to make mistakes when you don't consider coercion in the program. See the following examples:
+  </p>
+
+  <pre><code class="language-javascript">
+var numStudentsInput.value = 16;
+
+function addStudent(numStudents) {
+  return numStudents + 1;
+}
+
+addStudent(numStudentsInput.value); // "161" OOPS!
+
+addStudent(+numStudentsInput.value); // 17
+
+addStudent(Number(numStudentsInput.value)); // 17
+
+function subtractStudent(numStudents) {
+  return numStudents - 1;
+}
+
+subtractStudent(numStudentsInput.value); // 15 IT IS OKAY!
+  </code></pre>
+
+  <p>
+    Boolean should be used carefully in a situation that can have unexpected input from users like the following. Your code should consider all the corner cases to prevent undesirable behaviors.
+  </p>
+
+  <pre><code class="language-javascript">
+var userInput = "";
+
+if (userInput) {
+  console.log("Nothing entered!");
+} else {
+  console.log("Something entered!");
+} // Nothing entered!
+
+userInput = "     ";
+userInput = "\t\n"
+
+if (userInput) {
+  console.log("Nothing entered!");
+} else {
+  console.log("Something entered!");
+} // Something entered!
+  </code></pre>
+
+  <p>
+    It is okay to use the falsy/truthy logic for the objects, null, undefined; however, it's risky to use them for numbers and strings because there are so many edge cases.
+  </p>
+
+  <h4>1.2.6. Boxing</h4>
+
+  <p>
+    When you try to access any object properties for a primitive value, it will be automatically converted to an object. It is called boxing, and also it is implicit coercion. However, primitives are still primitives, not objects. Therefore, it is false to say everything is an object in Javascript.
+  </p>
+
+  <h4>1.2.7. Corner Cases of Coercion</h4>
+
+  <p>
+    The followings are some corner cases to watch out:
+  </p>
+
+  <pre><code class="language-javascript">
+Number(""); // 0    OOPS!!!
+Number("  \t\n"); // 0    OOPS!!!
+Number(null); // 0    OOPS!!!
+Number(undefined); // NaN
+Number([]); // 0    OOPS!!!
+Number([1, 2, 3]); // NaN
+Number([null]); // 0    OOPS!!!
+Number([undefined]); // 0    OOPS!!!
+Number({}); // NaN
+
+String(); // "0"    OOPS!!!
+String(null); // "null"
+String(undefined); // "undefined"
+String([null]); // ""    OOPS!!!
+String([undefined]) // ""    OOPS!!!
+
+Boolean(new Boolean(false)); // true    OOPS!!!
+  </code></pre>
+
+  <p>
+    See the boolean coercion weirdness.
+  </p>
+
+  <pre><code class="language-javascript">
+Number(true);
+Number(false);
+
+1 < 2 < 3; // true
+(1 < 2) < 3;
+(true) < 3;
+1 < 3; // true...
+
+3 > 2 > 1 // false ???
+(3 > 2) > 1;
+(true) > 1;
+1 > 1; // false ...yeah...
+  </code></pre>
+
+  <h3>1.3. Philosophy of Coercion</h3>
+
+  <h4>1.3.1. International Coercion</h4>
+
+  <p>
+    A quality Javascript program embraces coercions. You and your team can develop a good coding style that enables developers to avoid tricky and problematic corner cases of coercion. 
+  </p>
+
+  <p>
+    This is especially important when you write polymorphic functions. Unlike typed languages like Java or C++, it would be very confusing to make a function takes multiple types for different behaviors for each type. You can choose to make a unique function for a type instead.
+  </p>
+
+  <p>
+    It is not necessary to adopt a static type system into Javascript like Typescript because dynamic typing can be an advantage that can do more. It could be viewed as a reason why Javascript has become the most ubiquitous language today.
+  </p>
+
+  <h4>1.3.2. Culture of Learning</h4>
+
+  <p>
+    It doesn't make sense to use an excuse like junior developers can't understand all the intricacies of the corner cases to avoid using a dynamic type system. This is only a good opportunity to learn about the rules of the language, not an excuse to make the language easier so nobody can't understand.
+  </p>
+
+  <h4>1.3.3. Code Communication</h4>
+
+  <p>
+    Code comments should be complementary materials for the code, not the duplication of what the code does. If it simply explains what the code does, it should be avoided. However, code comments can add insights and high-level views which can't be conveyed by the code itself. 
+  </p>
+
+  <p>
+    In particular, code comments in Javascript can explicitly confine the scope of the variables, parameters, or arguments, and how to use them and why only certain types should be used. It will make the code more obvious and decrease the corner cases from the conversion.
+  </p>
+
+  <h4>1.3.4. Implicit Coercion</h4>
+
+  <p>
+    Implicitness is an abstraction. Computer science is full of abstractions. All the automatic type conversions are implicit, and it is a beauty of Javascript. Implicitness also helps decrease the unnecessary mechanical sides of the language so the engineers can focus on the actual logic they are dealing with.
+  </p>
+
+  <p>
+    The following example shows when to use implicit coercion when it is very obvious not to have any corner cases.
+  </p>
+
+  <pre><code class="language-javascript">
+var thisWillBeNumber = 13;
+var someVariable = userInput.value;
+
+// This is not good because we know this will be number comparison.
+if (Number(thisWillBeNumber) < Number(someVariable)) {}
+
+// This is okay.
+if (thisWillBeNumber < someVariable) {}
+  </code></pre>
+
+  <h4>1.3.5. Coercion Exercise</h4>
+
+  <p>
+    Working With Coercion
+  </p>
+
+  <p>
+    In this exercise, you will define some validation functions that check user inputs (such as from DOM elements). You'll need to properly handle the coercions of the various value types.
+  </p>
+
+  <p>
+    Instructions
+  </p>
+
+  <p>
+    1. Define an `isValidName(..)` validator that takes one parameter, `name`. The validator returns `true` if all the following match the parameter (`false` otherwise):
+  </p>
+
+  <ul>
+    <li>must be a string</li>
+    <li>must be non-empty</li>
+    <li>must contain non-whitespace of at least 3 characters</li>
+  </ul>
+
+  <p>
+    2. Define an `hoursAttended(..)` validator that takes two parameters, `attended` and `length`. The validator returns `true` if all the following match the two parameters (`false` otherwise):
+  </p>
+
+  <ul>
+    <li>either parameter may only be a string or number</li>
+    <li>both parameters should be treated as numbers</li>
+    <li>both numbers must be 0 or higher</li>
+    <li>both numbers must be whole numbers</li>
+    <li>`attended` must be less than or equal to `length`</li>
+  </ul>
+
+  <pre><code class="language-javascript">
+// TODO: write the validation functions
+
+// tests:
+console.log(isValidName("Frank") === true);
+console.log(hoursAttended(6,10) === true);
+console.log(hoursAttended(6,"10") === true);
+console.log(hoursAttended("6",10) === true);
+console.log(hoursAttended("6","10") === true);
+console.log(isValidName(false) === false);
+console.log(isValidName(null) === false);
+console.log(isValidName(undefined) === false);
+console.log(isValidName("") === false);
+console.log(isValidName("  \t\n") === false);
+console.log(isValidName("X") === false);
+console.log(hoursAttended("",6) === false);
+console.log(hoursAttended(6,"") === false);
+console.log(hoursAttended("","") === false);
+console.log(hoursAttended("foo",6) === false);
+console.log(hoursAttended(6,"foo") === false);
+console.log(hoursAttended("foo","bar") === false);
+console.log(hoursAttended(null,null) === false);
+console.log(hoursAttended(null,undefined) === false);
+console.log(hoursAttended(undefined,null) === false);
+console.log(hoursAttended(undefined,undefined) === false);
+console.log(hoursAttended(false,false) === false);
+console.log(hoursAttended(false,true) === false);
+console.log(hoursAttended(true,false) === false);
+console.log(hoursAttended(true,true) === false);
+console.log(hoursAttended(10,6) === false);
+console.log(hoursAttended(10,"6") === false);
+console.log(hoursAttended("10",6) === false);
+console.log(hoursAttended("10","6") === false);
+console.log(hoursAttended(6,10.1) === false);
+console.log(hoursAttended(6.1,10) === false);
+console.log(hoursAttended(6,"10.1") === false);
+console.log(hoursAttended("6.1",10) === false);
+console.log(hoursAttended("6.1","10.1") === false);
+  </code></pre>
+
+  <h4>1.3.6. Coercion Exercise Solution</h4>
+
+  <pre><code class="language-javascript">
+function isValidName(name) {
+  if (
+    typeof name == "string" &&
+    name.trim().length >= 3
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
+function hoursAttended(attended,length) {
+  if (
+    typeof attended == "string" &&
+    attended.trim() != ""
+  ) {
+    attended = Number(attended);
+  }
+  if (
+    typeof length == "string" &&
+    length.trim() != ""
+  ) {
+    length = Number(length);
+  }
+  if (
+    typeof attended == "number" &&
+    typeof length == "number" &&
+    attended <= length &&
+    attended >= 0 &&
+    length >= 0 &&
+    Number.isInteger(attended) &&
+    Number.isInteger(length)
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
+// tests:
+console.log(isValidName("Frank") === true);
+console.log(hoursAttended(6,10) === true);
+console.log(hoursAttended(6,"10") === true);
+console.log(hoursAttended("6",10) === true);
+console.log(hoursAttended("6","10") === true);
+console.log(isValidName(false) === false);
+console.log(isValidName(null) === false);
+console.log(isValidName(undefined) === false);
+console.log(isValidName("") === false);
+console.log(isValidName("  \t\n") === false);
+console.log(isValidName("X") === false);
+console.log(hoursAttended("",6) === false);
+console.log(hoursAttended(6,"") === false);
+console.log(hoursAttended("","") === false);
+console.log(hoursAttended("foo",6) === false);
+console.log(hoursAttended(6,"foo") === false);
+console.log(hoursAttended("foo","bar") === false);
+console.log(hoursAttended(null,null) === false);
+console.log(hoursAttended(null,undefined) === false);
+console.log(hoursAttended(undefined,null) === false);
+console.log(hoursAttended(undefined,undefined) === false);
+console.log(hoursAttended(false,false) === false);
+console.log(hoursAttended(false,true) === false);
+console.log(hoursAttended(true,false) === false);
+console.log(hoursAttended(true,true) === false);
+console.log(hoursAttended(10,6) === false);
+console.log(hoursAttended(10,"6") === false);
+console.log(hoursAttended("10",6) === false);
+console.log(hoursAttended("10","6") === false);
+console.log(hoursAttended(6,10.1) === false);
+console.log(hoursAttended(6.1,10) === false);
+console.log(hoursAttended(6,"10.1") === false);
+console.log(hoursAttended("6.1",10) === false);
+console.log(hoursAttended("6.1","10.1") === false);
+  </code></pre>
+
+  <h3>1.4. Equality</h3>
+
+  <h4>1.4.1. Double & Triple Equals</h4>
+
+  <p>
+    Many tutorials and documents say == checks the value (loose) and === checks the value and the type (strict), but this is not entirely true. Let's see the specification.
+  </p>
+
+  <p>
+    <a target="_blank" href="http://www.ecma-international.org/ecma-262/10.0/index.html#sec-abstract-equality-comparison">ECMAScript Abstract Equality Comparison</a>
+  </p>
+
+  <p>
+    <a target="_blank" href="http://www.ecma-international.org/ecma-262/10.0/index.html#sec-strict-equality-comparison">ECMAScript Strict Equality Comparison</a>
+  </p>
+
+  <p>
+    From the algorithm of the two equality specifications, we can conclude the difference between == and === is whether or not it's going to allow any coercion to occur. Both check the types of operands. == would allow the coercion whereas === would disallow the coercion.
+  </p>
+
+  <h4>1.4.2. Coercive Equality</h4>
+
+  <p>
+    When you try to decide what comparison operator to use, it would a good question to ask whether to allow a coercion comparison or not. For example, if you treat null and undefined as indistinguishable through coercive equality, use ==. See the following example for the use case where null == undefined:
+  </p>
+
+  <pre><code class="language-javascript">
+var workshop1 = { topic: null };
+var workshop2 = {};
+
+if (
+  (workshop1.topic === null || workshop1.topic === undefined) &&
+  (workshop2.topic === null || workshop2.topic === undefined)
+) {}
+
+// This is better...
+if (
+  workshop1.topic == null &&
+  workshop2.topic == null 
+) {}
+  </code></pre>
+
+  <h4>1.4.3. Double Equals Algorithm</h4>
+
+  <p>
+    Besides of null and undefined, the double equal algorithm performs coercion between numbers and strings. Usually, it tries to make everything into numbers and do the comparison. If you know this behavior and one of the types is number, you can safely use == instead of ===.
+  </p>
+
+  <pre><code class="language-javascript">
+var numberValue = 3;
+var stringValue = "3";
+
+// Noisy and unnecessary code.
+if (Number(numberValue) === Number(stringValue)) {}
+
+// It is safe to do this.
+if (numberValue == stringValue) {}
+  </code></pre>
+
+  <h4>1.4.4. Double Equals Walkthrough</h4>
+
+  <p>
+    The following corner case tells us it's important to narrow the types of the program rather using === to fix the problem.
+  </p>
+
+  <pre><code class="language-javascript">
+var numberValue = 42;
+var numberInArray = [42];
+
+if (numberValue == numberInArray) {
+  // Yes (hmmmmm....)
+}
+
+// if (numberValue == numberInArray)
+// if (42 == "42") // This happens of the weird array stringification...
+// if (42 === 42)
+// if (true)
+  </code></pre>
+
+  <h4>1.4.5. Double Equals Summary</h4>
+
+  <p>
+    If the types are the same, it is the same as ===. If null or undefined, it's equal. If non-primitive, it invokes ToPrimitive. For the coercion, it prefers ToNumber function.
+  </p>
+
+  <h4>1.4.6. Doulbe Equals Corner Cases</h4>
+
+  <p>
+    There are some world-best corner cases Javascript shows that doesn't make any sense like the following. However, most of them don't happen in real-world and shouldn't happen in your program as well. The reason why Javascript has those nonsensical corner cases is because of the abstractive nature of it giving us the convenience of type conversion for frequently used assumptions. 
+  </p>
+
+  <pre><code class="language-javascript">
+[] == ![] // true WTF?!?!
+// [] == false  
+// "" == false 
+// 0 == false 
+// 0 === 0 // true
+
+[] != [] // true WTF?!?!
+// !([] == [])
+// !(false) // true
+  </code></pre>
+
+  <h4>1.4.7. Corner Cases: Booleans</h4>
+
+  <p>
+    Boolean is the type that has many troubles with equality. You should rely on the implicitness rather being explicit by using another equality like the following:
+  </p>
+
+  <pre><code class="language-javascript">
+var emptyArray = [];
+
+if (emptyArray) {} // true
+// if (Boolean(emptyArray))
+
+if (emptyArray == true) {} // false
+// if ("" == true)
+// if (0 === 1)
+
+if (emptyArray == false) {} // true
+// if ("" == false)
+// if (0 === 0)
+  </code></pre>
+
+  <h4>1.4.8. Corner Cases: Summary</h4>
+
+  <p>
+    How to avoid these tricky doulbe equal's corner cases:
+  </p>
+
+  <ul>
+    <li>== with 0 or "" (or even " ")</li>
+    <li>== with non-primitives</li>
+    <li>== true or == false (instead allow ToBoolean or use ===)</li>
+  </ul>
+
+  <h4>1.4.9. The Case for Double Equals</h4>
+
+  <p>
+    You should prefer == to ===. Knowing the types is always better than not knowing them. Static types are not the only (or even necessarily best) way to know your types.
+  </p>
+
+  <p>
+    == is NOT about comparisons with unknown types. If you don't know the types, never use ==. == is about comparisons with the known type(s), optionally where conversions are helpful. 
+  </p>
+
+  <p>
+    If you know the types, you can't use === when types are different because they will be always false. Therefore, the only choice is ==. 
+  </p>
+
+  <p>
+    If you don't know the types, === is the only reasonable choice because it will remove the possibility of wrongness and could be an effective communication for you and your team.
+  </p>
+
+  <p>
+    To summarize, make types known and obvious leads to better code. If types are known, == is best. Otherwise, fall back to ===.
+  </p>
+
+  <h4>1.4.10. Equality Exercise</h4>
+
+  <p>
+    Wrangling Equality
+  </p>
+
+  <p>
+    In this exercise, you will define a `findAll(..)` function that searches an array and returns an array with all coercive matches.
+  </p>
+
+  <p>
+    Instructions
+  </p>
+
+  <p>
+    1. The `findAll(..)` function takes a value and an array. It returns an array.
+  </p>
+
+  <p>
+    2. The coercive matching that is allowed:
+  </p>
+
+  <ul>
+    <li>
+      - exact matches (`Object.is(..)`)
+    </li>
+    <li>
+      - strings (except "" or whitespace-only) can match numbers
+    </li>
+    <li>
+      - numbers (except `NaN` and `+/- Infinity`) can match strings (hint: watch out for `-0`!)
+    </li>
+    <li>
+      - `null` can match `undefined`, and vice versa
+    </li>
+    <li>
+      - booleans can only match booleans
+    </li>
+    <li>
+      - objects only match the exact same object
+    </li>
+  </ul>
+  
+  <pre><code class="language-javascript">
+// TODO: write `findAll(..)`
+
+// tests:
+var myObj = { a: 2 };
+
+var values = [
+  null, undefined, -0, 0, 13, 42, NaN, -Infinity, Infinity,
+  "", "0", "42", "42hello", "true", "NaN", true, false, myObj
+];
+
+console.log(setsMatch(findAll(null,values),[null,undefined]) === true);
+console.log(setsMatch(findAll(undefined,values),[null,undefined]) === true);
+console.log(setsMatch(findAll(0,values),[0,"0"]) === true);
+console.log(setsMatch(findAll(-0,values),[-0]) === true);
+console.log(setsMatch(findAll(13,values),[13]) === true);
+console.log(setsMatch(findAll(42,values),[42,"42"]) === true);
+console.log(setsMatch(findAll(NaN,values),[NaN]) === true);
+console.log(setsMatch(findAll(-Infinity,values),[-Infinity]) === true);
+console.log(setsMatch(findAll(Infinity,values),[Infinity]) === true);
+console.log(setsMatch(findAll("",values),[""]) === true);
+console.log(setsMatch(findAll("0",values),[0,"0"]) === true);
+console.log(setsMatch(findAll("42",values),[42,"42"]) === true);
+console.log(setsMatch(findAll("42hello",values),["42hello"]) === true);
+console.log(setsMatch(findAll("true",values),["true"]) === true);
+console.log(setsMatch(findAll(true,values),[true]) === true);
+console.log(setsMatch(findAll(false,values),[false]) === true);
+console.log(setsMatch(findAll(myObj,values),[myObj]) === true);
+
+console.log(setsMatch(findAll(null,values),[null,0]) === false);
+console.log(setsMatch(findAll(undefined,values),[NaN,0]) === false);
+console.log(setsMatch(findAll(0,values),[0,-0]) === false);
+console.log(setsMatch(findAll(42,values),[42,"42hello"]) === false);
+console.log(setsMatch(findAll(25,values),[25]) === false);
+console.log(setsMatch(findAll(Infinity,values),[Infinity,-Infinity]) === false);
+console.log(setsMatch(findAll("",values),["",0]) === false);
+console.log(setsMatch(findAll("false",values),[false]) === false);
+console.log(setsMatch(findAll(true,values),[true,"true"]) === false);
+console.log(setsMatch(findAll(true,values),[true,1]) === false);
+console.log(setsMatch(findAll(false,values),[false,0]) === false);
+
+// ***************************
+
+function setsMatch(arr1,arr2) {
+  if (Array.isArray(arr1) && Array.isArray(arr2) && arr1.length == arr2.length) {
+    for (let v of arr1) {
+      if (!arr2.includes(v)) return false;
+    }
+    return true;
+  }
+  return false;
+}
+  </code></pre>
+
+  <h4>1.4.11. Equality Exercise Solution</h4>
+
+  <pre><code class="language-javascript">
+function findAll(match,arr) {
+  var ret = [];
+  for (let v of arr) {
+    if (Object.is(match,v)) {
+      ret.push(v);
+    }
+    else if (match == null && v == null) {
+      ret.push(v);
+    }
+    else if (typeof match == "boolean") {
+      if (match === v) {
+        ret.push(v);
+      }
+    }
+    else if (typeof match == "string" && match.trim() != "" && typeof v == "number" && !Object.is(-0,v)) {
+      if (match == v) {
+        ret.push(v);
+      }
+    }
+    else if (typeof match == "number" && !Object.is(match,-0) && !Object.is(match,NaN) && !Object.is(match,Infinity) && !Object.is(match,-Infinity) && typeof v == "string" && v.trim() != "") {
+      if (match == v) {
+        ret.push(v);
+      }
+    }
+  }
+  return ret;
+}
+
+
+// tests:
+var myObj = { a: 2 };
+
+var values = [
+  null, undefined, -0, 0, 13, 42, NaN, -Infinity, Infinity,
+  "", "0", "42", "42hello", "true", "NaN", true, false, myObj
+];
+
+console.log(setsMatch(findAll(null,values),[null,undefined]) === true);
+console.log(setsMatch(findAll(undefined,values),[null,undefined]) === true);
+console.log(setsMatch(findAll(0,values),[0,"0"]) === true);
+console.log(setsMatch(findAll(-0,values),[-0]) === true);
+console.log(setsMatch(findAll(13,values),[13]) === true);
+console.log(setsMatch(findAll(42,values),[42,"42"]) === true);
+console.log(setsMatch(findAll(NaN,values),[NaN]) === true);
+console.log(setsMatch(findAll(-Infinity,values),[-Infinity]) === true);
+console.log(setsMatch(findAll(Infinity,values),[Infinity]) === true);
+console.log(setsMatch(findAll("",values),[""]) === true);
+console.log(setsMatch(findAll("0",values),[0,"0"]) === true);
+console.log(setsMatch(findAll("42",values),[42,"42"]) === true);
+console.log(setsMatch(findAll("42hello",values),["42hello"]) === true);
+console.log(setsMatch(findAll("true",values),["true"]) === true);
+console.log(setsMatch(findAll(true,values),[true]) === true);
+console.log(setsMatch(findAll(false,values),[false]) === true);
+console.log(setsMatch(findAll(myObj,values),[myObj]) === true);
+
+console.log(setsMatch(findAll(null,values),[null,0]) === false);
+console.log(setsMatch(findAll(undefined,values),[NaN,0]) === false);
+console.log(setsMatch(findAll(0,values),[0,-0]) === false);
+console.log(setsMatch(findAll(42,values),[42,"42hello"]) === false);
+console.log(setsMatch(findAll(25,values),[25]) === false);
+console.log(setsMatch(findAll(Infinity,values),[Infinity,-Infinity]) === false);
+console.log(setsMatch(findAll("",values),["",0]) === false);
+console.log(setsMatch(findAll("false",values),[false]) === false);
+console.log(setsMatch(findAll(true,values),[true,"true"]) === false);
+console.log(setsMatch(findAll(true,values),[true,1]) === false);
+console.log(setsMatch(findAll(false,values),[false,0]) === false);
+
+// ***************************
+
+function setsMatch(arr1,arr2) {
+  if (Array.isArray(arr1) && Array.isArray(arr2) && arr1.length == arr2.length) {
+    for (let v of arr1) {
+      if (!arr2.includes(v)) return false;
+    }
+    return true;
+  }
+  return false;
+}
+  </code></pre>
+
+  <h3>1.5. Static Typing</h3>
+
+  <h4>1.5.1. TypeScript & Flow</h4>
+
+  <p>
+    Typescript provides a static type system for several benefits:
+  </p>
+
+  <ul>
+    <li>
+      Catch type-related mistakes.
+    </li>
+    <li>
+      Communicate type intent.
+    </li>
+    <li>
+      Provide IDE feedback
+    </li>
+  </ul>
+
+  <p>
+    Caveats:
+  </p>
+
+  <ul>
+    <li>
+      Inferencing is best-guess, not a guarantee.
+    </li>
+    <li>
+      Annotations are optional.
+    </li>
+    <li>
+      Any part of the application that isn't typed introduces uncertainty.
+    </li>
+  </ul>
+
+  <h4>1.5.2. Inferencing</h4>
+
+  <p>
+    Typescript infers the type and support correction before compile time.
+  </p>
+
+  <pre><code class="language-javascript">
+var data: string = "some_string";
+
+data = { data: "" }; // ERROR!!!
+  </code></pre>
+
+  <h4>1.5.3. Custom Types</h4>
+
+  <p>
+    You can make a custom type and pass it as a parameter.
+  </p>
+
+  <pre><code class="language-javascript">
+type student = { name: string };
+
+function getName(studentRec: student): string {
+  return studentRec.name;
+}
+
+var firstStudent: student = { name: "Ali" };
+var firstStudentName: string = getName(firstStudent);
+  </code></pre>
+
+  <h4>1.5.4. Validating Operand Types</h4>
+
+  <p>
+    Typescript can validate the operand types:
+  </p>
+
+  <pre><code class="language-javascript">
+var studentName: string = "Frank";
+var studentCount: number = 16 - studentName; // ERROR!!! 
+  </code></pre>
+
+  <h4>1.5.5. TypeScript & Flow Summary</h4>
+
+  <p>
+    Typescript and Flow try to solve the same problem in a slightly different way. See the following article which summarized the advantages and the disadvantages of each by comparing two:
+  </p>
+
+  <p>
+    <a target="_blank" href="https://github.com/niieani/typescript-vs-flowtype">Typescript vs Flowtype</a>
+  </p>
+
+  <pre><code class="language-javascript">
+  </code></pre>
+
+  <h4>1.5.6. Static Typing Pros</h4>
+
+  <p>
+    The followings are the advantages of static typing:
+  </p>
+
+  <ul>
+    <li>
+      They make types more obvious in code.
+    </li>
+    <li>
+      Familiarity: they look like other language's type system.
+    </li>
+    <li>
+      Extremely popular these days and it will be around for a while.
+    </li>
+    <li>
+      They are very sophisticated and good at what they do.
+    </li>
+  </ul>
+
+  <h4>1.5.7. Static Typing Cons</h4>
+
+  <p>
+    The followings are the disadvantages of static typing:
+  </p>
+
+  <ul>
+    <li>
+      They use "non-JS-standard" syntax (or code comments).
+    </li>
+    <li>
+      They require a build process, which raises the barrier to entry.
+    </li>
+    <li>
+      Their sophistication can be intimidating to those without prior formal types experience.
+    </li>
+    <li>
+      They focus more on "static types" (variables, parameters, returns, properties, etc) than value types.
+    </li>
+  </ul>
+
+  <h4>1.5.8. Understanding Your Types</h4>
+
+  <p>
+    The summary of the discussion:
+  </p>
+
+  <ul>
+    <li>
+      Javascript has a dynamic type system, which uses various forms of coercion for value type conversion, including equality comparisons.
+    </li>
+    <li>
+      However, the prevailing response seems to avoid as much of this system as possible, and use === to "protect" from needing to worry about types.
+    </li>
+    <li>
+      Part of the problem with avoidance of whole swaths of JS, like pretending === saves you from needing to know types, is that it tends to systematically perpetuate bugs.
+    </li>
+    <li>
+      You simply cannot write equality JS programs without knowing the types involved in your operations.
+    </li>
+    <li>
+      While certainly helpful in some respects, using static typing layers is "avoidance" of a different sort.
+    </li>
+    <li>
+      Apprently, JS's type system is inferior so it must be replaced rather than learned and leveraged in these static type systems.
+    </li>
+    <li>
+      Many claim that JS's type system is too difficult for newer devs to learn, but that static types are (somehow) more learnable.
+    </li>
+    <li>
+      The better approah could be to embrace and learn JS's type system, and to adopt a coding style which makes types as obvious as possible. By doing so, you will make your code more readable and more robust, for experienced and new developers alike.
+    </li>
+    <li>
+      As an option to aid in that effort, you can use Typl, which the author believes embraces and unlocks the best parts of JS's types and coercion.
+    </li>
+  </ul>
+
+  <h2>2. Scope</h2>
+
+  <h3>2.1. Scope</h3>
+
+  <h4>2.1.1. Scope</h4>
+
+  <p>
+    The scope is where to look for identifiers. All variables are either receiving the assignment of some value, or you are retrieving a value from the variable. 
+  </p>
+
+  <p>
+    When the JS engine processes the code, it asks, first of all, what position is it in, and secondly, what scope does it belong to. 
+  </p>
+
+  <p>
+    JS is a partially compiled language, so it does parsing before the actual execution. In this step, all the identifier are determined its scope. It has the two-pass system instead of the single-pass system.
+  </p>
+
+  <p>
+    One important thing is JS organizes scopes with <mark>functions</mark> and <mark>blocks</mark>.
+  </p>
+
+  <h4>2.1.2. Compilation & Scope</h4>
+
+  <p>
+    A lexically scoped language like Javascript is all of the scopes and identifiers are determined at compile time for optimization and further processing. It doesn't and can't change the scopes and identifiers in runtime. 
+  </p>
+
+  <h4>2.1.3. Executing Code</h4>
+
+  <p>
+    In the runtime, all the scopes and identifiers are resolved as requested by the Javascript virtual machine. If the execution engine can't find a variable that is referenced within the very scope of the execution, it goes up one level and asks the same identifier in that level. 
+  </p>
+
+  <h4>2.1.4. Code Execution: Finishing Up</h4>
+
+  <p>
+    The execution engine discerns the source and the target. If an identifier is a target for an operation like an assignment, it is a target. If a value is retrieved from an identifier, it is a source.
+  </p>
+
+  <h4>2.1.5. Lexical Scope Review</h4>
+
+  <p>
+    In the code execution, the followings happen when the compiler meets a symbol:
+  </p>
+
+  <ul>
+    <li>
+      It tries to look for the identified in the current scope.
+    </li>
+    <li>
+      If it doesn't find it, it goes up one level and tries again.
+    </li>
+    <li>
+      Repeat the previous step until it finds.
+    </li>
+    <li>
+      If it can't find it in the global scope, it will create one (explained later).
+    </li>
+  </ul>
+
+  <h4>2.1.6. Compilation Review</h4>
+
+  <pre><code class="language-javascript">
+var teacher = "Kyle";
+
+function otherClass() {
+  teacher = "Suzy";
+  topic = "React";
+  console.log("Welcome!");
+}
+
+otherClass(); // Welcome!
+
+teacher; // Suzy
+topic;
+  </code></pre>
+
+  <p>
+    Here, we can see the scope manager goes up one level when it can't find a target reference of the "teacher" identifier. So, the content will be changed from "Kyle" to "Suzy" after the execution.
+  </p>
+
+  <h4>2.1.7. Dynamic Global Variables</h4>
+
+  <p>
+    If the scope manager can't answer the question asking the identifier in the global scope, it will automatically create one and hand that identifier. In this case, "topic" will be created in the global scope. Therefore, it results in the following:
+  </p>
+
+  <pre><code class="language-javascript">
+var teacher = "Kyle";
+
+function otherClass() {
+  teacher = "Suzy";
+  topic = "React";
+  console.log("Welcome!");
+}
+
+otherClass(); // Welcome!
+
+teacher; // Suzy
+topic; // React
+  </code></pre>
+
+  <p>
+    This only happens when the variable is a target, it doesn't happen when the variable is a source. If it is a source, it generates ReferenceError.
+  </p>
+
+  <h4>2.1.8. Strict Mode</h4>
+
+  <p>
+    If you don't want the auto-global variable, use the strict mode to prevent it like the following. If you are using a transpiler, it is always certain that the strict mode is on.
+  </p>
+
+  <pre><code class="language-javascript">
+"use strict"
+
+var teacher = "Kyle";
+
+function otherClass() {
+  teacher = "Suzy";
+  topic = "React"; // Generate ReferenceError
+  console.log("Welcome!");
+}
+
+otherClass(); // Welcome!
+  </code></pre>
+
+  <h4>2.1.9. Nested Scope</h4>
+
+  <p>
+    In the following example, the identifier "ask" is not defined in the given scope, so it will generate an error. Do NOT jump to the conclusion, rather make questions on the scope manager's behavior to find the exact reaction.
+  </p>
+
+  <pre><code class="language-javascript">
+var teacher = "Kyle";
+
+function otherClass() {
+  teacher = "Suzy";
+
+  function ask(question) {
+    console.log(teacher, question)
+  }
+  
+  ask("Why?");
+}
+
+otherClass(); // Suzy Why?
+ask("????"); // Generate ReferenceError!!!
+  </code></pre>
+
+  <h4>2.1.10. Undefined vs Undeclared</h4>
+
+  <ul>
+    <li>
+      undefined means a variable exists but at the moment it has no value.
+    </li>
+    <li>
+      undeclared means it never formally declared in any scope that we have accessed to.
+    </li>
+  </ul>
+
+  <h3>2.2. Function Expressions</h3>
+
+  <h4>2.2.1. Function Expressions</h4>
+
+  <p>
+    Function expression put their identifier into its own scope like the following:
+  </p>
+
+  <pre><code class="language-javascript">
+function teacher() {}
+
+var myTeacher = function anotherTeacher() {
+  console.log(anotherTeacher);
+};
+
+console.log(teacher);
+console.log(myTeacher);
+console.log(anotherTeacher); ReferenceError!!!
+  </code></pre>
+
+  <h4>2.2.2. Naming Function Expressions</h4>
+
+  <p>
+    The lecturer prefers the named function expression even though the anonymous function expression is more popular.
+  </p>
+
+  <pre><code class="language-javascript">
+var clickHandler = function() { // Anonymous function expression.
+  // ...
+}
+var keyHandler = function keyHandler() { // Named function expression.
+  // ...
+}
+  </code></pre>
+
+  <ul>
+    <li>
+      To create a reliable function self-reference (recursion, self-unbind, etc).
+    </li>
+    <li>
+      More debuggable stack traces (don't have to see anonymous function traces)
+    </li>
+    <li>
+      More self-documenting code
+    </li>
+  </ul>
+
+  <h4>2.2.3. Arrow Functions</h4>
+
+  <p>
+    Arrow functions shouldn't be used as a tool to reduce typing, this is not the objective of the arrow functions. There are cases where the arrow functions are absolutely necessary, but not for less typing.
+  </p>
+
+  <pre><code class="language-javascript">
+var ids = people.map(person => person.id);
+
+var ids = people.map(function getId(person) {
+  return person.id;
+});
+  </code></pre>
+
+  <h4>2.2.4. Function Expression Exercise</h4>
+
+  <p>
+    Function Expressions
+  </p>
+
+  <p>
+    In this exercise, you will be writing some functions and function expressions, to manage the student enrollment records for a workshop.
+  </p>
+
+  <p>
+    **Note:** The spirit of this exercise is to use functions wherever possible and appropriate, so consider usage of array utilities `map(..)`, `filter(..)`, `find(..)`, `sort(..)`, and `forEach(..)`.
+  </p>
+
+  <p>
+    Instructions (Part 1)
+  </p>
+
+  <p>
+    **Note:** In Part 1, use only function declarations or named function expressions.
+  </p>
+
+  <p> 
+    You are provided three functions stubs -- `printRecords(..)`, `paidStudentsToEnroll()`, and `remindUnpaid(..)` -- which you must define.
+  </p>
+
+  <p>
+    At the bottom of the file you will see these functions called, and a code comment indicating what the console output should be.
+  </p>
+
+  <p>
+    1. `printRecords(..)` should:
+  </p>
+
+  <ul>
+    <li>
+	    - take a list of student Ids
+    </li>
+    <li>
+	    - retrieve each student record by its student Id (hint: array `find(..)`)
+    </li>
+    <li>
+	    - sort by student name, ascending (hint: array `sort(..)`)
+    </li>
+    <li>
+	    - print each record to the console, including `name`, `id`, and `"Paid"` or `"Not Paid"` based on their paid status
+    </li>
+  </ul>
+
+  <p>
+    2. `paidStudentsToEnroll()` should:
+  </p>
+
+  <ul>
+    <li>
+	    - look through all the student records, checking to see which ones are paid but **not yet enrolled**
+    </li>
+    <li>
+	    - collect these student Ids
+    </li>
+    <li>
+	    - return a new array including the previously enrolled student Ids as well as the to-be-enrolled student Ids (hint: spread `...`)
+    </li>
+  </ul>
+
+  <p>
+    3. `remindUnpaid(..)` should:
+  </p>
+
+  <ul>
+    <li>
+	    - take a list of student Ids
+    </li>
+    <li>
+	    - filter this list of student Ids to only those whose records are in unpaid status
+    </li>
+    <li>
+	    - pass the filtered list to `printRecords(..)` to print the unpaid reminders
+    </li>
+  </ul>
+
+  <p>
+    ## Instructions (Part 2)
+  </p>
+
+  <p>
+    Now that you've completed Part 1, refactor to use **only** `=>` arrow functions.
+  </p>
+
+  <p>
+    For `printRecords(..)`, `paidStudentsToEnroll()`, and `remindUnpaid(..)`, assign these arrow functions to variables of such names, so that the execution still works.
+  </p>
+
+  <p>
+    As the appeal of `=>` arrow functions is their conciseness, wherever possible try to use only expression bodies (`x => x.id`) instead of full function bodies (`x => { return x.id; }`).
+  </p>
+
+  <pre><code class="language-javascript">
+function printRecords(recordIds) {
+  // TODO
+}
+
+function paidStudentsToEnroll() {
+  // TODO
+}
+
+function remindUnpaid(recordIds) {
+  // TODO
+}
+
+
+// ********************************
+
+var currentEnrollment = [ 410, 105, 664, 375 ];
+
+var studentRecords = [
+  { id: 313, name: "Frank", paid: true, },
+  { id: 410, name: "Suzy", paid: true, },
+  { id: 709, name: "Brian", paid: false, },
+  { id: 105, name: "Henry", paid: false, },
+  { id: 502, name: "Mary", paid: true, },
+  { id: 664, name: "Bob", paid: false, },
+  { id: 250, name: "Peter", paid: true, },
+  { id: 375, name: "Sarah", paid: true, },
+  { id: 867, name: "Greg", paid: false, },
+];
+
+printRecords(currentEnrollment);
+console.log("----");
+currentEnrollment = paidStudentsToEnroll();
+printRecords(currentEnrollment);
+console.log("----");
+remindUnpaid(currentEnrollment);
+
+/*
+  Bob (664): Not Paid
+  Henry (105): Not Paid
+  Sarah (375): Paid
+  Suzy (410): Paid
+  ----
+  Bob (664): Not Paid
+  Frank (313): Paid
+  Henry (105): Not Paid
+  Mary (502): Paid
+  Peter (250): Paid
+  Sarah (375): Paid
+  Suzy (410): Paid
+  ----
+  Bob (664): Not Paid
+  Henry (105): Not Paid
+*/
+  </code></pre>
+
+  <h4>2.2.5. Function Expression Solution: Functions</h4>
+
+  <pre><code class="language-javascript">
+function getStudentFromId(studentId) {
+  return studentRecords.find(function matchId(record){
+    return (record.id == studentId);
+  });
+}
+
+function printRecords(recordIds) {
+  var records = recordIds.map(getStudentFromId);
+
+  records.sort(function sortByNameAsc(record1,record2){
+    if (record1.name < record2.name) return -1;
+    else if (record1.name > record2.name) return 1;
+    else return 0;
+  });
+
+  records.forEach(function printRecord(record){
+    console.log(`${record.name} (${record.id}): ${record.paid ? "Paid" : "Not Paid"}`);
+  });
+}
+
+function paidStudentsToEnroll() {
+  var recordsToEnroll = studentRecords.filter(function needToEnroll(record){
+    return (record.paid && !currentEnrollment.includes(record.id));
+  });
+
+  var idsToEnroll = recordsToEnroll.map(function getStudentId(record){
+    return record.id;
+  });
+
+  return [ ...currentEnrollment, ...idsToEnroll ];
+}
+
+function remindUnpaid(recordIds) {
+  var unpaidIds = recordIds.filter(function notYetPaid(studentId){
+    var record = getStudentFromId(studentId);
+    return !record.paid;
+  });
+
+  printRecords(unpaidIds);
+}
+
+
+// ********************************
+
+var currentEnrollment = [ 410, 105, 664, 375 ];
+
+var studentRecords = [
+  { id: 313, name: "Frank", paid: true, },
+  { id: 410, name: "Suzy", paid: true, },
+  { id: 709, name: "Brian", paid: false, },
+  { id: 105, name: "Henry", paid: false, },
+  { id: 502, name: "Mary", paid: true, },
+  { id: 664, name: "Bob", paid: false, },
+  { id: 250, name: "Peter", paid: true, },
+  { id: 375, name: "Sarah", paid: true, },
+  { id: 867, name: "Greg", paid: false, },
+];
+
+printRecords(currentEnrollment);
+console.log("----");
+currentEnrollment = paidStudentsToEnroll();
+printRecords(currentEnrollment);
+console.log("----");
+remindUnpaid(currentEnrollment);
+
+/*
+  Bob (664): Not Paid
+  Henry (105): Not Paid
+  Sarah (375): Paid
+  Suzy (410): Paid
+  ----
+  Bob (664): Not Paid
+  Frank (313): Paid
+  Henry (105): Not Paid
+  Mary (502): Paid
+  Peter (250): Paid
+  Sarah (375): Paid
+  Suzy (410): Paid
+  ----
+  Bob (664): Not Paid
+  Henry (105): Not Paid
+*/
+  </code></pre>
+
+  <h4>2.2.6. Function Expression Solution: Arrow Functions</h4>
+
+  <pre><code class="language-javascript">
+var getStudentFromId = studentId => studentRecords.find(record => record.id == studentId);
+
+var printRecords = recordIds =>
+  recordIds.map(getStudentFromId)
+    .sort(
+      (record1,record2) => record1.name < record2.name ? -1 : record1.name > record2.name ? 1 : 0
+    )
+    .forEach(record =>
+      console.log(`${record.name} (${record.id}): ${record.paid ? "Paid" : "Not Paid"}`)
+    );
+
+var paidStudentsToEnroll = () =>
+  [ ...currentEnrollment,
+    ...(
+      studentRecords.filter(record => (record.paid && !currentEnrollment.includes(record.id)))
+      .map(record => record.id)
+    )
+  ];
+
+var remindUnpaid = recordIds =>
+  printRecords(
+    recordIds.filter(studentId => !getStudentFromId(studentId).paid)
+  );
+
+
+// ********************************
+
+var currentEnrollment = [ 410, 105, 664, 375 ];
+
+var studentRecords = [
+  { id: 313, name: "Frank", paid: true, },
+  { id: 410, name: "Suzy", paid: true, },
+  { id: 709, name: "Brian", paid: false, },
+  { id: 105, name: "Henry", paid: false, },
+  { id: 502, name: "Mary", paid: true, },
+  { id: 664, name: "Bob", paid: false, },
+  { id: 250, name: "Peter", paid: true, },
+  { id: 375, name: "Sarah", paid: true, },
+  { id: 867, name: "Greg", paid: false, },
+];
+
+printRecords(currentEnrollment);
+console.log("----");
+currentEnrollment = paidStudentsToEnroll();
+printRecords(currentEnrollment);
+console.log("----");
+remindUnpaid(currentEnrollment);
+
+/*
+  Bob (664): Not Paid
+  Henry (105): Not Paid
+  Sarah (375): Paid
+  Suzy (410): Paid
+  ----
+  Bob (664): Not Paid
+  Frank (313): Paid
+  Henry (105): Not Paid
+  Mary (502): Paid
+  Peter (250): Paid
+  Sarah (375): Paid
+  Suzy (410): Paid
+  ----
+  Bob (664): Not Paid
+  Henry (105): Not Paid
+*/
+  </code></pre>
+
+  <h3>2.3. Advanced Topics in Scope</h3>
+
+  <h4>2.3.1. Lexical & Dynamic Scope</h4>
+
+  <p>
+    Lexical scope is the idea that a compiler, a parser, a processor is figuring out all the scopes in the program ahead of time before being executed. It's all decided at compile-time, not runtime. Therefore, Javascript is a lexically scoped language.
+  </p>
+
+  <h4>2.3.2. Lexical Scope</h4>
+
+  <p>
+    By using the lexical scope, not dynamic scope, it is possible to optimize the code execution because it doesn't change. If you are curious in the detailed usage or want to visualize it, consider the following extension:
+  </p>
+
+  <p>
+    <a target="_blank" href="https://marketplace.visualstudio.com/items?itemName=lucasazzola.vscode-levels">VSCode ESLeves Extension</a>
+  </p>
+
+  <h4>2.3.3. Dynamic Scope</h4>
+
+  <p>
+    Hypothetically if Javascript was a dynamically-scoped language, it will try to find the context in which functions are called. Look at the following example. Instead of finding the proper scope for "teacher", it will grab the closest one from the function call location:
+  </p>
+
+  <pre><code class="language-javascript">
+var teacher = "Kyle";
+
+function ask(question) {
+  console.log(teacher, question);
+}
+
+function otherClass() {
+  var teacher = "Suzy";
+  ask("Why?");
+}
+
+otherClass(); // Suzy Why?
+  </code></pre>
+
+  <h4>2.3.4. Function Scoping</h4>
+
+  <p>
+    Function scoping can be used to solve a problem such as two different entities try to use the same semantic name like the following:
+  </p>
+
+  <pre><code class="language-javascript">
+var teacher = "Kyle";
+
+// ...
+
+var teacher = "Suzy";
+console.log(teacher); // Suzy
+
+// ...
+
+console.log(teacher); // Suzy -- OOPS!
+  </code></pre>
+
+  <p>
+    We can simply put a function around it, but this creates another name collision, so this is not the best way.
+  </p>
+
+  <pre><code class="language-javascript">
+var teacher = "Kyle";
+
+// ...
+
+function anotherTeacher() {
+  var teacher = "Suzy";
+  console.log(teacher);
+}
+
+// ...
+
+anotherTeacher(); // Suzy
+console.log(teacher); // Kyle
+  </code></pre>
+
+  <h4>2.3.5. IIFE Pattern</h4>
+
+  <p>
+    Fortunately, Javascript allows to use a function expression anywhere, so we can invoke a function expression immediately right after they are made. It is called the IIFE (Immediately invoked function expression) pattern.
+  </p>
+
+  <p>
+    The only reason for IIFE is to create an isolated scope that would immediately go away after being used. This is not a function declaration because the word function is not in the first place in the statement. It just runs to make scope and doesn't pollute the scope. 
+  </p>
+
+  <pre><code class="language-javascript">
+var teacher = "Kyle";
+
+// ...
+
+// ...
+
+(function anotherTeacher() {
+  var teacher = "Suzy";
+  console.log(teacher);
+}) () // Suzy
+
+console.log(teacher); // Kyle
+  </code></pre>
+
+  <p>
+    It's possible to use anonymous function expressions for IIFE, but it's better to name it properly so the name can summarize what the function does for readability. If you don't want to come up with a fancy name, it's okay to name it IIFE so it would appear in the stack trace.
+  </p>
+
+  <pre><code class="language-javascript">
+var teacher = "Kyle";
+
+(function(teacher) {
+  console.log(teacher); // Suzy
+}) ("Suzy")
+
+console.log(teacher); // Kyle
+  </code></pre>
+
+  <p>
+    Another usage for IIFE is to turn a statement to an expression. By enclosing a statement with IIFE, it can be obvious to have one assignment instead of two like the following:
+  </p>
+
+  <pre><code class="language-javascript">
+var teacher;
+
+try {
+  teacher = fetchTeacher(1);
+} catch (err) {
+  teacher = "Kyle";
+}
+
+var teacher (function getTeacher() {
+  try {
+    teacher = fetchTeacher(1);
+  } catch (err) {
+    teacher = "Kyle";
+  }
+});
+  </code></pre>
+
+  <h4>2.3.6. Block Scoping</h4>
+
+  <p>
+    Block scope is another scope mechanism that has fewer side effects. The previous example can be also converted like the following:
+  </p>
+
+  <pre><code class="language-javascript">
+var teacher = "Kyle";
+
+(function(teacher) {
+  console.log(teacher); // Suzy
+}) ("Suzy")
+
+console.log(teacher); // Kyle
+  </code></pre>
+
+  <pre><code class="language-javascript">
+var teacher = "Kyle";
+
+{
+  let teacher = "Suzy"; // or const teacher = "Suzy";
+  console.log(teacher);
+}
+
+console.log(teacher); // Kyle
+  </code></pre>
+
+  <p>
+    It's important to convey your intent by using the combination of the function scope, the block scope, and the keywords var and let. 
+  </p>
+
+  <pre><code class="language-javascript">
+function diff(x, y) {
+  if (x > y) {
+    var tmp = x; // can be let
+    x = y;
+    y = tmp;
+  }
+
+  return y - x;
+}
+  </code></pre>
+
+  <h4>2.3.7. Choosing let or var</h4>
+
+  <p>
+    Choosing let or var should be done in the semantic way rather choosing it one over the other blindly. Use let for the block scope, and use var for the function scope. 
+  </p>
+
+  <pre><code class="language-javascript">
+function repeat(fn, n) {
+  var result;
+
+  for (let i = 0; i < n; i++) {
+    result = fn(result, i);
+  }
+
+  return result;
+}
+  </code></pre>
+
+  <p>
+    There are some use cases when you should consider the function scoping instead of the block scoping like the following example:
+  </p>
+
+  <pre><code class="language-javascript">
+function lookupRecord(searchStr) {
+  try {
+    var id = getRecord(searchStr);
+  } catch (err) {
+    var id = -1;
+  }
+
+  return id;
+}
+
+function lookupRecord(searchStr) {
+  try {
+    let id = getRecord(searchStr);
+  } catch (err) {
+    let id = -1;
+  }
+
+  return id;
+} // Code breaks...Oops!
+  </code></pre>
+  
+  <p>
+    This creates not only the functional attachment to the code but also the users can understand it better because of the Javascript's auto-global variable feature.
+  </p>
+
+  <h4>2.3.8. Explicit let Block</h4>
+
+  <p>
+    There are cases where you want to use a partial scope under a function. This is a good chance to use let but within a confined scope. Explicitly create a block and put let in it like the following:
+  </p>
+
+  <pre><code class="language-javascript">
+function formatStr(str) {
+  { 
+    let prefix, rest;
+    prefix = str.slice(0, 3);
+    rest = str.slice(3);
+    str = prefix.toUpperCase() + rest;
+  }
+
+  if (/^FOO:/.test(str)) {
+    return str;
+  }
+  return str.slice(4);
+}
+  </code></pre>
+
+  <h4>2.3.9. const</h4>
+
+  <p>
+    The const keyword means that the variable can't be reassigned. It does allow you to change to value like the following in the array. If you want to prevent no further changes, you might want to create a new keyword like final in Java.
+  </p>
+
+  <pre><code class="language-javascript">
+var teacher = "Suzy";
+teacher = "Kyle"; // OK
+
+const myTeacher = teacher;
+myTeacher = "Suzy"; // TypeError
+
+const teachers = ["Kyle", "Suzy"];
+teachers[1] = "Brian"; // Allowed!!!
+  </code></pre>
+
+  <h4>2.3.10. const Q&A</h4>
+
+  <p>
+    It would be helpful to use const for primitives where the value shouldn't change in the latter part of the program.
+  </p>
+
+  <h4>2.3.11. Hoisting</h4>
+
+  <p>
+    Hoisting actually doesn't exist. It is a metaphor that we have made up to discuss the idea of the lexical scope without thinking about the lexical scope.
+  </p>
+
+  <pre><code class="language-javascript">
+student; // undefined, NOT undeclared
+teacher; // undefined, NOT undeclared
+
+var student = "You";
+var teacher = "Kyle";
+  </code></pre>
+
+  <p>
+    If you build a mental Javascript model to perform two passes for the code above, you would know the result. However, without thinking about the lexical scoping, it is convenient to make a new concept "hoisting" to explain the result above.
+  </p>
+
+  <pre><code class="language-javascript">
+teacher(); // Kyle
+otherTeacher(); // TypeError!!
+
+function teacher() {
+  return "Kyle";
+}
+
+var otherTeacher = function() {
+  return "Suzy";
+};
+  </code></pre>
+
+  <h4>2.3.12. Hoisting Example</h4>
+
+  <p>
+    Let's see some examples:
+  </p>
+
+  <pre><code class="language-javascript">
+var teacher = "Kyle";
+otherTeacher(); // undefined
+
+function otherTeacher() {
+  console.log(teacher);
+  var teacher = "Suzy";
+}
+  </code></pre>
+
+  <p>
+    Usually, variable hoisting doesn't make sense because why would you assign something to a variable that even hasn't declared? On the other hand, function hoisting could be useful because we can reorganize the execution code and functions for readability.
+  </p>
+
+  <pre><code class="language-javascript">
+// var hoisting?
+// usually bad :/
+teacher = "Kyle";
+var teacher = "Kyle";
+
+// function hoisting?
+// usually useful!
+
+getTeacher();
+
+function getTeacher() {
+  return teacher;
+}
+  </code></pre>
+
+  <h4>2.3.13. let Doesn't Hoist</h4>
+  <p>
+    This statement is false, let DOES hoist. The problem is const and let hoists in a different way. It doesn't initialize the variable but only creates a location. See the following code:
+  </p>
+
+  <pre><code class="language-javascript">
+{
+  teacher = "Kyle"; // TDZ error!
+}
+
+var teacher = "Kyle";
+
+{
+  console.log(teacher); // TDZ error instead of "Kyle"! OOPS!
+  let teacher = "Suzy";
+}
+  </code></pre>
+
+  <p>
+    Finally, let's see the spec for let and const keywords:
+  </p>
+
+  <p>
+    <a target="_blank" href="http://www.ecma-international.org/ecma-262/10.0/index.html#sec-let-and-const-declarations">ECMAScript Let and Const Declarations</a>
+  </p>
+
+  <h4>2.3.14. Hoisting Exercise</h4>
+
+  <p>
+    Hoisting
+  </p>  
+
+  <p>
+    In this exercise, you will refactor some code that manages student enrollment records for a workshop, to take advantage of function hoisting.
+  </p>
+  
+  <p>
+    Instructions
+  </p>
+  
+  <p>
+    Refactor all inline function expressions to be function declarations. Place function declarations at the bottom (that is, below any executable code) of their respective scopes.
+  </p>
+  
+  <p>
+    Also, pull function declarations to outer scopes if they don't need to be nested.
+  </p>
+
+  <pre><code class="language-javascript">
+function getStudentFromId(studentId) {
+  return studentRecords.find(function matchId(record){
+    return (record.id == studentId);
+  });
+}
+
+function printRecords(recordIds) {
+  var records = recordIds.map(getStudentFromId);
+
+  records.sort(function sortByNameAsc(record1,record2){
+    if (record1.name < record2.name) return -1;
+    else if (record1.name > record2.name) return 1;
+    else return 0;
+  });
+
+  records.forEach(function printRecord(record){
+    console.log(`${record.name} (${record.id}): ${record.paid ? "Paid" : "Not Paid"}`);
+  });
+}
+
+function paidStudentsToEnroll() {
+  var recordsToEnroll = studentRecords.filter(function needToEnroll(record){
+    return (record.paid && !currentEnrollment.includes(record.id));
+  });
+
+  var idsToEnroll = recordsToEnroll.map(function getStudentId(record){
+    return record.id;
+  });
+
+  return [ ...currentEnrollment, ...idsToEnroll ];
+}
+
+function remindUnpaid(recordIds) {
+  var unpaidIds = recordIds.filter(function notYetPaid(studentId){
+    var record = getStudentFromId(studentId);
+    return !record.paid;
+  });
+
+  printRecords(unpaidIds);
+}
+
+
+// ********************************
+
+var currentEnrollment = [ 410, 105, 664, 375 ];
+
+var studentRecords = [
+  { id: 313, name: "Frank", paid: true, },
+  { id: 410, name: "Suzy", paid: true, },
+  { id: 709, name: "Brian", paid: false, },
+  { id: 105, name: "Henry", paid: false, },
+  { id: 502, name: "Mary", paid: true, },
+  { id: 664, name: "Bob", paid: false, },
+  { id: 250, name: "Peter", paid: true, },
+  { id: 375, name: "Sarah", paid: true, },
+  { id: 867, name: "Greg", paid: false, },
+];
+
+printRecords(currentEnrollment);
+console.log("----");
+currentEnrollment = paidStudentsToEnroll();
+printRecords(currentEnrollment);
+console.log("----");
+remindUnpaid(currentEnrollment);
+
+/*
+  Bob (664): Not Paid
+  Henry (105): Not Paid
+  Sarah (375): Paid
+  Suzy (410): Paid
+  ----
+  Bob (664): Not Paid
+  Frank (313): Paid
+  Henry (105): Not Paid
+  Mary (502): Paid
+  Peter (250): Paid
+  Sarah (375): Paid
+  Suzy (410): Paid
+  ----
+  Bob (664): Not Paid
+  Henry (105): Not Paid
+*/
+  </code></pre>
+
+  <h4>2.3.15. Hoisting Exercise Solution</h4>
+
+  <pre><code class="language-javascript">
+var currentEnrollment = [ 410, 105, 664, 375 ];
+
+var studentRecords = [
+  { id: 313, name: "Frank", paid: true, },
+  { id: 410, name: "Suzy", paid: true, },
+  { id: 709, name: "Brian", paid: false, },
+  { id: 105, name: "Henry", paid: false, },
+  { id: 502, name: "Mary", paid: true, },
+  { id: 664, name: "Bob", paid: false, },
+  { id: 250, name: "Peter", paid: true, },
+  { id: 375, name: "Sarah", paid: true, },
+  { id: 867, name: "Greg", paid: false, },
+];
+
+printRecords(currentEnrollment);
+console.log("----");
+currentEnrollment = paidStudentsToEnroll();
+printRecords(currentEnrollment);
+console.log("----");
+remindUnpaid(currentEnrollment);
+
+/*
+  Bob (664): Not Paid
+  Henry (105): Not Paid
+  Sarah (375): Paid
+  Suzy (410): Paid
+  ----
+  Bob (664): Not Paid
+  Frank (313): Paid
+  Henry (105): Not Paid
+  Mary (502): Paid
+  Peter (250): Paid
+  Sarah (375): Paid
+  Suzy (410): Paid
+  ----
+  Bob (664): Not Paid
+  Henry (105): Not Paid
+*/
+
+
+// ********************************
+
+function getStudentFromId(studentId) {
+  return studentRecords.find(matchId);
+
+  // *************************
+
+  function matchId(record) {
+    return (record.id == studentId);
+  }
+}
+
+function printRecords(recordIds) {
+  var records = recordIds.map(getStudentFromId);
+
+  records.sort(sortByNameAsc);
+
+  records.forEach(printRecord);
+}
+
+function sortByNameAsc(record1,record2){
+  if (record1.name < record2.name) return -1;
+  else if (record1.name > record2.name) return 1;
+  else return 0;
+}
+
+function printRecord(record) {
+  console.log(`${record.name} (${record.id}): ${record.paid ? "Paid" : "Not Paid"}`);
+}
+
+function paidStudentsToEnroll() {
+  var recordsToEnroll = studentRecords.filter(needToEnroll);
+
+  var idsToEnroll = recordsToEnroll.map(getStudentId);
+
+  return [ ...currentEnrollment, ...idsToEnroll ];
+}
+
+function needToEnroll(record) {
+  return (record.paid && !currentEnrollment.includes(record.id));
+}
+
+function getStudentId(record) {
+  return record.id;
+}
+
+function remindUnpaid(recordIds) {
+  var unpaidIds = recordIds.filter(notYetPaid);
+
+  printRecords(unpaidIds);
+}
+
+function notYetPaid(studentId) {
+  var record = getStudentFromId(studentId);
+  return !record.paid;
+}
+  </code></pre>
+
+  <h3>2.4. Closure</h3>
+
+  <h4>2.4.1. Origin of Closure</h4>
+
+  <p>
+    The origin of closure is from academic mathematics, but it became one of the most important programming concepts for functional programming languages. Javascript resembles another functional programming language Scheme because the creator originally intended to put Scheme in the browser. However, the mathematical definition of closure is not the same as the one in computer science, it is important to define it in a CS term.
+  </p>
+
+  <h4>2.4.2. What is Closure?</h4>
+
+  <p>
+    Closure is when a function "remembers" its lexical scope even when the function is executed outside that lexical scope. Closure is a necessary component of a lexically scoped language with first class functions.
+  </p>
+
+  <p>
+    See the following example. The variable "question" should be gone when waitASec() function executes. But fortunately, closure preserves the lexical scope for the function, so it can access the variable.
+  </p>
+
+  <pre><code class="language-javascript">
+function ask(question) {
+  setTimeout(function waitASec() {
+    console.log(question);
+  }, 100);
+}
+
+ask("What is closure"); // What is closure
+  </code></pre>
+
+  <p>
+    Academically, closure is per variable; however, in the Javascript implementation, closure is per scope. Therefore, even if you don't reference a big chunk of data, it won't be garbage collected if it uses closure. Here is another example:
+  </p>
+
+  <pre><code class="language-javascript">
+function ask(question) {
+  return function holdYourQuestion() {
+    console.log(question);
+  };
+}
+
+var myQuestion = ask("What is closure"); 
+myQuestion(); // What is closure
+  </code></pre>
+
+  <h4>2.4.3. Closing Over Variables</h4>
+
+  <p>
+    The closure is not about capturing snapshots of the states of variables. It doesn't have anything to do with values at all! See the following example:
+  </p>
+
+  <pre><code class="language-javascript">
+var teacher = "Kyle";
+
+var myTeacher = function() {
+  console.log(teacher);
+};
+
+teacher = "Suzy";
+myTeacher(); // Suzy
+  </code></pre>
+
+  <p>
+    You are closing over a variable to create closure. So it a live link of the variable when the closure is made. Think of it preserving access to variables. See the following tricky example:
+  </p>
+
+  <pre><code class="language-javascript">
+for (var i = 1; i <= 3; i++) {
+  setTimeout(function() {
+    console.log(`i: ${i}`);
+  }, 5000);
+}
+// After some time...
+// i: 4
+// i: 4
+// i: 4
+
+// This is a solution: Block Scoped Declaration
+for (var i = 1; i <= 3; i++) {
+  let j = i;
+  setTimeout(function() {
+    console.log(`j: ${j}`);
+  }, 5000);
+}
+// After some time...
+// j: 1
+// j: 2
+// j: 3
+
+// Another alternative solution:
+for (let i = 1; i <= 3; i++) {
+  setTimeout(function() {
+    console.log(`i: ${i}`);
+  }, 5000);
+}
+// After some time...
+// i: 1
+// i: 2
+// i: 3
+  </code></pre>
+
+  <h4>2.4.4. Module Pattern</h4>
+
+  <p>
+    There is some confusion what a module pattern is and what it is not. See the following example, it is not a module pattern but a namespace pattern where you can collect all associated logical units in one place under a name.
+  </p>
+
+  <pre><code class="language-javascript">
+var workshop = {
+  teacher: "Kyle",
+  ask(question) {
+    console.log(this.teacher, question);
+  }
+};
+
+workshop.ask("Is this a module?"); // Kyle Is this a module?
+// This is NOT a module pattern, but a namespace pattern.
+  </code></pre>
+
+  <p>
+    This is not a module pattern because the module pattern requires encapsulation, which means it should hide the data and only expose what is absolutely necessary. Since there is no public/private concept in Javascript, we use the module pattern to achieve it.
+  </p>
+
+  <p>
+    Modules <mark>encapsulate</mark> data and behavior (methods) together. The state (data) of a module is held by its methods via closure.
+  </p>
+
+  <pre><code class="language-javascript">
+// Classic/Revealing Module Pattern
+var workshop = (function Module(teacher) {
+  var publicAPI = { ask , };
+  return publicAPI;
+
+  // *************************************
+
+  function ask(question) {
+    console.log(teacher, question);
+  }
+}) ("Kyle");
+
+workshop.ask("Is this a module?"); // Kyle Is this a module? YES IT IS!
+  </code></pre>
+
+  <p>
+    You can use a factory module pattern when you don't like a singleton module but want to use different objects that contain different states:
+  </p>
+
+  <pre><code class="language-javascript">
+// Module Factory
+function WorkshopModule(teacher) {
+  var publicAPI = { ask , };
+  return publicAPI;
+
+  // *************************************
+
+  function ask(question) {
+    console.log(teacher, question);
+  }
+}
+
+var workshopForKyle = WorkshopModule("Kyle");
+var workshopForSuzy = WorkshopModule("Suzy");
+
+workshopForKyle.ask("Is this a module?"); // Kyle Is this a module? YES IT IS!
+workshopForSuzy.ask("Is this a module?"); // Suzy Is this a module? YES IT IS!
+  </code></pre>
+
+  <h4>2.4.5. ES6 Modules & Node.js</h4>
+
+  <p>
+    There is some miscommunication between committees so there are incompatibilities. You have to use .mjs files to use modules:
+  </p>
+
+  <pre><code class="language-javascript">// teacher.mjs
+var teacher = "Kyle";
+
+export default function ask(question) {
+  console.log(teacher, question);
+};
+  </code></pre>
+
+  <p>
+    They are file based like Java classes, so it's not possible to have multiple modules in a file. These are all singletons and if you want a factory of modules, there should be a seperate factory function that takes references from the modules. See the specs:
+  </p>
+
+  <p>
+    <a target="_blank" href="http://www.ecma-international.org/ecma-262/10.0/index.html#sec-modules">ECMAScript Modules</a>
+  </p>
+
+  <h4>2.4.6. ES6 Module Syntax</h4>
+
+  <p>
+    The following are the syntax to use ES6 style modules:
+  </p>
+
+  <pre><code class="language-javascript">
+// teacher.jms
+var teacher = "Kyle";
+
+export default function ask(question) {
+  console.log(teacher, question);
+};
+
+// main.js
+import ask from "teacher.mjs";
+ask("It's a default import."); // It's a default import.
+
+import * as workshop from "teacher.mjs";
+workshop.ask("It's a namespace import."); // It's a namespace import.
+  </code></pre>
+
+  <h4>2.4.7. Module Exercise</h4>
+
+  <p>
+    Modules
+  </p>
+
+  <p>
+    In this exercise, you will refactor some code that manages student enrollment records for a workshop, to use the module pattern.
+  </p>
+
+  <p>
+    Instructions
+  </p>
+
+  <p>
+    1. Wrap all of the functions in a module factory (ie, function named `defineWorkshop()`). This function should make a return a public API object.
+  </p>
+
+  <p>
+    2. The returned public API object should include the following methods:
+  </p>
+
+  <ul>
+    <li>
+	    `addStudent(id,name,paid)`
+    </li>
+    <li>
+	    `enrollStudent(id)`
+    </li>
+    <li>
+	    `printCurrentEnrollment()`
+    </li>
+    <li>
+	    `enrollPaidStudents()`
+    </li>
+    <li>
+	    `remindUnpaidStudents()`,
+    </li>
+  </ul>
+
+  <p>
+    3. Move the `currentEnrollment` and `studentRecords` arrays inside the module definition, but as empty arrays.
+  </p>
+
+  <p>
+   4. Create an instance of this module by calling `defineWorkshop()`, and name it `deepJS`.
+  </p>
+
+  <p>
+    5. Define all the student records by calling `deepJS.addStudent(..)` for each.
+  </p>
+
+  <p>
+    6. Define the student enrollments by calling `deepJS.enrollStudent(..)` for each.
+  </p>
+
+  <p>
+    7. Change the execution code (the console output steps) to references to `deepJS.*` public API methods.
+  </p>
+
+  <pre><code class="language-javascript">
+var currentEnrollment = [ 410, 105, 664, 375 ];
+
+var studentRecords = [
+  { id: 313, name: "Frank", paid: true, },
+  { id: 410, name: "Suzy", paid: true, },
+  { id: 709, name: "Brian", paid: false, },
+  { id: 105, name: "Henry", paid: false, },
+  { id: 502, name: "Mary", paid: true, },
+  { id: 664, name: "Bob", paid: false, },
+  { id: 250, name: "Peter", paid: true, },
+  { id: 375, name: "Sarah", paid: true, },
+  { id: 867, name: "Greg", paid: false, },
+];
+
+printRecords(currentEnrollment);
+console.log("----");
+currentEnrollment = paidStudentsToEnroll();
+printRecords(currentEnrollment);
+console.log("----");
+remindUnpaid(currentEnrollment);
+
+/*
+  Bob (664): Not Paid
+  Henry (105): Not Paid
+  Sarah (375): Paid
+  Suzy (410): Paid
+  ----
+  Bob (664): Not Paid
+  Frank (313): Paid
+  Henry (105): Not Paid
+  Mary (502): Paid
+  Peter (250): Paid
+  Sarah (375): Paid
+  Suzy (410): Paid
+  ----
+  Bob (664): Not Paid
+  Henry (105): Not Paid
+*/
+
+
+// ********************************
+
+function getStudentFromId(studentId) {
+  return studentRecords.find(matchId);
+
+  // *************************
+
+  function matchId(record) {
+    return (record.id == studentId);
+  }
+}
+
+function printRecords(recordIds) {
+  var records = recordIds.map(getStudentFromId);
+
+  records.sort(sortByNameAsc);
+
+  records.forEach(printRecord);
+}
+
+function sortByNameAsc(record1,record2){
+  if (record1.name < record2.name) return -1;
+  else if (record1.name > record2.name) return 1;
+  else return 0;
+}
+
+function printRecord(record) {
+  console.log(`${record.name} (${record.id}): ${record.paid ? "Paid" : "Not Paid"}`);
+}
+
+function paidStudentsToEnroll() {
+  var recordsToEnroll = studentRecords.filter(needToEnroll);
+
+  var idsToEnroll = recordsToEnroll.map(getStudentId);
+
+  return [ ...currentEnrollment, ...idsToEnroll ];
+}
+
+function needToEnroll(record) {
+  return (record.paid && !currentEnrollment.includes(record.id));
+}
+
+function getStudentId(record) {
+  return record.id;
+}
+
+function remindUnpaid(recordIds) {
+  var unpaidIds = recordIds.filter(notYetPaid);
+
+  printRecords(unpaidIds);
+}
+
+function notYetPaid(studentId) {
+  var record = getStudentFromId(studentId);
+  return !record.paid;
+}
+  </code></pre>
+
+  <h4>2.4.8. Module Exercise Solution</h4>
+
+  <pre><code class="language-javascript">
+var deepJS = defineWorkshop();
+
+deepJS.addStudent(311,"Frank",/*paid=*/true);
+deepJS.addStudent(410,"Suzy",/*paid=*/true);
+deepJS.addStudent(709,"Brian",/*paid=*/false);
+deepJS.addStudent(105,"Henry",/*paid=*/false);
+deepJS.addStudent(502,"Mary",/*paid=*/true);
+deepJS.addStudent(664,"Bob",/*paid=*/false);
+deepJS.addStudent(250,"Peter",/*paid=*/true);
+deepJS.addStudent(375,"Sarah",/*paid=*/true);
+deepJS.addStudent(867,"Greg",/*paid=*/false);
+
+deepJS.enrollStudent(410);
+deepJS.enrollStudent(105);
+deepJS.enrollStudent(664);
+deepJS.enrollStudent(375);
+
+deepJS.printCurrentEnrollment();
+console.log("----");
+deepJS.enrollPaidStudents();
+console.log("----");
+deepJS.remindUnpaidStudents();
+
+/*
+  Bob (664): Not Paid
+  Henry (105): Not Paid
+  Sarah (375): Paid
+  Suzy (410): Paid
+  ----
+  Bob (664): Not Paid
+  Frank (313): Paid
+  Henry (105): Not Paid
+  Mary (502): Paid
+  Peter (250): Paid
+  Sarah (375): Paid
+  Suzy (410): Paid
+  ----
+  Bob (664): Not Paid
+  Henry (105): Not Paid
+*/
+
+
+// ********************************
+
+function defineWorkshop() {
+  var currentEnrollment = [];
+  var studentRecords = [];
+
+  var publicAPI = {
+    addStudent,
+    enrollStudent,
+    printCurrentEnrollment,
+    enrollPaidStudents,
+    remindUnpaidStudents,
+  };
+  return publicAPI;
+
+
+  // ********************************
+
+  function addStudent(id,name,paid) {
+    studentRecords.push({ id, name, paid, });
+  }
+
+  function enrollStudent(id) {
+    if (!currentEnrollment.includes(id)) {
+      currentEnrollment.push(id);
+    }
+  }
+
+  function printCurrentEnrollment() {
+    printRecords(currentEnrollment);
+  }
+
+  function enrollPaidStudents() {
+    currentEnrollment = paidStudentsToEnroll();
+    printCurrentEnrollment();
+  }
+
+  function remindUnpaidStudents() {
+    remindUnpaid(currentEnrollment);
+  }
+
+  function getStudentFromId(studentId) {
+    return studentRecords.find(matchId);
+
+    // *************************
+
+    function matchId(record) {
+      return (record.id == studentId);
+    }
+  }
+
+  function printRecords(recordIds) {
+    var records = recordIds.map(getStudentFromId);
+
+    records.sort(sortByNameAsc);
+
+    records.forEach(printRecord);
+  }
+
+  function sortByNameAsc(record1,record2){
+    if (record1.name < record2.name) return -1;
+    else if (record1.name > record2.name) return 1;
+    else return 0;
+  }
+
+  function printRecord(record) {
+    console.log(`${record.name} (${record.id}): ${record.paid ? "Paid" : "Not Paid"}`);
+  }
+
+  function paidStudentsToEnroll() {
+    var recordsToEnroll = studentRecords.filter(needToEnroll);
+
+    var idsToEnroll = recordsToEnroll.map(getStudentId);
+
+    return [ ...currentEnrollment, ...idsToEnroll ];
+  }
+
+  function needToEnroll(record) {
+    return (record.paid && !currentEnrollment.includes(record.id));
+  }
+
+  function getStudentId(record) {
+    return record.id;
+  }
+
+  function remindUnpaid(recordIds) {
+    var unpaidIds = recordIds.filter(notYetPaid);
+
+    printRecords(unpaidIds);
+  }
+
+  function notYetPaid(studentId) {
+    var record = getStudentFromId(studentId);
+    return !record.paid;
+  }
+}
+  </code></pre>
+
+  <h2>3. Object(s)-Oriented System</h2>
+
+  <h3>3.1. Objects</h3>
+
+  <h4>3.1.1. Objects Overview</h4>
+
+  <p>
+    There are key subjects to understand Javascript's objects:
+  </p>
+
+  <ul>
+    <li>
+      this
+    </li>
+    <li>
+      class {}
+    </li>
+    <li>
+      Prototypes
+    </li>
+    <li>
+      "Inheritance" vs. "Behavior Delegation" (OO vs. OLOO)
+    </li>
+  </ul>
+
+  <h4>3.1.2. The this Keyword</h4>
+
+  <p>
+    The keyword "this" is probably the most confusing thing in Javascript, not because it's hard to understand, but it has been taught wrong. Javascript uses this keyword in a different way compared to other common high level languages like Java or C++.
+  </p>
+
+  <p>
+    A function's this keyword references the execution context for that call, determined entired by how the function was called. The definition of the function itself doesn't matter at all to determine the "this" keyword. 
+  </p>
+
+  <p>
+    A this-aware function can thus have a different context each time it's called, which makes it more flexible & reusable. The dynamic context almost equals the Javascript's dynamic scope like the following:
+  </p>
+
+  <pre><code class="language-javascript">
+function ask(question) {
+  console.log(this.teacher, question);
+}
+
+function otherClass() {
+  var myContext = {
+    teacher: "Suzy"
+  };
+  ask.call(myContext, "Why?"); // Suzy Why?
+}
+
+otherClass();
+  </code></pre>
+
+  <h4>3.1.3. Implicit & Explicit Binding</h4>
+
+  <p>
+    There are four different ways to call a function in Javascript.
+  </p>
+
+  <p>
+    First, implicit binding. This is the most common and intuitive way because it works the same in other languages.
+  </p>
+
+  <pre><code class="language-javascript">
+var workshop = {
+  teacher: "Kyle",
+  ask(question) {
+    console.log(this.teacher, question);
+  }
+}
+
+workshop.ask("What is implicit binding?"); // Kyle What is implicit binding?
+  </code></pre>
+
+  <p>
+    Having implicit binding is useful because we can share the behaviors among different contexts. This enables us to overcome the fixed manner in the lexical scope by using a flexible context that the "this" keyword represents.
+  </p>
+
+  <pre><code class="language-javascript">
+function ask(question) {
+  console.log(this.teacher, question);
+}
+
+var workshop1 = {
+  teacher: "Kyle",
+  ask: ask,
+}
+
+var workshop2 = {
+  teacher: "Suzy",
+  ask: ask,
+}
+
+workshop1.ask("shares a method!"); // Kyle shares a method!
+workshop2.ask("shares a method!"); // Suzy shares a method!
+  </code></pre>
+
+  <p>
+    Second, explicit binding by using .call() method.
+  </p>
+
+  <pre><code class="language-javascript">
+function ask(question) {
+  console.log(this.teacher, question);
+}
+
+var workshop1 = {
+  teacher: "Kyle",
+}
+
+var workshop2 = {
+  teacher: "Suzy",
+}
+
+ask.call(workshop1, "explicit binding"); // Kyle explicit binding
+ask.call(workshop2, "explicit binding"); // Suzy explicit binding
+  </code></pre>
+
+  <p>
+    Sub-second, hard binding. It sacrifices flexibility and strengthens predictability by connecting a context forcibly to the function. 
+  </p>
+
+  <pre><code class="language-javascript">
+var workshop = {
+  teacher: "Kyle",
+  ask(question) {
+    console.log(this.teacher, question);
+  }
+}
+
+setTimeout(workshop.ask, 10, "Lost this?"); // undefined Lost this?
+// The call site is not workshop but cb (callback), so there is no teacher in the context.
+setTimeout(workshop.ask.bind(workshop), 10, "Hard bound this?"); // Kyle hard bouond this?
+  </code></pre>
+
+  <h4>3.1.4. The new Keyword</h4>
+
+  <p>
+    Surprisingly, the new keyword is the third way to call a function. It's also called a constructor call.
+  </p>
+
+  <pre><code class="language-javascript">
+function ask(question) {
+  console.log(this.teacher, question);
+}
+
+var newEmptyObject = new ask("What is new doing here?"); // undefined what is new doing here?
+  </code></pre>
+
+  <p>
+    There are four steps when the "new" keyword is invoked:
+  </p>
+
+  <ol>
+    <li>
+      Create a brand new empty object.
+    </li>
+    <li>
+      Link that object to another object.
+    </li>
+    <li>
+      Call function with this set to the new object.
+    </li>
+    <li>
+      If function does not return an object, assume return of this.
+    </li>
+  </ol>
+
+  <h4>3.1.5. Default Binding</h4>
+
+  <p>
+    The fourth and final way is the default binding. If none of the other three matches, it falls back to this default binding. 
+  </p>
+
+  <pre><code class="language-javascript">
+var teacher = "Kyle";
+
+function ask(question) {
+  console.log(this.teacher, question);
+}
+
+function askAgain(question) {
+  "use strict";
+  console.log(this.teacher, question);
+}
+
+ask("non-strict-mode default"); // Kyle non-strict-mode default
+askAgain("strict-mode default"); // TypeError
+  </code></pre>
+
+  <h4>3.1.6. Binding Precedence</h4>
+
+  <p>
+    There are the steps if there are more than one binding.
+  </p>
+
+  <ol>
+    <li>
+      Is the function called by new?
+    </li>
+    <li>
+      Is the function called by call() or apply()? Note: bind() effectively uses apply().
+    </li>
+    <li>
+      Is the function called on a context object?
+    </li>
+    <li>
+      Default: global object (except strict mode)
+    </li>
+  </ol>
+
+  <pre><code class="language-javascript">
+var workshop = {
+  teacher: "Kyle",
+  ask: function ask(question) {
+    console.log(this.teacher, question);
+  }
+}
+
+new (workshop.ask.bind(workshop))("What?"); // undefined What?
+  </code></pre>
+
+  <h4>3.1.7. Arrow Functions & Lexical this</h4>
+
+  <p>
+    Arrow functions don't have this keyword, it's not a hard-bound function, it simply lacks this keyword so when this keyword is used, it pretends this keyword doesn't exist. It goes up to the scopes to find the first defined this keyword. See the following example:
+  </p>
+
+  <pre><code class="language-javascript">
+var workshop = {
+  teacher: "Kyle",
+  ask(question) {
+    setTimeout(() => {
+      console.log(this.teacher, question);
+    }, 100);
+  },
+};
+
+workshop.ask("Is this lexical this?"); // Kyle Is this lexical this?
+  </code></pre>
+
+  <p>
+    Let's see the spec, it says an arrow-function does not define local bindings for arguments, super, this, or new.target. Any reference to arguments, super, this, or new.target within an arrow-function must resolve to a binding in a lexically enclosing environment.
+  </p>
+
+  <p>
+    <a target="_blank" href="http://www.ecma-international.org/ecma-262/10.0/index.html#sec-arrow-function-definitions">ECMAScript Arrow Function Definitions</a>
+  </p>
+
+  <h4>3.1.8. Resolving this in Arrow Functions</h4>
+
+  <p>
+    Usually, we are accustomed to thinking that curly braces represent a scope. See the parent lexical scope of the following code is the global scope amazingly. Therefore, there is no "this" keyword causing "this" to be undefined.
+  </p>
+
+  <pre><code class="language-javascript">
+var workshop = {
+  teacher: "Kyle",
+  ask: (question) => {
+    console.log(this.teacher, question);
+  }
+}
+
+workshop.ask("What happened to this?") // undefined What happened to this?
+workshop.ask.call(workshop, "Still no this?") // undefined Still no this?
+  </code></pre>
+
+  <p>
+    Use the arrow functions when you need lexical "this". Refer to the following plug-in guiding when you need an arrow function.
+  </p>
+
+  <p>
+    <a target="_blank" href="https://github.com/getify/eslint-plugin-arrow-require-this">ESLint Plugin for Requiring Arrow Functions</a>
+  </p>
+
+  <h4>3.1.9. this Exercise</h4>
+
+  <p>
+    In this exercise, you will refactor some code that manages student enrollment records for a workshop, from the module pattern to the namespace pattern using the `this` keyword.
+  </p>
+
+  <p>
+    Instructions
+  </p>
+
+  <p>
+    1. Remove the `defineWorkshop()` module factory, and replace it with an object literal (named `deepJS`) that holds all the module's functions, as well as the `currentEnrollment` and `studentRecords` data arrays.
+  </p>
+
+  <p>
+    2. Change all internal function references and references to the data  arrays to use the `this` keyword prefix.
+  </p>
+
+  <p>
+    3. Make sure any place where a `this`-aware callback is passed is hard-bound with `bind(..)`. Don't `bind(..)` a function reference if it's not `this`-aware.
+  </p>
+  
+  <pre><code class="language-javascript">
+var deepJS = defineWorkshop();
+
+deepJS.addStudent(311,"Frank",/*paid=*/true);
+deepJS.addStudent(410,"Suzy",/*paid=*/true);
+deepJS.addStudent(709,"Brian",/*paid=*/false);
+deepJS.addStudent(105,"Henry",/*paid=*/false);
+deepJS.addStudent(502,"Mary",/*paid=*/true);
+deepJS.addStudent(664,"Bob",/*paid=*/false);
+deepJS.addStudent(250,"Peter",/*paid=*/true);
+deepJS.addStudent(375,"Sarah",/*paid=*/true);
+deepJS.addStudent(867,"Greg",/*paid=*/false);
+
+deepJS.enrollStudent(410);
+deepJS.enrollStudent(105);
+deepJS.enrollStudent(664);
+deepJS.enrollStudent(375);
+
+deepJS.printCurrentEnrollment();
+console.log("----");
+deepJS.enrollPaidStudents();
+console.log("----");
+deepJS.remindUnpaidStudents();
+
+/*
+  Bob (664): Not Paid
+  Henry (105): Not Paid
+  Sarah (375): Paid
+  Suzy (410): Paid
+  ----
+  Bob (664): Not Paid
+  Frank (313): Paid
+  Henry (105): Not Paid
+  Mary (502): Paid
+  Peter (250): Paid
+  Sarah (375): Paid
+  Suzy (410): Paid
+  ----
+  Bob (664): Not Paid
+  Henry (105): Not Paid
+*/
+
+
+// ********************************
+
+function defineWorkshop() {
+  var currentEnrollment = [];
+  var studentRecords = [];
+
+  var publicAPI = {
+    addStudent,
+    enrollStudent,
+    printCurrentEnrollment,
+    enrollPaidStudents,
+    remindUnpaidStudents,
+  };
+  return publicAPI;
+
+
+  // ********************************
+
+  function addStudent(id,name,paid) {
+    studentRecords.push({ id, name, paid, });
+  }
+
+  function enrollStudent(id) {
+    if (!currentEnrollment.includes(id)) {
+      currentEnrollment.push(id);
+    }
+  }
+
+  function printCurrentEnrollment() {
+    printRecords(currentEnrollment);
+  }
+
+  function enrollPaidStudents() {
+    currentEnrollment = paidStudentsToEnroll();
+    printCurrentEnrollment();
+  }
+
+  function remindUnpaidStudents() {
+    remindUnpaid(currentEnrollment);
+  }
+
+  function getStudentFromId(studentId) {
+    return studentRecords.find(matchId);
+
+    // *************************
+
+    function matchId(record) {
+      return (record.id == studentId);
+    }
+  }
+
+  function printRecords(recordIds) {
+    var records = recordIds.map(getStudentFromId);
+
+    records.sort(sortByNameAsc);
+
+    records.forEach(printRecord);
+  }
+
+  function sortByNameAsc(record1,record2){
+    if (record1.name < record2.name) return -1;
+    else if (record1.name > record2.name) return 1;
+    else return 0;
+  }
+
+  function printRecord(record) {
+    console.log(`${record.name} (${record.id}): ${record.paid ? "Paid" : "Not Paid"}`);
+  }
+
+  function paidStudentsToEnroll() {
+    var recordsToEnroll = studentRecords.filter(needToEnroll);
+
+    var idsToEnroll = recordsToEnroll.map(getStudentId);
+
+    return [ ...currentEnrollment, ...idsToEnroll ];
+  }
+
+  function needToEnroll(record) {
+    return (record.paid && !currentEnrollment.includes(record.id));
+  }
+
+  function getStudentId(record) {
+    return record.id;
+  }
+
+  function remindUnpaid(recordIds) {
+    var unpaidIds = recordIds.filter(notYetPaid);
+
+    printRecords(unpaidIds);
+  }
+
+  function notYetPaid(studentId) {
+    var record = getStudentFromId(studentId);
+    return !record.paid;
+  }
+}
+  </code></pre>
+
+  <h4>3.1.10. this Exercise Solution</h4>
+
+  <pre><code class="language-javascript">
+var deepJS = {
+  currentEnrollment: [],
+  studentRecords: [],
+  addStudent(id,name,paid) {
+    this.studentRecords.push({ id, name, paid, });
+  },
+  enrollStudent(id) {
+    if (!this.currentEnrollment.includes(id)) {
+      this.currentEnrollment.push(id);
+    }
+  },
+  printCurrentEnrollment() {
+    this.printRecords(this.currentEnrollment);
+  },
+  enrollPaidStudents() {
+    this.currentEnrollment = this.paidStudentsToEnroll();
+    this.printCurrentEnrollment();
+  },
+  remindUnpaidStudents() {
+    this.remindUnpaid(this.currentEnrollment);
+  },
+  getStudentFromId(studentId) {
+    return this.studentRecords.find(matchId);
+
+    // *************************
+
+    function matchId(record) {
+      return (record.id == studentId);
+    }
+  },
+  printRecords(recordIds) {
+    var records = recordIds.map(this.getStudentFromId.bind(this));
+
+    records.sort(this.sortByNameAsc);
+
+    records.forEach(this.printRecord);
+  },
+  sortByNameAsc(record1,record2){
+    if (record1.name < record2.name) return -1;
+    else if (record1.name > record2.name) return 1;
+    else return 0;
+  },
+  printRecord(record) {
+    console.log(`${record.name} (${record.id}): ${record.paid ? "Paid" : "Not Paid"}`);
+  },
+  paidStudentsToEnroll() {
+    var recordsToEnroll = this.studentRecords.filter(this.needToEnroll.bind(this));
+
+    var idsToEnroll = recordsToEnroll.map(this.getStudentId);
+
+    return [ ...this.currentEnrollment, ...idsToEnroll ];
+  },
+  needToEnroll(record) {
+    return (record.paid && !this.currentEnrollment.includes(record.id));
+  },
+  getStudentId(record) {
+    return record.id;
+  },
+  remindUnpaid(recordIds) {
+    var unpaidIds = recordIds.filter(this.notYetPaid.bind(this));
+
+    this.printRecords(unpaidIds);
+  },
+  notYetPaid(studentId) {
+    var record = this.getStudentFromId(studentId);
+    return !record.paid;
+  }
+};
+
+
+// ********************************
+
+deepJS.addStudent(311,"Frank",/*paid=*/true);
+deepJS.addStudent(410,"Suzy",/*paid=*/true);
+deepJS.addStudent(709,"Brian",/*paid=*/false);
+deepJS.addStudent(105,"Henry",/*paid=*/false);
+deepJS.addStudent(502,"Mary",/*paid=*/true);
+deepJS.addStudent(664,"Bob",/*paid=*/false);
+deepJS.addStudent(250,"Peter",/*paid=*/true);
+deepJS.addStudent(375,"Sarah",/*paid=*/true);
+deepJS.addStudent(867,"Greg",/*paid=*/false);
+
+deepJS.enrollStudent(410);
+deepJS.enrollStudent(105);
+deepJS.enrollStudent(664);
+deepJS.enrollStudent(375);
+
+deepJS.printCurrentEnrollment();
+console.log("----");
+deepJS.enrollPaidStudents();
+console.log("----");
+deepJS.remindUnpaidStudents();
+
+/*
+  Bob (664): Not Paid
+  Henry (105): Not Paid
+  Sarah (375): Paid
+  Suzy (410): Paid
+  ----
+  Bob (664): Not Paid
+  Frank (313): Paid
+  Henry (105): Not Paid
+  Mary (502): Paid
+  Peter (250): Paid
+  Sarah (375): Paid
+  Suzy (410): Paid
+  ----
+  Bob (664): Not Paid
+  Henry (105): Not Paid
+*/
+  </code></pre>
+
+  <h4>3.1.11. ES6 class Keyword</h4>
+
+  <p>
+    ES6 supports the class keyword. The syntax is elegant and similar to other object-oriented languages. See the following examples:
+  </p>
+
+  <pre><code class="language-javascript">
+/* Class Syntax */
+class Workshop {
+  constructor(teacher) {
+    this.teacher = teacher;
+  }
+  ask(question) {
+    console.log(this.teacher, question);
+  }
+}
+
+var deepJS = new Workshop("Kyle");
+var reactJS = new Workshop("Suzy");
+
+deepJS.ask("Is 'class' a class?");
+// Kyle Is 'class' a class?
+
+reactJS.ask("Is this class OK?");
+// Suzy Is this class OK?
+
+/* Inheritance */
+class AnotherWorkshop extends Workshop {
+  speakUp(msg) {
+    this.ask(msg);
+  }
+}
+
+var JSRecentParts = new AnotherWorkshop("Kyle");
+
+JSRecentParts.speakUp("Are classes getting better?");
+// Kyle Are classes getting better?
+
+/* Super: Relative Polymorphism */
+class AnotherWorkshop extends Workshop {
+  ask(msg) {
+    super.ask(msg.toUpperCase());
+  }
+}
+
+var JSRecentParts = new AnotherWorkshop("Kyle");
+
+JSRecentParts.speakUp("Are classes super?");
+// Kyle ARE CLASSES SUPER?
+  </code></pre>
+
+  <p>
+    One problem is the way functions are bound to the "this" keyword doesn't change. It loses its context when any functions in a class are called in the place other than the class itself.
+  </p>
+
+  <pre><code class="language-javascript">
+class Workshop {
+  constructor(teacher) {
+    this.teacher = teacher;
+  }
+  ask(question) {
+    console.log(this.teacher, question);
+  }
+}
+
+var deepJS = new Workshop("Kyle");
+setTimeout(deepJS.ask, 100, "Still losing 'this'?");
+// undefined Still losing 'this'?
+  </code></pre>
+
+  <p>
+    Some developers try to fix like the following:
+  </p>
+
+  <pre><code class="language-javascript">
+class Workshop {
+  constructor(teacher) {
+    this.teacher = teacher;
+    this.ask = question => {
+      console.log(this.teacher, question);
+    };
+  }
+}
+
+var deepJS = new Workshop("Kyle");
+setTimeout(deepJS.ask, 100, "Is 'this' fixed?");
+// Kyle Is 'this' fixed? 
+  </code></pre>
+
+  <h4>3.1.12. Fixing this in Classes</h4>
+
+  <p>
+    The following hack is proposed to the problem discussed. If the property is accessed with the getter, it automatically creates a hard-bound method on the fly and saves it into the weak map. In this way, you can have a benefit of having a function on the prototype that can be inherited, but every time you access it, you can get a hard-bound this. Definitely not recommended!
+  </p>
+
+  <pre><code class="language-javascript">
+var method = (function defineMethod() {
+  var instances = new WeakMap();
+
+  return function method(obj, methodName, fn) {
+    Object.defineProperty(obj, methodName, {
+      get() {
+        if (!instances.has(this)) {
+          instances.set(this, {});
+        }
+        var methods = instances.get(this);
+        if (!(methodName in methods)) {
+          methods[methodName] = fn.bind(this);
+        }
+        return methods[methodName];
+      }
+    });
+  }
+})();
+
+function bindMethods(obj) {
+  for (let ownProp of Object.getOwnPropertyNames(obj)) {
+    if (typeof obj[ownProp] == "function") {
+      method (obj, ownProp, obj[ownProp]);
+    }
+  }
+}
+
+/* Usage */
+class Workshop {
+  constructor(teacher) {
+    this.teacher = teacher;
+  }
+  ask(question) {
+    console.log(this.teacher, question);
+  }
+}
+
+class AnotherWorkshop extends Workshop {
+  speakUp(msg) {
+    this.ask(msg);
+  }
+}
+
+var JSRecentParts = new AnotherWorkshop("Kyle"); 
+
+bindMethods(Workshop.prototype);
+bindMethods(AnotherWorkshop.prototype);
+
+JSRecentParts.speakUp("What's different here?");
+// Kyle What's different here?
+
+setTimeout(JSRecentParts.speakUp, 100, "It works tho!");
+// Kyle It works tho!
+  </code></pre>
+
+  <h4>3.1.13. class Exercise</h4>
+
+  <p>
+    In this exercise, you will refactor some code that manages student enrollment records for a workshop, from the namespace pattern to the `class` pattern.
+  </p>
+
+  <p>
+    Instructions
+  </p>
+
+  <p>
+    1. Define a class called `Helpers` that includes the functions that are not `this`-aware.
+  </p>
+
+  <p>
+    2. Define a class called `Workshop` that extends `Helpers`, which includes all the other functions. Hint: `constructor()` and `super()`.
+  </p>
+
+  <p>
+    3. Instantiate the `Workshop` class as `deepJS`.
+  </p>
+
+  <pre><code class="language-javascript">
+var deepJS = {
+  currentEnrollment: [],
+  studentRecords: [],
+  addStudent(id,name,paid) {
+    this.studentRecords.push({ id, name, paid, });
+  },
+  enrollStudent(id) {
+    if (!this.currentEnrollment.includes(id)) {
+      this.currentEnrollment.push(id);
+    }
+  },
+  printCurrentEnrollment() {
+    this.printRecords(this.currentEnrollment);
+  },
+  enrollPaidStudents() {
+    this.currentEnrollment = this.paidStudentsToEnroll();
+    this.printCurrentEnrollment();
+  },
+  remindUnpaidStudents() {
+    this.remindUnpaid(this.currentEnrollment);
+  },
+  getStudentFromId(studentId) {
+    return this.studentRecords.find(matchId);
+
+    // *************************
+
+    function matchId(record) {
+      return (record.id == studentId);
+    }
+  },
+  printRecords(recordIds) {
+    var records = recordIds.map(this.getStudentFromId.bind(this));
+
+    records.sort(this.sortByNameAsc);
+
+    records.forEach(this.printRecord);
+  },
+  sortByNameAsc(record1,record2){
+    if (record1.name < record2.name) return -1;
+    else if (record1.name > record2.name) return 1;
+    else return 0;
+  },
+  printRecord(record) {
+    console.log(`${record.name} (${record.id}): ${record.paid ? "Paid" : "Not Paid"}`);
+  },
+  paidStudentsToEnroll() {
+    var recordsToEnroll = this.studentRecords.filter(this.needToEnroll.bind(this));
+
+    var idsToEnroll = recordsToEnroll.map(this.getStudentId);
+
+    return [ ...this.currentEnrollment, ...idsToEnroll ];
+  },
+  needToEnroll(record) {
+    return (record.paid && !this.currentEnrollment.includes(record.id));
+  },
+  getStudentId(record) {
+    return record.id;
+  },
+  remindUnpaid(recordIds) {
+    var unpaidIds = recordIds.filter(this.notYetPaid.bind(this));
+
+    this.printRecords(unpaidIds);
+  },
+  notYetPaid(studentId) {
+    var record = this.getStudentFromId(studentId);
+    return !record.paid;
+  }
+};
+
+
+// ********************************
+
+deepJS.addStudent(311,"Frank",/*paid=*/true);
+deepJS.addStudent(410,"Suzy",/*paid=*/true);
+deepJS.addStudent(709,"Brian",/*paid=*/false);
+deepJS.addStudent(105,"Henry",/*paid=*/false);
+deepJS.addStudent(502,"Mary",/*paid=*/true);
+deepJS.addStudent(664,"Bob",/*paid=*/false);
+deepJS.addStudent(250,"Peter",/*paid=*/true);
+deepJS.addStudent(375,"Sarah",/*paid=*/true);
+deepJS.addStudent(867,"Greg",/*paid=*/false);
+
+deepJS.enrollStudent(410);
+deepJS.enrollStudent(105);
+deepJS.enrollStudent(664);
+deepJS.enrollStudent(375);
+
+deepJS.printCurrentEnrollment();
+console.log("----");
+deepJS.enrollPaidStudents();
+console.log("----");
+deepJS.remindUnpaidStudents();
+
+/*
+  Bob (664): Not Paid
+  Henry (105): Not Paid
+  Sarah (375): Paid
+  Suzy (410): Paid
+  ----
+  Bob (664): Not Paid
+  Frank (313): Paid
+  Henry (105): Not Paid
+  Mary (502): Paid
+  Peter (250): Paid
+  Sarah (375): Paid
+  Suzy (410): Paid
+  ----
+  Bob (664): Not Paid
+  Henry (105): Not Paid
+*/
+  </code></pre>
+
+  <h4>3.1.14. class Exercise Solution</h4>
+
+  <pre><code class="language-javascript">
+class Helpers {
+  sortByNameAsc(record1,record2) {
+    if (record1.name < record2.name) return -1;
+    else if (record1.name > record2.name) return 1;
+    else return 0;
+  }
+
+  printRecord(record) {
+    console.log(`${record.name} (${record.id}): ${record.paid ? "Paid" : "Not Paid"}`);
+  }
+}
+
+class Workshop extends Helpers {
+  constructor() {
+    super();
+    this.currentEnrollment = [];
+    this.studentRecords = [];
+  }
+
+  addStudent(id,name,paid) {
+    this.studentRecords.push({ id, name, paid, });
+  }
+
+  enrollStudent(id) {
+    if (!this.currentEnrollment.includes(id)) {
+      this.currentEnrollment.push(id);
+    }
+  }
+
+  printCurrentEnrollment() {
+    this.printRecords(this.currentEnrollment);
+  }
+
+  enrollPaidStudents() {
+    this.currentEnrollment = this.paidStudentsToEnroll();
+    this.printCurrentEnrollment();
+  }
+
+  remindUnpaidStudents() {
+    this.remindUnpaid(this.currentEnrollment);
+  }
+
+  getStudentFromId(studentId) {
+    return this.studentRecords.find(matchId);
+
+    // *************************
+
+    function matchId(record) {
+      return (record.id == studentId);
+    }
+  }
+
+  printRecords(recordIds) {
+    var records = recordIds.map(this.getStudentFromId.bind(this));
+
+    records.sort(this.sortByNameAsc);
+
+    records.forEach(this.printRecord);
+  }
+
+  paidStudentsToEnroll() {
+    var recordsToEnroll = this.studentRecords.filter(this.needToEnroll.bind(this));
+
+    var idsToEnroll = recordsToEnroll.map(this.getStudentId);
+
+    return [ ...this.currentEnrollment, ...idsToEnroll ];
+  }
+
+  needToEnroll(record) {
+    return (record.paid && !this.currentEnrollment.includes(record.id));
+  }
+
+  getStudentId(record) {
+    return record.id;
+  }
+
+  remindUnpaid(recordIds) {
+    var unpaidIds = recordIds.filter(this.notYetPaid.bind(this));
+
+    this.printRecords(unpaidIds);
+  }
+
+  notYetPaid(studentId) {
+    var record = this.getStudentFromId(studentId);
+    return !record.paid;
+  }
+}
+
+
+// ********************************
+
+var deepJS = new Workshop();
+
+deepJS.addStudent(311,"Frank",/*paid=*/true);
+deepJS.addStudent(410,"Suzy",/*paid=*/true);
+deepJS.addStudent(709,"Brian",/*paid=*/false);
+deepJS.addStudent(105,"Henry",/*paid=*/false);
+deepJS.addStudent(502,"Mary",/*paid=*/true);
+deepJS.addStudent(664,"Bob",/*paid=*/false);
+deepJS.addStudent(250,"Peter",/*paid=*/true);
+deepJS.addStudent(375,"Sarah",/*paid=*/true);
+deepJS.addStudent(867,"Greg",/*paid=*/false);
+
+deepJS.enrollStudent(410);
+deepJS.enrollStudent(105);
+deepJS.enrollStudent(664);
+deepJS.enrollStudent(375);
+
+deepJS.printCurrentEnrollment();
+console.log("----");
+deepJS.enrollPaidStudents();
+console.log("----");
+deepJS.remindUnpaidStudents();
+
+/*
+  Bob (664): Not Paid
+  Henry (105): Not Paid
+  Sarah (375): Paid
+  Suzy (410): Paid
+  ----
+  Bob (664): Not Paid
+  Frank (313): Paid
+  Henry (105): Not Paid
+  Mary (502): Paid
+  Peter (250): Paid
+  Sarah (375): Paid
+  Suzy (410): Paid
+  ----
+  Bob (664): Not Paid
+  Henry (105): Not Paid
+*/
+  </code></pre>
+
+  <h3>3.2. Prototypes</h3>
+
+  <h4>3.2.1. Prototypes</h4>
+
+  <p>
+    Objects are built by "constructor calls" (via new) And the "constructor call" makes an object based on its own "prototype".
+  </p>
+
+  <p>
+    Traditionally, blueprints are used as a metaphor to explain classes. Classes generate instances when they are instantiated and their relationship ends there. After the instantiation, the class and the instance can't affect each other even if either one of them has to change itself. This is same for the inheritance because the parent and the child are independent creatures once the inheritance between them happens.
+  </p>
+
+  <p>
+    Javascript doesn't disconnect the relationship after the instantiation or the inheritance. Hence, it's can be said that a "constructor call" makes an object linked to its own prototype.
+  </p>
+
+  <h4>3.2.2. Prototypal Class</h4>
+
+  <p>
+    The following is how to use the prototypal class. This is not frequently used anymore; however, it is important to know the actual mechanism of the class keyword in Javascript.
+  </p>
+
+  <pre><code class="language-javascript">
+function Workshop(teacher) {
+  this.teacher = teacher;
+}
+
+Workshop.prototype.ask = function(question) {
+  console.log(this.teacher, question);
+};
+
+var deepJS = new Workshop("Kyle");
+var reacgJS = new Workshop("Suzy");
+
+deepJS.ask("Is 'prototype' a class?");
+// Kyle Is 'prototype' a class?
+
+reactJS.ask("Isn't 'prototype' ugly?");
+// Suzy Isn't 'prototype' ugly?
+  </code></pre>
+
+  <h4>3.2.3. The Prototype Chain</h4>
+
+  <p>
+    The followings are how Javascript constructs its object/prototype structure in the code shown above:
+  </p>
+
+  <p>
+    In the line 0, there is a function named "Object". In this function, there is a property called "Prototype", which is an object that has a property named "constructor", which points to the "Object" function explained before.
+  </p>
+
+  <p>
+    In the line 1, the "Workshop" is a function and has a reference named "Prototype" which points to an object. As in the previous step, this object has a reference named "constructor" which points to the function. 
+  </p>
+
+  <p>
+    There is a hidden relationship between the object of line 0 and the object of line 1, which gives the lower objects inherited properties from the upper objects
+  </p>
+
+  <p>
+    In the line 4, the property "ask" is added to the Workshop prototype object.
+  </p>
+
+  <p>
+    In the line 8, when there is a new operator, four things happen:
+  </p>
+
+  <ol>
+    <li>
+      First, there appears an empty object.
+    </li>
+    <li>
+      Second, link the new object to the existing one.
+    </li>
+    <li>
+      Third, solve "this" keyword, in this case, add the "teacher" property.
+    </li>
+    <li>
+      Fourth, if the function doesn't return an object, it returns "this".
+    </li>
+  </ol>
+
+  <p>
+    In the line 11, when the "ask" method is called, there is no "ask" in the "deepJS" object, so it follows the link to find "ask" function. Same fo the line 14.
+  </p>
+
+  <p>
+    So there are prototype chains comprising the structure of the objects in the program, instead of copying and existing independently.
+  </p>
+  
+  <p>
+    This kind of design makes it possible to share one method in one place without copying because of the Javascript's "this" keyword behavior -- "this" points to the context (call site) not belong to an object.
+  </p>
+
+  <h4>3.2.4. Dunder Prototypes</h4>
+
+  <p>
+    Dunder proto means __proto__ property, which is a getter function invoking "this" keyword pointing "deepJS" context so is equal to "Workshop.prototype". 
+  </p>
+
+  <pre><code class="language-javascript">
+function Workshop(teacher) {
+  this.teacher = teacher;
+}
+
+Workshop.prototype.ask = function(question) {
+  console.log(this.teacher, question);
+};
+
+var deepJS = new Workshop("Kyle");
+
+deepJS.constructor === Workshop; // true
+
+deepJS.__proto__ === Workshop.prototype; // true
+Object.getPrototypeOf(deepJS) === Workshop.prototype // true
+  </code></pre>
+
+  <h4>3.2.5. Shadowing Prototypes</h4>
+
+  <p>
+    Shadowing prototypes creates problems like the following:
+  </p>
+
+  <pre><code class="language-javascript">
+function Workshop(teacher) {
+  this.teacher = teacher;
+}
+
+Workshop.prototype.ask = function(question) {
+  console.log(this.teacher, question);
+};
+
+var deepJS = new Workshop("Kyle");
+
+deepJS.ask = function(question) {
+  this.ask(question.toUpperCase());
+};
+
+deepJS.ask("Oops, is this infinite recursion?");
+  </code></pre>
+
+  <p>
+    In order to fix this, use the Dunder proto. 
+  </p>
+
+  <pre><code class="language-javascript">
+function Workshop(teacher) {
+  this.teacher = teacher;
+}
+
+Workshop.prototype.ask = function(question) {
+  console.log(this.teacher, question);
+};
+
+var deepJS = new Workshop("Kyle");
+
+deepJS.ask = function(question) {
+  this.__proto__.ask.call(question.toUpperCase());
+};
+
+deepJS.ask("Is this fake polymorphism?");
+// Kyle IS THIS FAKE POLYMORPHISM?
+  </code></pre>
+
+  <h4>3.2.6. Prototypal Inheritance</h4>
+
+  <p>
+    It is possible to modify the prototype to change the linkage it's connected to in order to make prototypal inheritance.
+  </p>
+
+  <pre><code class="language-javascript">
+function Workshop(teacher) {
+  this.teacher = teacher;
+}
+
+Workshop.prototype.ask = function(question) {
+  console.log(this.teacher, question);
+};
+
+function AnotherWorkshop(teacher) {
+  Workshop.call(this, teacher);
+}
+
+AnotherWorkshop.prototype = Object.create(Workshop.prototype); // extends Workshop
+AnotherWorkshop.prototype.speakUp = function(msg) {
+  this.ask(msg.toUpperCase());
+};
+
+var JSRecentParts = new AnotherWorkshop("Kyle");
+
+JSRecentParts.speakUp("Is this actually inheritance?");
+// Kyle IS THIS ACTUALLY INHERITANCE?
+  </code></pre>
+
+  <h4>3.2.7. Inheritance is Delegation</h4>
+
+  <p>
+    Javascript's OO system is fundamentally different from other OO languages. It should be called "Behavior Delegation". The prototype system is not a class system, but a delegation system. 
+  </p>
+
+  <h4>3.2.8. OLOO Pattern</h4>
+
+  <p>
+    The lecturer proposes the term OOLO -- Objects Linked to Other Objects. Let's see how OOLO approaches:
+  </p>
+
+  <pre><code class="language-javascript">
+class Workshop {
+  constructor(teacher) {
+    this.teacher = teacher;
+  }
+  ask(question) {
+    console.log(this.teacher, question);
+  }
+}
+
+class AnotherWorkshop extends Workshop {
+  speakUpa(msg) {
+    this.ask(msg);
+  }
+}
+
+var JSRecentParts = new AnotherWorkshop("Kyle");
+
+JSRecentParts.speakUp("Are classes getting better?");
+// Kyle Are classes getting better?
+  </code></pre>
+
+  <p>
+    From the code above, the OLOO style will be like the following without the new keyword:
+  </p>
+
+  <pre><code class="language-javascript">
+var Workshop = {
+  setTeacher(teacher) {
+    this.teacher = teacher;
+  },
+  ask(question) {
+    console.log(this.teacher, question);
+  }
+};
+
+var AnotherWorkshop = Object.assign(
+  Object.create(Workshop),
+  {
+    speakUp(msg) {
+      this.ask(msg.toUpperCase());
+    }
+  }
+);
+
+var JSRecentParts = Object.create(AnotherWorkshop);
+JSRecentParts.setTeacher("Kyle");
+JSRecentParts.speakUp("But isn't this cleaner?");
+// Kyle BUT ISN'T THIS CLEANER?
+  </code></pre>
+
+  <p>
+    In this way, there no needs prototypes, constructor, or new keywords; however, you can enjoy the benefits of objects.
+  </p>
+
+  <h2>0. Conclusion</h2>
+
+  <p>
+    The greatest weakness of the human society is polarizing bias. Many multi-paradigm languages have been successful and it's making all the languages having the same feature sets. I have been feeling the incorrectness of the direction but couldn't explicitly express until I see this. The lecturer's deep knowledge was impressive and in many cases, he had strong points even though these are still controversial. It would be a good idea to see this full train of thoughts by referring to his publication:
+  </p>
+
+  <p>
+    <a target="_blank" href="https://github.com/getify/You-Dont-Know-JS">Getify - You Don't Know JS</a>
+  </p>
+
+  <h2>Appendix A. References</h2>
+
+  <div class="csl-bib-body" style="line-height: 1.35; ">
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 1em;">[1]</div><div class="csl-right-inline" style="margin: 0 .4em 0 1.5em;">“ECMAScript® 2019 Language&nbsp;Specification.” [Online]. Available: <a href="http://www.ecma-international.org/ecma-262/10.0/index.html#Title">http://www.ecma-international.org/ecma-262/10.0/index.html#Title</a>. [Accessed: 14-Jul-2019].</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=ECMAScript%C2%AE%202019%20Language%C2%A0Specification&amp;rft.identifier=http%3A%2F%2Fwww.ecma-international.org%2Fecma-262%2F10.0%2Findex.html%23Title"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 1em;">[2]</div><div class="csl-right-inline" style="margin: 0 .4em 0 1.5em;">“Learn Introduction – Deep JavaScript Foundations, v3.” [Online]. Available: <a href="https://frontendmasters.com/courses/deep-javascript-v3/introduction/">https://frontendmasters.com/courses/deep-javascript-v3/introduction/</a>. [Accessed: 14-Jul-2019].</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Learn%20Introduction%20%E2%80%93%20Deep%20JavaScript%20Foundations%2C%20v3&amp;rft.description=Kyle%20Simpson%20introduces%20the%20course%20and%20makes%20a%20case%20for%20why%20it%20matters%20to%20think%20deeply%20about%20JavaScript.%0A%20-%20%E2%80%A6&amp;rft.identifier=https%3A%2F%2Ffrontendmasters.com%2Fcourses%2Fdeep-javascript-v3%2Fintroduction%2F&amp;rft.language=en"></span>
+  </div>
+
+</body>
+</html>

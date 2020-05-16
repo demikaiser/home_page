@@ -1,0 +1,5 @@
+{
+  "title": "Shellcode in Modern OSs",
+  "subtitle": "Minimalistic Machine Code Execution for Modern Computers",
+  "description": "A brief introduction of shellcode creation for beginners in Modern OSs which have numerous protections to prevent illegal/malicious code execution attempts. 32-bit executable will be used for experimental & educational purposes."
+}

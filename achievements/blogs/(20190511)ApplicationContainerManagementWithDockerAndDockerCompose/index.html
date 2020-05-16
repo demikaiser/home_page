@@ -1,0 +1,504 @@
+<html>
+<head>
+
+</head>
+<body>
+
+  <div style="text-align: center;">
+    <h1><b>Application Container Management with Docker and Docker Compose</b></h1>
+    <p>
+      Demonstrate application container management with Docker and Docker Compose.
+    </p>
+    <p>2019/05/11</p>
+  </div>
+
+  <h2>0. Introduction</h2>
+
+  <p>
+    In the past several years, Docker has become one of the hottest technologies in the IT industry. It's quite a shame that they don't teach how to manage continuous integration/delivery in school. Since there are numerous application development frameworks that enable developers to create applications/services rapidly and efficiently by confining the way they can choose to develop functionalities, deployment process has become very important even for non-DevOps people. Especially if you are working close to the servers, it would be nice to understand how your back-end micro-services get deployed and talking to each other.
+  </p>
+
+  <p>
+    Traditionally, you would manage all the dependencies on the servers to deploy an application manually. This certainly creates lots of problems including managing all the different versions of dependencies that need to be updated in a timely manner. What if one service needs a subset of dependencies while another service needs a different subset of dependencies? Would you like to make another virtual machine for specifically this case? Docker creates a separate namespace for each application and isolates the runtime environment, so each application can run on its own environment that has all dependencies it needs to use.
+  </p>
+
+  <p>
+    We are going to see an overview of what Docker is and how to use it. Since there are usually multiple applications that need to be run for a business purpose (or during the development process), we will see Docker-compose which helps us to control multiple Docker containers conveniently. Let's begin!
+  </p>
+
+  <h2>1. Docker</h2>
+
+  <h3>1.1. Installation</h3>
+
+  <p>
+    The installation process is a little bit complex even in a Linux system since there are some configurations for permissions. Since Docker uses the namespace nesting of Linux, it is Linux native by nature. It is possible to install Docker for Windows, you must use the Docker Enterprise version if you want to use Windows Server. Execute the following script to install Docker on Ubuntu or Debian machines. You can also follow step by step.
+  </p>
+
+  <pre><code class="language-bash">
+#!/bin/bash
+# Install Docker CE in Ubuntu 18, and execute Docker commands without sudo.
+
+# Install dependencies.
+sudo apt update
+sudo apt install apt-transport-https ca-certificates curl software-properties-common -y
+
+# Get the GPG key.
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+# Add the Docker repository.
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+
+# Install the Docker CE.
+sudo apt update
+apt-cache policy docker-ce
+sudo apt install docker-ce -y
+
+# Confirm the installation.
+sudo systemctl status docker
+
+# Add your user to the Docker group.
+sudo usermod -aG docker ${USER}
+
+# Reboot or execute the following command to make it take effect.
+su - ${USER}
+
+# Confirm your use is in the Docker group.
+id -nG
+
+# Run the sample hello-world application.
+docker run hello-world
+  </code></pre>
+
+  <p>
+    The sample hello-world Docker image is interesting but doesn't highlight the infinite power of Docker containers. Hence, I'd like to introduce the most recent version of Eclipse, Che. Historically, IDEs are made as desktop applications since it's hard to run in other forms. For example, let's say we want to run an IDE as a server-client structured web app. We have to configure the network environment and infrastructure for the server, then we run the server. A client can simply be a browser, so open a browser and type the address. This is probably too much to do for private use. With a Docker container, it will be done by one line. Execute the following command.
+  </p>
+
+  <pre><code class="language-bash">
+docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock -v ~/Downloads:/data eclipse/che start
+  </code></pre>
+
+  <p>
+    To get access to the service, click the following link to open up the browser.
+  </p>
+
+  <a target="_blank" href="http://172.17.0.1:8080">Eclipse Che</a>
+
+  <figure>
+    <img src="img00.jpg" alt="Eclipse Che" width="100%">
+    <figcaption>Eclipse Che</figcaption>
+  </figure>
+
+  <p>
+    There could be numerous applications starting from portable workspaces, online collaboration, infrastructure support and integration, workspace snapshots, workflow automation with RESTful IDE control, DevOps integration for deployment automation, even code/pattern sharing database for automatic development. However, I am not talking about the advantages of a Cloud IDE, but about application packaging and automatic deployment. We are using a server-client application which would need complex configurations and installations of dependencies without doing so. This is just an example of one application but what if there are hundreds of computers we need to install multiple applications? This is all about automation and enhancing control.
+  </p>
+
+  <h3>1.2. Command Cheat Sheet</h3>
+
+  <p>
+    The following is output from the Docker command. It's important to grasp the high-level overview of commands rather memorizing individuals because you can always look up the details about commands. However, it is important to know what Docker can offer you to make the process more efficient and productive. 
+  </p>
+
+  <pre><code class="language-bash">
+Usage:	docker [OPTIONS] COMMAND
+
+A self-sufficient runtime for containers
+
+Options:
+      --config string      Location of client config files (default "/home/dkdv-dev/.docker")
+  -D, --debug              Enable debug mode
+  -H, --host list          Daemon socket(s) to connect to
+  -l, --log-level string   Set the logging level ("debug"|"info"|"warn"|"error"|"fatal") (default "info")
+      --tls                Use TLS; implied by --tlsverify
+      --tlscacert string   Trust certs signed only by this CA (default "/home/dkdv-dev/.docker/ca.pem")
+      --tlscert string     Path to TLS certificate file (default "/home/dkdv-dev/.docker/cert.pem")
+      --tlskey string      Path to TLS key file (default "/home/dkdv-dev/.docker/key.pem")
+      --tlsverify          Use TLS and verify the remote
+  -v, --version            Print version information and quit
+
+Management Commands:
+  builder     Manage builds
+  config      Manage Docker configs
+  container   Manage containers
+  engine      Manage the docker engine
+  image       Manage images
+  network     Manage networks
+  node        Manage Swarm nodes
+  plugin      Manage plugins
+  secret      Manage Docker secrets
+  service     Manage services
+  stack       Manage Docker stacks
+  swarm       Manage Swarm
+  system      Manage Docker
+  trust       Manage trust on Docker images
+  volume      Manage volumes
+
+Commands:
+  attach      Attach local standard input, output, and error streams to a running container
+  build       Build an image from a Dockerfile
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  events      Get real time events from the server
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  history     Show the history of an image
+  images      List images
+  import      Import the contents from a tarball to create a filesystem image
+  info        Display system-wide information
+  inspect     Return low-level information on Docker objects
+  kill        Kill one or more running containers
+  load        Load an image from a tar archive or STDIN
+  login       Log in to a Docker registry
+  logout      Log out from a Docker registry
+  logs        Fetch the logs of a container
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  ps          List containers
+  pull        Pull an image or a repository from a registry
+  push        Push an image or a repository to a registry
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  rmi         Remove one or more images
+  run         Run a command in a new container
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  search      Search the Docker Hub for images
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  version     Show the Docker version information
+  wait        Block until one or more containers stop, then print their exit codes
+  </code></pre>
+
+  <h2>2. Docker Compose</h2>
+
+  <h3>2.1. Installation</h3>
+
+  <p>
+    Docker-compose is easier to install to Docker, just download the executable and give permissions.
+  </p>
+
+  <pre><code class="language-bash">
+# Download the official docker-compose binary for linux.
+sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+# Apply executable permissions to the binary.
+sudo chmod +x /usr/local/bin/docker-compose
+  </code></pre>
+
+  <h3>2.2. Command Cheat Sheet</h3>
+
+  <p>
+    Remember, the high-level overview of commands!
+  </p>
+
+  <pre><code class="language-bash">
+Define and run multi-container applications with Docker.
+
+Usage:
+  docker-compose [-f arg...] [options] [COMMAND] [ARGS...]
+  docker-compose -h|--help
+
+Options:
+  -f, --file FILE             Specify an alternate compose file
+                              (default: docker-compose.yml)
+  -p, --project-name NAME     Specify an alternate project name
+                              (default: directory name)
+  --verbose                   Show more output
+  --log-level LEVEL           Set log level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+  --no-ansi                   Do not print ANSI control characters
+  -v, --version               Print version and exit
+  -H, --host HOST             Daemon socket to connect to
+
+  --tls                       Use TLS; implied by --tlsverify
+  --tlscacert CA_PATH         Trust certs signed only by this CA
+  --tlscert CLIENT_CERT_PATH  Path to TLS certificate file
+  --tlskey TLS_KEY_PATH       Path to TLS key file
+  --tlsverify                 Use TLS and verify the remote
+  --skip-hostname-check       Don't check the daemon's hostname against the
+                              name specified in the client certificate
+  --project-directory PATH    Specify an alternate working directory
+                              (default: the path of the Compose file)
+  --compatibility             If set, Compose will attempt to convert keys
+                              in v3 files to their non-Swarm equivalent
+
+Commands:
+  build              Build or rebuild services
+  bundle             Generate a Docker bundle from the Compose file
+  config             Validate and view the Compose file
+  create             Create services
+  down               Stop and remove containers, networks, images, and volumes
+  events             Receive real time events from containers
+  exec               Execute a command in a running container
+  help               Get help on a command
+  images             List images
+  kill               Kill containers
+  logs               View output from containers
+  pause              Pause services
+  port               Print the public port for a port binding
+  ps                 List containers
+  pull               Pull service images
+  push               Push service images
+  restart            Restart services
+  rm                 Remove stopped containers
+  run                Run a one-off command
+  scale              Set number of containers for a service
+  start              Start services
+  stop               Stop services
+  top                Display the running processes
+  unpause            Unpause services
+  up                 Create and start containers
+  version            Show the Docker-Compose version information
+  </code></pre>
+
+  <h2>3. Docker-Compose Demo</h2>
+
+  <h3>3.1. Setup</h3>
+
+  <p>
+    We are going to see a demo to see the power of the automatic deployment with embedded configurations. Let's assume we are going to deploy a RESTful service with in-memory database (Redis) for 5 production servers. The back-end application will be in Python Flask. First, make a project folder.
+  </p>
+
+  <pre><code class="language-bash">
+mkdir composetest && cd composetest
+  </code></pre>
+
+  <p>
+    Next, write the source code for the Python Flask app.
+  </p>
+
+  <pre><code class="language-python"># app.py
+import time
+
+import redis
+from flask import Flask
+
+app = Flask(__name__)
+cache = redis.Redis(host='redis', port=6379)
+
+
+def get_hit_count():
+    retries = 5
+    while True:
+        try:
+            return cache.incr('hits')
+        except redis.exceptions.ConnectionError as exc:
+            if retries == 0:
+                raise exc
+            retries -= 1
+            time.sleep(0.5)
+
+
+@app.route('/')
+def hello():
+    count = get_hit_count()
+    return 'Hello World! I have been seen {} times.\n'.format(count)
+  </code></pre>
+
+  <p>
+    Python apps need requirements.txt file to pick up dependencies.
+  </p>
+
+
+  <pre><code class="language-bash"># requirements.txt
+flask
+redis
+  </code></pre>
+
+  <h3>3.2. Dockerfile</h3>
+
+  <p>
+    Docker-compose is a composer for Docker containers, and each container can use a Dockerfile to be built on dependencies. Refer to the Docker documentation for writing Dockerfiles in detail.
+  </p>
+
+  <pre><code class="language-bash"># Dockerfile
+# Starting from Python 3.7 image.
+FROM python:3.7-alpine    
+# Set the working directory to /code. 
+WORKDIR /code    
+# Set an environment variable.
+ENV FLASK_APP app.py    
+# Another environment variable.
+ENV FLASK_RUN_HOST 0.0.0.0    
+# Install dependencies.
+RUN apk add --no-cache gcc musl-dev linux-headers    
+# Copy the requirements file.
+COPY requirements.txt requirements.txt    
+# Install Python dependencies.
+RUN pip install -r requirements.txt    
+# Copy the current directory . in the project to the workdir.
+COPY . .    
+# Execute the default command.
+CMD ["flask", "run"]    
+  </code></pre>
+
+  <h3>3.3. Docker-Compose Yaml File</h3>
+
+  <p>
+    Finally, it's time to orchestrate all the containers in the docker-compose.yml file. The syntax is straight-forward; however, actual configurations could be complex depending on the host infrastructure. It is out-of-scope of this article to discuss networking and information system architecture, so we will be using a simple one.
+  </p>
+
+  <pre><code class="language-yaml"># docker-compose.yml
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+  redis:
+    image: "redis:alpine"
+  </code></pre>
+
+  <h3>3.4. Build and Run</h3>
+
+  <p>
+    We are ready to go, let's fire up the applications.
+  </p>
+
+  <pre><code class="language-bash">
+# Fire up all the dockers.
+docker-compose up
+# Test the RESTful service.
+curl http://localhost:5000
+# See all the images running.
+docker image ls
+# Take down all containers.
+docker-compose down
+  </code></pre>
+
+  <p>
+    If you repeatedly access the endpoint, the counter will be incremented by one, meaning the back-end app and Redis are working good!
+  </p>
+
+  <h3>3.5. Expand!</h3>
+
+  <p>
+    For this advanced demo, we will fire up 6 applications/services at the same time, namely, Redis, MongoDB, PostgreSQL, Nginx, Consul, and Jenkins. These applications are applications/services frequently used in the IT industry for various purposes. If there are multiple machines to deploy, you can use solutions like Jenkins to automate the service deployment. If you want to deploy and configure the applications above manually, it would take several hours if there are some dependencies in the architecture. However, see how simple it is by using Docker-compose.
+  </p>
+
+  <pre><code class="language-yaml"># docker-compose.yml
+version: '3'
+services:
+  redis:
+    image: "redis:latest"
+    ports:
+      - 6379:6379
+  mongo:
+    image: "mongo:latest"
+    ports:
+      - 27017:27017
+  postgres:
+    image: "postgres:latest"
+    ports:
+      - 5432:5432
+  nginx:
+    image: "nginx:latest"
+    ports:
+      - 80:80
+  consul:
+    image: "consul:latest"
+    ports:
+      - 8500:8500
+  jenkins:
+    image: "jenkins:latest"
+    ports:
+      - 8080:8080
+  </code></pre>
+
+  <p>
+    Let's check the applications and services are successfully running! You should use the exec command to execute a command in the namespace of each container. For web applications, you can get access to the services via a browser. Execute or click the followings:
+  </p>
+
+  <pre><code class="language-bash"># Redis
+docker exec -it [CONTAINER_ID] redis-cli 
+  </code></pre>
+
+  <figure>
+    <img src="img01.jpg" alt="Redis Control Console" width="100%">
+    <figcaption>Redis Control Console</figcaption>
+  </figure>
+
+  <pre><code class="language-bash"># MongoDB
+docker exec -it [CONTAINER_ID] mongo
+  </code></pre>
+
+  <figure>
+    <img src="img02.jpg" alt="MongoDB Control Console" width="100%">
+    <figcaption>MongoDb Control Console</figcaption>
+  </figure>
+
+  <pre><code class="language-bash"># Postgres
+docker exec -it [CONTAINER_ID] psql -h localhost -U postgres
+  </code></pre>
+
+  <figure>
+    <img src="img03.jpg" alt="Postgres Control Console" width="100%">
+    <figcaption>Postgres Control Console</figcaption>
+  </figure>
+
+  <a target="_blank" href="http://localhost:80">NginX Default Page</a>
+
+  <figure>
+    <img src="img04.jpg" alt="NginX Default Page" width="100%">
+    <figcaption>NginX Default Page</figcaption>
+  </figure>
+
+  <a target="_blank" href="http://localhost:8500">Consul Web Controller</a>
+
+  <figure>
+    <img src="img05.jpg" alt="Consul Web Controller" width="100%">
+    <figcaption>Consul Web Controller</figcaption>
+  </figure>
+
+  <a target="_blank" href="http://localhost:8080">Jenkins Admin Page</a>
+
+  <figure>
+    <img src="img06.jpg" alt="Jenkins Admin Page" width="100%">
+    <figcaption>Jenkins Admin Page</figcaption>
+  </figure>
+
+  <h2>0. Conclusion</h2>
+
+  <p>
+    You won't be able to be satisfied if you want to deploy applications in an old way once you have experience with Docker containers. Especially if you are a developer, you would understand how it makes your life easier when the process could be automated by code. Usually, this needs a way to have standardized interfaces between systems and resources you need to manage. Docker took a smart move, elevating the Linux's namespace to the whole new next level to separate runtime environments. This type of virtualization truly shines when it's integrated with networking resources to form a cluster of machines.
+  </p>
+
+  <p>
+    By using Docker containers and Docker-compose, one can manage application/service containers in a machine; however, it shouldn't really be a machine if the hardware resources can be virtualized and managed in a unified way. There are several solutions but Kunernetes is the most well-known one as well as Docker Swarm. With these solutions, containers can be deployed in a cluster and a cluster can be expanded with more machines or any hardware resources. It will be investigated to find possibilities of cluster computing and unified application/service/resource management.
+  </p>
+
+  <h2>Appendix A. References</h2>
+
+  <div class="csl-bib-body" style="line-height: 1.35; ">
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 1em;">[1]</div><div class="csl-right-inline" style="margin: 0 .4em 0 1.5em;">“Docker Compose,” <i>Docker Documentation</i>, 19-Jun-2019. [Online]. Available: <a href="https://docs.docker.com/compose/">https://docs.docker.com/compose/</a>. [Accessed: 20-Jun-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Docker%20Compose&amp;rft.description=Introduction%20and%20Overview%20of%20Compose&amp;rft.identifier=https%3A%2F%2Fdocs.docker.com%2Fcompose%2F&amp;rft.date=2019-06-19&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 1em;">[2]</div><div class="csl-right-inline" style="margin: 0 .4em 0 1.5em;">“Docker Documentation,” <i>Docker Documentation</i>, 08-Jun-2019. [Online]. Available: <a href="https://docs.docker.com/">https://docs.docker.com/</a>. [Accessed: 10-Jun-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Docker%20Documentation&amp;rft.description=Home%20page%20for%20Docker's%20documentation&amp;rft.identifier=https%3A%2F%2Fdocs.docker.com%2F&amp;rft.date=2019-06-08&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 1em;">[3]</div><div class="csl-right-inline" style="margin: 0 .4em 0 1.5em;">“Dockerfile Cheat Sheet - Kapeli.” [Online]. Available: <a href="https://kapeli.com/cheat_sheets/Dockerfile.docset/Contents/Resources/Documents/index">https://kapeli.com/cheat_sheets/Dockerfile.docset/Contents/Resources/Documents/index</a>. [Accessed: 21-Jun-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Dockerfile%20Cheat%20Sheet%20-%20Kapeli&amp;rft.identifier=https%3A%2F%2Fkapeli.com%2Fcheat_sheets%2FDockerfile.docset%2FContents%2FResources%2FDocuments%2Findex"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 1em;">[4]</div><div class="csl-right-inline" style="margin: 0 .4em 0 1.5em;">T. Jewell, “Hands-on: Configure &amp; Run Plain Java Apps in Che,” <i>Eclipse Che Blog</i>, 27-Jul-2016. [Online]. Available: <a href="https://che.eclipse.org/hands-on-configure-run-plain-java-apps-in-che-6f443ef509d0">https://che.eclipse.org/hands-on-configure-run-plain-java-apps-in-che-6f443ef509d0</a>. [Accessed: 20-Jun-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Hands-on%3A%20Configure%20%26%20Run%20Plain%20Java%20Apps%20in%20Che&amp;rft.description=This%20post%20will%20demonstrate%20how%20to%20develop%20and%20run%20standard%20Java%20applications%20in%20Eclipse%20Che.%20We%E2%80%99ll%20start%20by%20creating%20and%20running%20a%20simple%20%E2%80%9CHello%20World%E2%80%9D%20example%20using%20one%20of%20the%20Che%20template%20apps%E2%80%A6&amp;rft.identifier=https%3A%2F%2Fche.eclipse.org%2Fhands-on-configure-run-plain-java-apps-in-che-6f443ef509d0&amp;rft.aufirst=Tyler&amp;rft.aulast=Jewell&amp;rft.au=Tyler%20Jewell&amp;rft.date=2016-07-27"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 1em;">[5]</div><div class="csl-right-inline" style="margin: 0 .4em 0 1.5em;">“How To Install and Use Docker on Ubuntu 18.04,” <i>DigitalOcean</i>. [Online]. Available: <a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04">https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04</a>. [Accessed: 10-Jun-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=How%20To%20Install%20and%20Use%20Docker%20on%20Ubuntu%2018.04&amp;rft.description=Docker%20is%20an%20application%20that%20simplifies%20the%20process%20of%20managing%20application%20processes%20in%20containers.%20In%20this%20tutorial%2C%20you'll%20install%20and%20use%20Docker%20Community%20Edition%20(CE)%20on%20Ubuntu%2018.04.%20You'll%20install%20Docker%20itself%2C%20work%20with%20containers%20and%20images&amp;rft.identifier=https%3A%2F%2Fwww.digitalocean.com%2Fcommunity%2Ftutorials%2Fhow-to-install-and-use-docker-on-ubuntu-18-04&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 1em;">[6]</div><div class="csl-right-inline" style="margin: 0 .4em 0 1.5em;">“Single-User: Installation on Docker | Eclipse Che Documentation.” [Online]. Available: <a href="https://www.eclipse.org/che/docs/che-6/docker-single-user.html">https://www.eclipse.org/che/docs/che-6/docker-single-user.html</a>. [Accessed: 20-Jun-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Single-User%3A%20Installation%20on%20Docker%20%7C%20Eclipse%20Che%20Documentation&amp;rft.identifier=https%3A%2F%2Fwww.eclipse.org%2Fche%2Fdocs%2Fche-6%2Fdocker-single-user.html"></span>
+  </div>
+
+</body>
+</html>

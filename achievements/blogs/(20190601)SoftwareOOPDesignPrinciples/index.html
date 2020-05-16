@@ -1,0 +1,1443 @@
+<html>
+<head>
+
+</head>
+<body>
+
+  <div style="text-align: center;">
+    <h1><b>Software OOP Design Principles</b></h1>
+    <p>
+      Compiles major software design principles to provide a bird-eye view pervasive object-oriented design concepts in one place.
+    </p>
+    <p>2019/06/01</p>
+  </div>
+
+  <h2>0. Introduction</h2>
+
+  <p>
+    It wouldn't be much of troubles to say the software world is being dominated by OOP. Of course, there are some other paradigms like imperative, declarative, procedural, functional, *-driven, or aspect-oriented; however, one can't deny that OOP would be one of the most important concepts. The problem is that it seems like there is no unified well-established consensus in the industry in terms of concepts and principles. There are lots of sources talking about it, but still, there is no single well-outlined document. Hence, I decided to explore and put all the concepts in one document with the simplest examples explaining the essence of each.
+  </p>
+
+  <p>
+    The second problem seen frequently in the dev world is that there are too many details to explain an elegant and simple concept. I, myself is a software person and I truly understand it's all about details, but learning materials shouldn't contain too much of it. Usually, students including myself (will be at the end of my life) want to understand the concept as soon as possible, not get bombarded too many details that hinder their quick and high-level understanding. I do recognize that there should be some detailed examples to explain a complex concept to manifest, but the core principles are not those.
+  </p>
+
+  <p>
+    The equal-level elements -- for example, if I want to use some fields, each field is an equal-level element. -- will be limited to three unless there are very good reasons to justify to use more. Two are usually too small to represent the entirety of a domain, and more than four usually are too many. There are going to be a brief description of the concept, a UML diagram to overview the structure of classes, and finally snippets of code for explanation.
+  </p>
+
+  <p>
+    I will try my best to include dominant concepts used for the OOP programming and organize these in a way we can formalize to use to build software or to understand the existing projects. However, I can be biased and the concepts can be viewed differently by perspectives and circumstances. Please don't hesitate to reach out to me if there is something incorrect or omitted.
+  </p>
+
+  <h2>1. 4 Major OOP Principles</h2>
+
+  <h3>1.1. Abstraction</h3>
+
+  <h4>1.1.1. Concept</h4>
+
+  <p>
+    Abstraction is not only a crucial principle of object-oriented programming but also the foundation of the software engineer or computer science. Wikipedia says:
+  </p>
+
+  <blockquote cite="https://en.wikipedia.org/wiki/Abstraction_(computer_science)">
+    the process of removing physical, spatial, or temporal details or attributes in the study of objects or systems in order to focus attention on details of higher importance, it is also very similar in nature to the process of generalization; the creation of abstract concept-objects which are created by mirroring common features or attributes from various non-abstract objects or systems of study — the result of the process of abstraction. 
+  </blockquote>
+
+  <p>
+    Usually, there is a piece of code showing a simplified model to represent a complex object when it's explained. However, I'd like to show a Java interface to explain how you can abstract out a common trait from multiple entities. See the following UML and code snippets.
+  </p>
+
+  <h4>1.1.2. UML</h4>
+
+  <figure>
+    <img src="img00.jpg" alt="Abstraction" width="40%">
+    <figcaption>Abstraction</figcaption>
+  </figure>
+
+  <h4>1.1.3. Code</h4>
+
+<pre><code class="language-java">
+public interface Livable {
+
+    void eat();
+
+    void sleep();
+
+    void move();
+}
+</code></pre>
+
+<pre><code class="language-java">
+public class Person implements Livable {
+    @Override
+    public void eat() {
+        System.out.println("Person eats.");
+    }
+
+    @Override
+    public void sleep() {
+        System.out.println("Person sleeps.");
+    }
+
+    @Override
+    public void move() {
+        System.out.println("Person moves.");
+    }
+
+    public void talk() {
+        System.out.println("Person talks.");
+    }
+}
+</code></pre>
+
+<pre><code class="language-java">
+public class Dog implements Livable {
+    @Override
+    public void eat() {
+        System.out.println("Dog eats.");
+    }
+
+    @Override
+    public void sleep() {
+        System.out.println("Dog sleeps.");
+    }
+
+    @Override
+    public void move() {
+        System.out.println("Dog moves.");
+    }
+
+    public void barks() {
+        System.out.println("Dog barks.");
+    }
+}
+</code></pre>
+
+  <p>
+    There are two concrete classes, Dog and Person. The common traits are extracted to form an interface. This is a process of abstraction, which enables to designate these classes (entities) as a generalized concept. Let's say we want to make a (programmable) house where a person or a dog can live. How do you express this in code?
+  </p>
+
+<pre><code class="language-java">
+public class House {
+
+    public static void main(String arg[]) {
+        Person person = new Person();
+        new House(person);
+
+        Dog dog = new Dog();
+        new House(dog);
+    }
+
+    private Livable livable;
+
+    public House(Livable livable) {
+        this.livable = livable;
+        livable.sleep();
+    }
+}
+</code></pre>
+
+  <p>
+    Because of the power of abstraction, we could put anything in House when we think it's appropriate to relate entities to House. This principle is applied to many places in the OOP design principles, such as high cohesion or low coupling. House is not really coupled with any of concrete classes (Person, Dog) since we don't directly relate them to House. This means even if there are some changes in the concrete classes, it will be fine as fas as there is a promise (the interface) between them.
+  </p>
+
+  <h3>1.2. Encapsulation</h3>
+
+  <h4>1.2.1. Concept</h4>
+
+  <p>
+    Encapsulation helps to hide all the complexity of the inner mechanics of a class or an entity. Even though we abstract out an entity to make a model, which is a simplified representation of a real-world object, The users of the object shouldn't know all the details of the object. In many cases, there are some security problems when the users of the object can directly access to the inner states of the object.
+  </p>
+
+  <p>
+    Hence, it would be good to intentionally hide the inner complexity and expose a purified interface from and to the outer world, so the users of the object can interact with it in a way in which the creator or the manager of the object intended to. In this context, the developers of the object will encapsulate the object with a controlled interface.
+  </p>
+
+  <h4>1.2.2. UML</h4>
+
+  <figure>
+    <img src="img01.jpg" alt="Encapsulation" width="40%">
+    <figcaption>Encapsulation</figcaption>
+  </figure>
+
+  <p>
+    In this UML diagram, you can see each entity encapsulate itself with exposed interfaces, which are public methods. Users of these objects shouldn't and cannot know all the states in the objects. The only thing they can know is the exposed methods that enable the users to interact in a specific way defined by the creator of the objects.
+  </p>
+
+  <h4>1.2.3. Code</h4>
+
+  <p>
+    See how getters and setters are implemented in the following code. Since this pattern happens very frequently, some high-level languages support convenient ways to save typing -- e.g., getters and setters in Typescript.
+  </p>
+
+<pre><code class="language-java">
+public abstract class Animal {
+
+    protected String name;
+
+    protected int speed;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(String speed) {
+        this.speed = speed;
+    }
+
+    abstract public void run();
+}
+</code></pre>
+
+  <h3>1.3. Inheritance</h3>
+
+  <h4>1.3.1. Concept</h4>
+
+  <p>
+    Things in the universe -- or you might be able to expand this logic to the multiverse -- have hierarchies. Particular entities are more similar to related entities compared to entities far from its existence. For example, humans and dogs are animals, so two entities have many attributes in common; however, humans are less similar to insects compared to dogs.
+  </p>
+
+  <p>
+    This similarities and differences between entities can be systematically organized in code with inheritance. Inheritance enables to construct a level of abstraction existing among entities both vertically and horizontally. It also makes a computer (code) smart enough to blur the boundaries of concepts to allow computers to operate higher-level behaviors like humans. 
+  </p>
+
+  <h4>1.3.2. UML</h4>
+
+  <p>
+    The following diagram shows a hierarchical relationship among humans, dogs, and animals: 
+  </p>
+
+  <figure>
+    <img src="img01.jpg" alt="Inheritance" width="40%">
+    <figcaption>Inheritance</figcaption>
+  </figure>
+
+  <h4>1.3.3. Code</h4>
+
+  <p>
+    Concrete entities can choose to extend abstract entities to inherit their attributes and behaviors like the following:
+  </p>
+
+<pre><code class="language-java">
+public class Dog extends Animal {
+
+    private String type = "Spitz ";
+
+    @Override
+    public void run() {
+        System.out.println(type + name + " runs " + speed);
+    }
+}
+</code></pre>
+
+<pre><code class="language-java">
+public class Person extends Animal {
+
+    private String prefix = "Mr. ";
+
+    @Override
+    public void run() {
+        System.out.println(prefix + name + " runs " + speed);
+    }
+}
+</code></pre>
+
+  <h3>1.4. Polymorphism</h3>
+
+  <h4>1.4.1. Concept</h4>
+
+  <p>
+    Whereas inheritance focused to express the similarities between entities, polymorphism is a way to represent the differences between entities. The behaviors specific to the concrete entities should be diverse depending on the context of the invocation of the behavior even though the behaviors have the same manner of invocation. 
+  </p>
+
+  <p>
+    It is important to point out that the invocation occurs from the more abstract entities. For example, I know there is a variety of animals such as dogs, cats, humans, lions, etc. and I want them to run. Even though there are hundreds more, all I have to know is they are animal and they can run. As I instruct them to run only once, they will all run in a different way -- their own way. This type of command powers an instruction to handle explosively large cases without knowing all the details.
+  </p>
+
+  <h4>1.4.2. UML</h4>
+
+  <p>
+    Humans and dogs can run, but the behavior can quite be different. The dog entity and the human entity can show different characteristics when they are asked to show the same kind of behavior.
+  </p>
+
+  <figure>
+    <img src="img01.jpg" alt="Polymorphism" width="40%">
+    <figcaption>Polymorphism</figcaption>
+  </figure>
+
+  <h4>1.4.3. Code</h4>
+
+  <p>
+    The following code represents how to use polymorphic method calls by using a higher-level reference.
+  </p>
+
+<pre><code class="language-java">
+public class Main {
+    public static void main(String args[]) {
+        Person person = new Person();
+        person.setName("John");
+        person.setSpeed("slow");
+
+        Dog dog = new Dog();
+        dog.setName("Toby");
+        dog.setSpeed("fast");
+
+        Animal animal;
+
+        animal = person;
+        animal.run(); // Mr. John runs slow
+
+        animal = dog;
+        animal.run(); // Spitz Toby runs fast
+    }
+}
+</code></pre>
+
+  <h2>2. GRASP (General Responsibility Assignment Software Patterns)</h2>
+
+  <h3>2.1. Controller</h3>
+
+  <h4>2.1.1. Concept</h4>
+
+  <p>
+    The controller handles all the system events and user input to connect them to the corresponding services. The controller separates the presentation logic from the pure domain area, which makes each component more reusable.
+  </p>
+
+  <p>
+    This controller pattern is well known as the MVC pattern, which stands for models, views, and controllers. There are some variations such as MVP (Model, View, and Presenter), PM (Presentation Model), and MVVM (Model, View, View-Model); however, these patterns aim to abstract similar parts of the application to increase cohesion and decrease coupling.
+  </p>
+
+  <h4>2.1.2. UML</h4>
+
+  <p>
+    The user interfaces get the input from the user and send the request to the controller. The controller gets the requests and parses to find which services it should redirect to. After getting the proper service for the view layer, the controller returns the result to the view.
+  </p>
+
+  <figure>
+    <img src="img02.jpg" alt="" width="40%">
+    <figcaption></figcaption>
+  </figure>
+
+  <h4>2.1.3. Code</h4>
+
+<pre><code class="language-java">
+public class UIView {
+    public static void main(String args[]) {
+        System.out.println(Controller.handleOperation(1, 2, "add")); // 3
+        System.out.println(Controller.handleOperation(5, 3, "subtract")); // 2
+    }
+}
+</code></pre>
+
+<pre><code class="language-java">
+public class Controller {
+    public static Integer handleOperation(int a, int b, String operation) {
+        if (operation.equals("add")) {
+            return Addition.add(a, b);
+        } else if (operation.equals("subtract")) {
+            return Subtraction.subtract(a, b);
+        }
+        return null;
+    }
+}
+</code></pre>
+
+<pre><code class="language-java">
+public class Addition {
+    public static int add(int a, int b) {
+        return a + b;
+    }
+}
+</code></pre>
+
+<pre><code class="language-java">
+public class Subtraction {
+    public static int subtract(int a, int b) {
+        return a - b;
+    }
+}
+</code></pre>
+
+  <h3>2.2. Creator</h3>
+
+  <h4>2.2.1. Concept</h4>
+
+  <p>
+    Creation of objects is one of the most common activities in an object-oriented system. Which class is responsible for creating objects is a fundamental property of the relationship between objects of particular classes. In general, a class B should be responsible for creating instances of class A if one, or preferably more, of the following apply:
+  </p>
+
+  <ul>
+    <li>Instances of B contain or compositely aggregate instances of A.</li>
+    <li>Instances of B record instances of A.</li>
+    <li>Instances of B closely use instances of A.</li>
+    <li>Instances of B have the initializing information for instances of A and pass it on creation.</li>
+  </ul>
+
+  <h4>2.2.2. UML</h4>
+
+  <p>
+    The Person class is aggregated by the Company class, hence, the Company class should create the Person classes. 
+  </p>
+
+  <figure>
+    <img src="img03.jpg" alt="" width="40%">
+    <figcaption></figcaption>
+  </figure>
+
+  <h4>2.2.3. Code</h4>
+
+<pre><code class="language-java">
+public class Person {
+    private String name;
+    private String hobby;
+
+    public Person(String name, String hobby) {
+        this.name = name;
+        this.hobby = hobby;
+    }
+
+    public void introduce() {
+        System.out.println("My name is " + name + " and my hobby is " + hobby + ".");
+    }
+}
+</code></pre>
+
+<pre><code class="language-java">
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Company {
+
+    private HashMap<String, String> employeeList = new HashMap<>();
+
+    public Company() {
+        this.employeeList.put("Alice", "Swimming");
+        this.employeeList.put("Carl", "Cooking");
+        this.employeeList.put("James", "Walking");
+    }
+
+    public ArrayList<Person> enrollEmployees() {
+        ArrayList<Person> people = new ArrayList<>();
+
+        for (Map.Entry<String, String> entry : this.employeeList.entrySet()) {
+            people.add(new Person(entry.getKey(), entry.getValue()));
+        }
+
+        return people;
+    }
+
+    public static void main(String args[]) {
+        Company company = new Company();
+        for (Person person : company.enrollEmployees()) {
+            person.introduce();
+        }
+    }
+}
+</code></pre>
+
+  <h3>2.3. Indirection</h3>
+
+  <h4>2.3.1. Concept</h4>
+
+  <p>  
+    The objective of this principle is to make objects less depending on each other by introducing a mediator object.
+  </p>
+
+  <p>
+    One example is the controller class between the view and the model class. Instead of having controller logic in the view class to call the corresponding services in the model, the controller introduces a layer between the model and the view. This is an indirection approach to decouple two layers and ensure the cohesive classes.
+  </p>
+
+  <p>
+    There are many use cases where you can introduce a layer between two functional units. Let's see one more example with code.
+  </p>
+
+  <h4>2.3.2. UML</h4>
+
+  <p>
+    The following example can show how the code gets simple and efficient by having another layer of functionality. Initially, the Sale class had the database access logic inside it, so after the creation of the Sale class, it can simply call the function of the Sale to save the record in the database. However, it violates the high cohesion and low coupling principles of the OOP design, so a new DatabaseAccessObject class was introduced.
+  </p>
+
+  <p>
+    The following diagram shows the refactored classes. The Sale class now can have only properties and related methods to the domain model. All the database system-specific logic is separated to the DAO (Database Access Object) so even if there are changes in the database, or you have to change the database, only DAO can change but the domain models don't have to change. This is the benefit of indirection.
+  </p>
+
+  <figure>
+    <img src="img04.jpg" alt="" width="35%">
+    <figcaption></figcaption>
+  </figure>
+
+  <h4>2.3.3. Code</h4>
+
+<pre><code class="language-java">
+public class Sale {
+    private int saleId;
+    private String customerName;
+    private String productName;
+    private long amount;
+
+    public int getSaleId() {
+        return saleId;
+    }
+
+    public void setSaleId(int saleId) {
+        this.saleId = saleId;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public long getAmount() {
+        return amount;
+    }
+
+    public void setAmount(long amount) {
+        this.amount = amount;
+    }
+}
+</code></pre>
+
+<pre><code class="language-java">
+public class DatabaseAccessObject {
+
+    public DatabaseAccessObject() {
+        System.out.println("Database initialized.");
+    }
+
+    public void saveSale(Sale sale) {
+        System.out.println("The following sale saved: " + sale.toString());
+    }
+
+    public void closeDbConnection() {
+        System.out.println("Database terminated.");
+    }
+}
+</code></pre>
+
+  <h3>2.4. Information Expert</h3>
+
+  <h4>2.4.1. Concept</h4>
+
+  <p>
+    The information expert principle says the responsibilities to be given should be able to be performed well with the information the target class has. This principle usually strengthens the high cohesion principle since the responsibilities and the associated information reside in the same class.
+  </p>
+
+  <h3>2.5. High Cohesion</h3>
+
+  <h4>2.5.1. Concept</h4>
+
+  <p>
+    The high cohesion principle evaluates the objects are appropriately focused, manageable, and understandable. All the elements in the class should be closely related and the responsibilities in the class ought to be focused. 
+  </p>
+
+  <p>
+    Even in the lower-level programming such as assembly or C programming, there are modules and individual procedures composing the program. It can be said this supports the high cohesion principle. It would be a nightmare if you have to maintain a program consisted of one gigantic function.
+  </p>
+
+  <h3>2.6. Low Coupling</h3>
+
+  <h4>2.6.1. Concept</h4>
+
+  <p>
+    Coupling is a measure of how strongly one element is connected to, has knowledge of, or relies on other elements. The low coupling principle is to assign responsibilities to support the following requirements.
+  </p>
+
+  <p>
+    There should be lower dependencies between objects. If an object only can operate on the existence of another object, there is a dependency between those. Usually, depending on concrete objects create more dependencies than depending on abstract classes or interfaces.
+  </p>
+
+  <p>
+    There should be fewer impacts when there are changes in other objects. This leads to the objects which can be reusable because you can't reuse an object if you have to change it when other objects change.
+  </p>
+
+  <h3>2.7. Polymorphism</h3>
+
+  <h4>2.7.1. Concept</h4>
+
+  <p>
+    The polymorphism principle in the GRASP pattern designates the location of the responsibility of the polymorphic behavior. The polymorphic responsibility should be assigned to the very class where the polymorphic behavior will be used. 
+  </p>
+
+  <p>
+    For example, there is an eat() function in the Animal class. This Animal class is inherited to the Dog class and the Person class, and these classes use the eat() function. The eat() in the Dog class will be to eat like a dog, therefore, its polymorphic behavior should be implemented in the Dog class. So should the Person class.
+  </p>
+
+  <h3>2.8. Protected Variations</h3>
+
+  <h4>2.8.1. Concept</h4>
+
+  <p>
+    The protected variation is well known as the open/closed principle. The fixed responsibilities can be in the class in a normal way; however, the responsibilities which are flexible and unstable should be extracted from the usual location of the class.
+  </p>
+
+  <p>
+    In other words, the fixed responsibilities should be closed to the changes and the flexible responsibilities should be opened to the changes. The architecture of the system should support this requirement. Let's see an example.
+  </p>
+
+  <h4>2.8.2. UML</h4>
+
+  <p>
+    The translator contains several steps of logic, but one of the components should change according to the responsibility. In this example, the language should change depending on the user's preference, but the other parts of the translator shouldn't change.
+  </p>
+
+  <p>
+    We can make an inner class have a variation of the responsibilities and requirements to isolate the part that frequently changes. Even if there are additional requirement changes, fixed parts of the class don't have to change.
+  </p>
+
+  <figure>
+    <img src="img05.jpg" alt="" width="40%">
+    <figcaption></figcaption>
+  </figure>
+
+  <h4>2.8.3. Code</h4>
+
+<pre><code class="language-java">
+public class Translator {
+
+    public void translate(LanguagePack languagePack) {
+        preTranslate();
+        processLanguage(languagePack);
+        postTranslate();
+    }
+
+    public void preTranslate() {
+        System.out.println("Preprocessing...");
+    }
+
+    public void processLanguage(LanguagePack languagePack) {
+        System.out.println("Process language...");
+        languagePack.applyLanguage();
+    }
+
+    public void postTranslate() {
+        System.out.println("Postprocessing...");
+    }
+
+    static class LanguagePack {
+        private String language;
+
+        LanguagePack(String language) {
+            this.language = language;
+        }
+
+        public void applyLanguage() {
+            System.out.println("Apply language with " + language);
+        }
+    }
+
+    public static void main(String args[]) {
+        new Translator().translate(new LanguagePack("English"));
+        new Translator().translate(new LanguagePack("Korean"));
+        new Translator().translate(new LanguagePack("French"));
+    }
+
+}
+</code></pre>
+
+  <h3>2.9. Pure Fabrication</h3>
+
+  <h4>2.9.1. Concept</h4>
+
+  <p>
+    Sometimes following the information expert principle violates the high cohesion principle and the low coupling principle. In this case, you can make a new class to put the responsibilities. This is the pure fabrication principle. 
+  </p>
+
+  <p>
+    The purely fabricated class is a class that does not represent a concept in the problem domain, specially made up to achieve low coupling, high cohesion, and the reuse potential. The database access object can be an example since this logic should be inside of the domain model according to the information expert principle, but it decreases cohesion and increases coupling. Therefore, it would be better to make a separate class.
+  </p>
+
+  <h2>3. SOLID Principles</h2>
+
+  <h3>3.1. SRP – Single Responsibility Principle</h3>
+  
+  <h4>3.1.1. Concept</h4>
+  
+  <p>
+    The single responsibility principle states that every module, class, or function should have responsibility for a single part of the functionality and that responsibility should be entirely encapsulated by the class.
+  </p>
+
+  <p>
+    This is a simple principle; however, the more important question would be on how we define the scope of a single responsibility. Imagine we are making a car. It's possible to have a single Car class and all the processes in a single class. However, as you go deep into the details, you will realize the processes are much more complex. Then we could break down the processes, so it can have classes that make a wheel, make a handle, make a tire, make a frame, and more. What level of abstraction should we use?
+  </p>
+
+  <p>
+    There is no definite answer. But the rule of thumb would be it should be enough to be able to follow other object-oriented principles. If the level of the abstraction is too high, probably it will violate other principles such as high cohesion and low coupling. The code should be radically refactored as the complexity is discovered and it needs to change the level of abstraction.
+  </p>
+
+  <h3>3.2. OCP – Open/Closed Principle</h3>
+
+  <h4>3.2.1. Concept</h4>
+
+  <p>
+    This principle is the same as the protected variation principle in the GRASP pattern, so the explanation will be skipped.
+  </p>
+
+  <h3>3.3. LSP – Liskov Substitution Principle</h3>
+
+  <h4>3.3.1. Concept</h4>
+
+  <p>
+    The Liskov substitution principle is an ability to replace any instance of a parent class with an instance of one of its child classes without negative side effects. 
+  </p>
+
+  <p>
+    The Liskov principle is closely linked to the open-closed principle which is open to the extension and closed to the modification since by moving down the class hierarchy, it is open to the extension but not the other way around.
+  </p>
+
+  <p>
+    All the behavior of the child classes should be extending the behavior of the parent classes, not replacing it. A conceptual example would be birds. There is an abstract class Bird and it has a fly method. A Duck class can extend it and override the fly method. A Chicken class can extend the Bird method but can't use the fly method, so it should prevent users to use the fly method by using exceptions or other types of means. This violates the Liskov substitution principle. Let's see another example with code.
+  </p>
+
+  <h4>3.3.2. UML</h4>
+
+  <p>
+    Squares have more restrictive requirements compared to rectangles, so it might make sense the Square class extends the Rectangle class. However, as you can see in the code, the Square class can't substitute the Rectangle class because you can't set the height and the width separately. This violates the Liskov substitution principle.
+  </p>
+
+  <p>
+    The right approach would be making a Shape class, then the Rectangle class and the Square class can extend the Shape class. In this way, both the Rectangle class and the Square class can substitute the Shape class, hence, doesn't violate the Liskov substitution principle.
+  </p>
+
+  <figure>
+    <img src="img06.jpg" alt="" width="20%">
+    <figcaption></figcaption>
+  </figure>
+
+  <h4>3.3.3. Code</h4>
+
+<pre><code class="language-java">
+public class Rectangle {
+    int height;
+    int width;
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+}
+</code></pre>
+
+<pre><code class="language-java">
+public class Square extends Rectangle {
+
+    @Override
+    public void setHeight(int height) {
+        super.setHeight(height);
+        super.setWidth(height);
+    }
+
+    @Override
+    public void setWidth(int width) {
+        super.setWidth(width);
+        super.setWidth(width);
+    }
+}
+</code></pre>
+
+  <h3>3.4. ISP – Interface Segregation Principle</h3>
+
+  <h4>3.4.1. Concept</h4>
+
+  <p>
+    The interface segregation principle states that no client should be forced to depend on methods it does not use. It's all about not making a gigantic interface that contains a large number of methods. The following example displays an incorrect usage of an interface.
+  </p>
+
+  <h4>3.4.2. UML</h4>
+
+  <p>
+    It's tempting to contain all possible method signatures in one interface so you can just manage all classes from an interface; however, this creates unnecessary implementations which makes the code inefficient as the classes using the interface must implement all methods regardless of the actual usage.
+  </p>
+
+  <p>
+    Conceptually, an animal can swim or fly, but if the interface has both of them, the classes using this interface should implement both even if they don't use all of them. It violates the interface segregation principle.
+  </p>
+
+  <figure>
+    <img src="img07.jpg" alt="" width="40%">
+    <figcaption></figcaption>
+  </figure>
+
+  <h4>3.4.3. Code</h4>
+
+<pre><code class="language-java">
+public interface IAnimal {
+    void swim() throws Exception;
+    void fly() throws Exception;
+}
+</code></pre>
+
+<pre><code class="language-java">
+public class Dolphin implements IAnimal {
+    @Override
+    public void swim() throws Exception {
+        System.out.println("Swimming...");
+    }
+
+    @Override
+    public void fly() throws Exception {
+        throw new Exception("I don't fly.");
+    }
+}
+</code></pre>
+
+<pre><code class="language-java">
+public class Eagle implements IAnimal {
+    @Override
+    public void swim() throws Exception {
+        throw new Exception("I don't swim.");
+    }
+
+    @Override
+    public void fly() throws Exception {
+        System.out.println("Flying...");
+    }
+}
+</code></pre>
+
+  <h3>3.5. DIP – Dependency Inversion Principle</h3>
+
+  <h4>3.5.1. Concept</h4>
+
+  <p>
+    The dependency inversion principle states that the high-level objects should not depend on the low-level implementations. Both should depend upon abstractions. By using the dependency inversion principle, the architecture will be less coupled.
+  </p>
+
+  <h4>3.5.2. UML</h4>
+
+  <p>
+    Web applications are good examples. Let's assume a controller depends upon a repository directly. It increases the coupling between the controller layer and the repository layer because it is not easy for the controller layer to change the repositories.
+  </p>
+
+  <p>
+    There can be an abstraction layer between two as an interface called IRepository. The controller depends on this interface and so does the repository. It doesn't violate the dependency inversion principle anymore.
+  </p>
+
+  <figure>
+    <img src="img08.jpg" alt="" width="50%">
+    <figcaption></figcaption>
+  </figure>
+
+  <h4>3.5.3. Code</h4>
+
+<pre><code class="language-java">
+public interface IRepository {
+    void create();
+    void read();
+    void update();
+    void delete();
+}
+</code></pre>
+
+<pre><code class="language-java">
+public class Controller {
+    private IRepository iRepository;
+
+    Controller(IRepository iRepository) {
+        this.iRepository = iRepository;
+    }
+
+    public void create() {
+        iRepository.create();
+    }
+
+    public void read() {
+        iRepository.read();
+    }
+
+    public void update() {
+        iRepository.update();
+    }
+
+    public void delete() {
+        iRepository.delete();
+    }
+}
+</code></pre>
+
+<pre><code class="language-java">
+public class Repository implements IRepository {
+    @Override
+    public void create() {
+        System.out.println("Created!");
+    }
+
+    @Override
+    public void read() {
+        System.out.println("Read!");
+    }
+
+    @Override
+    public void update() {
+        System.out.println("Updated!");
+    }
+
+    @Override
+    public void delete() {
+        System.out.println("Deleted!");
+    }
+}
+</code></pre>
+
+<pre><code class="language-java">
+public class Main {
+    public static void main(String args[]) {
+        IRepository iRepository = new Repository();
+
+        Controller controller = new Controller(iRepository);
+
+        controller.create();
+        controller.read();
+        controller.update();
+        controller.delete();
+    }
+}
+</code></pre>
+
+  <h2>4. Uncategorized Principles</h2>
+
+  <h3>4.1. Common Closure Principle</h3>
+
+  <h4>4.1.1. Concept</h4>
+
+  <p>
+    The common closure principle states that the classes in a package should be close together against the same kinds of changes. A change that affects a package can affect all the classes in the same package but no other packages.
+  </p>
+
+  <p>
+    This is similar to the single responsibility principle, but the scope is not a single class but a package level. If there are classes in other packages being affected, maybe those classes should be included in this class. If not all classes in the package are affected by a single change, maybe those classes should be separated into another package.
+  </p>
+
+  <h3>4.2. Delegation Principle</h3>
+
+  <h4>4.2.1. Concept</h4>
+
+  <p>
+    The delegation principle states the classes should delegate responsibilities that are not specialized for the very class. In the real world, people depend upon other people in various ways. 
+  </p>
+
+  <p>
+    A hamburger is made by some components like patties, bread, and vegetables. The person who makes a burger delegates those responsibilities to others. Farmers can make them but they also depend upon others for getting things needed to produce them.
+  </p>
+
+  <p>
+    These chains of delegation represent the entire supply processes with all involved entities or subject in an organized way. The code becomes manageable and extensible.
+  </p>
+
+  <h4>4.2.2. UML</h4>
+
+  <p>
+    See the following example to see how the carmaker can delegate the responsibilities to others with delegation:
+  </p>
+
+  <figure>
+    <img src="img09.jpg" alt="" width="70%">
+    <figcaption></figcaption>
+  </figure>
+
+  <h4>4.2.3. Code</h4>
+
+<pre><code class="language-java">
+public class CarMaker {
+    public static void main(String args[]) {
+        new CarMaker().makeCar();
+    }
+
+    public void makeCar() {
+        new FrameMaker().makeFrame();
+        new EngineMaker().makeEngine();
+        new WheelMaker().makeWheel();
+    }
+}
+</code></pre>
+
+<pre><code class="language-java">
+public class FrameMaker {
+    public void makeFrame() {
+        System.out.println("Frame is being made...");
+    }
+}
+</code></pre>
+
+<pre><code class="language-java">
+public class EngineMaker {
+    public void makeEngine() {
+        System.out.println("Engine is being made...");
+    }
+}
+</code></pre>
+
+<pre><code class="language-java">
+public class WheelMaker {
+    public void makeWheel() {
+        System.out.println("Wheel is being made...");
+    }
+}
+</code></pre>
+  
+  <h3>4.3. Package Principle</h3>
+  <h4>4.3.1. Concept</h4>
+
+  <p>
+    The package principles are a way of organizing classes in larger systems to make them more organized and manageable. They aid in understanding which classes should go into which packages (package cohesion) and how these packages should relate with one another (package coupling). Let's see them in detail.
+  </p>
+
+  <p>
+    Principles of Package Cohesion
+  </p>
+
+  <ul>
+    <li>
+      Reuse-release Equivalence Principle (REP): Packages must be created with reusable classes.
+    </li>
+    <li>
+      Common-Reuse Principle (CRP): Classes that tend to be reused together belong in the same package together.
+    </li>
+    <li>
+      Common-Closure Principle (CCP): The package should not have more than one reason to change. 
+    </li>
+  </ul>
+
+  <p>
+    Principle of Package Coupling
+  </p>
+  
+   <ul>
+    <li>
+      Acyclic Dependencies Principle (ADP): There can be no cycles in the dependency structure.
+    </li>
+    <li>
+      Stable-Dependencies Principle (SDP): Any packages one wants to be volatile should not be depended upon by a package that is difficult to change.
+    </li>
+    <li>
+      Stable-Abstractions Principle (SAP): A stable package should also be abstract so that its stability does not prevent it from being extended.
+    </li>
+  </ul>
+
+  <p>
+    Package principles also include <a target="_blank" href="https://en.wikipedia.org/wiki/Software_package_metrics">Software Package Metrics</a>, which help to quantify the dependency structure, giving different and/or more precise insights into the overall structure of classes and packages.
+  </p>
+
+  <h3>4.4. KISS (Keep It Simple Stupid) Principle</h3>
+  <h4>4.4.1. Concept</h4>
+
+  <p>
+    This might sound very simple, but actually, it's not that easy. The real-world problems are complex, so it needs to be broken down to the simplest, smallest, and understandable pieces before even start designing the architecture. If this stage is omitted, the solution will most likely be complex and violating other OO principles too. There are practical guidelines to follow this principle:
+  </p>
+
+  <ul>
+    <li>
+      Break down the tasks into sub-tasks taking no more than eight hours.
+    </li>
+    <li>
+      Break down the problems into sub-problems solvable with a few classes.
+    </li>
+    <li>
+      Each method should be no more than 20-30 lines of code and solve just one problem.
+    </li>
+    <li>
+      Each class should be following the same principle as the methods.
+    </li>
+    <li>
+      Solve the problem then start coding, don't solve the problem while coding.
+    </li>
+    <li>
+      Don't be afraid of discarding the code you wrote.
+    </li>
+  </ul>
+
+  <h3>4.5. YAGNI (You Aren’t Gonna Need It) Principle</h3>
+
+  <h4>4.5.1. Concept</h4>
+
+  <p>
+    The YAGNI principle states that a programmer should not add functionality until deemed necessary. You should always implement functionalities when you actually need them, never when you just foresee that you need them.
+  </p>
+
+  <p>
+    This principle needs to be performed in the context of Agile development. In the Agile practice, the team should make the simplest thing that could possibly work in that stage. As more requirements are added, the code should be refactored to accommodate newer requirements.
+  </p>
+
+  <h3>4.6. DRY (Don’t Repeat Yourself) Principle</h3>
+
+  <h4>4.6.1. Concept</h4>
+
+  <p>
+    The simplest rule of all. Don't repeat the code, if there are repetitions, it needs to be resolved using other OO principles. By following the guidelines explained in the KISS section, one can achieve the DRY principle as well.
+  </p>
+
+  <h3>4.7. Inversion of Control (IoC) & Dependency Injection (DI)</h3>
+
+  <h4>4.7.1. Concept</h4>
+
+  <p>
+    The inversion of control principle is a technique to decrease coupling and increase reusability by inverting the flow of control in the program.
+  </p>
+
+  <p>
+    Usually, the object that uses another object makes another object in the object; however, in this way, the original object depends on another object and it gets heavy because it has to initialize the dependencies. If the flow can be inverted and the dependency can be injected to this object from a management system, we can decrease coupling and reuse the injected objects repeatedly.
+  </p>
+
+  <h4>4.7.2. UML</h4>
+
+  <p>
+    Originally, the database access object is made to save the Sale class's record. However, the database access object shouldn't have information about the Sale class since the DAO should have only information on the database system. Instead, the Sale class can have a reference of the DAO and the DAO object can be injected when needed. In this way, the DAO can be reused by other objects such as the Customer class or the Product class.
+  </p>
+
+  <p>
+    Furthermore, it is possible to make a Save class to take a record class and a DAO class as references to perform a save operation. By doing this, the database transaction itself can be decoupled from the business model so domain models don't have to know about the database logic anymore.
+  </p>
+
+  <figure>
+    <img src="img10.jpg" alt="" width="50%">
+    <figcaption></figcaption>
+  </figure>
+
+  <h4>4.7.3. Code</h4>
+
+<pre><code class="language-java">
+public class Main {
+    public static void main(String args[]) {
+        DatabaseAccessObject databaseAccessObject = new DatabaseAccessObject();
+
+        Sale sale = new Sale(databaseAccessObject);
+
+        sale.setSaleId(1234);
+        sale.setCustomerName("Judy");
+        sale.setProductName("Car");
+        sale.setAmount(5L);
+        sale.saveAll();
+    }
+}
+</code></pre>
+
+<pre><code class="language-java">
+public class DatabaseAccessObject {
+
+    public DatabaseAccessObject() {
+        System.out.println("Database initialized.");
+    }
+
+    public void saveObject(Object object) {
+        System.out.println("The following object is saved: " + object.toString());
+    }
+
+    public void closeDbConnection() {
+        System.out.println("Database terminated.");
+    }
+}
+</code></pre>
+
+<pre><code class="language-java">
+public class Sale {
+    private DatabaseAccessObject databaseAccessObject;
+    private int saleId;
+    private String customerName;
+    private String productName;
+    private long amount;
+
+    public Sale(DatabaseAccessObject databaseAccessObject) {
+        this.databaseAccessObject = databaseAccessObject;
+    }
+
+    public void saveAll() {
+        databaseAccessObject.saveObject(getSaleId());
+        databaseAccessObject.saveObject(getCustomerName());
+        databaseAccessObject.saveObject(getProductName());
+        databaseAccessObject.saveObject(getAmount());
+    }
+
+    public int getSaleId() {
+        return saleId;
+    }
+
+    public void setSaleId(int saleId) {
+        this.saleId = saleId;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public long getAmount() {
+        return amount;
+    }
+
+    public void setAmount(long amount) {
+        this.amount = amount;
+    }
+}
+</code></pre>
+
+  <h3>4.8. Composition Over Inheritance Principle</h3>
+
+  <h4>4.8.1. Concept</h4>
+
+  <p>
+    This is about how to define the relationships between entities in your program. There are many approaches, but the simplest one is:
+  </p>
+
+  <ul>
+    <li>
+      Think of containment as a has a relationship. A car "has an" engine, a person "has a" name, etc.
+    </li>
+    <li>
+      Think of inheritance as an is a relationship. A car "is a" vehicle, a person "is a" mammal, etc.
+    </li>
+  </ul>
+
+  <p>
+    Another way is to use the Liskov Substitution Principle (LSP) to determine which to use between inheritance and composition.
+  </p>
+
+  <p>
+    Here is the pros and cons of inheritance:
+  </p>
+  
+  <ul>
+    <li>
+      Code re-usability: Whatever code defined in a superclass can be reused by any of its subclasses.
+    </li>
+    <li>
+      Polymorphism: The superclass type variable can hold a reference to an object of superclass type or any of its subclass type.
+    </li>
+    <li>
+      Dynamic Binding: At run time JVM will decide which method to invoke based on class type of the object.
+    </li>
+    <li>
+      Ease of addition of new subclass: Suppose need to add new subclass then it can be added just by inheriting the superclass in the new class. It will affect neither superclass nor its existing subclasses.
+    </li>
+    <li>
+      Extra Baggage: Suppose you want to use only one method of a class but not others, then we have to inherit the class which comes with all other unwanted methods and data members as well.
+    </li>
+    <li>
+      Tightly Coupled: Superclass and subclass are tightly coupled. Changes made to a superclass can break the subclass.
+    </li>
+    <li>
+      Weak Encapsulation: The members are closely related to its superclass, so it is also opened to modification.
+    </li>
+  </ul>
+  
+  <p>
+    Here is the pros and cons of composition:
+  </p>
+
+  <ul>
+    <li>
+      Loosely coupled: Changes in the class doesn't affect any members of the class.
+    </li>
+    <li>
+      Code re-usability: Code re-usability can be achieved the same as Inheritance but need to explicitly call the code which needs to be reused.
+    </li>
+    <li>
+      Strong Encapsulation: All members are closed to change since they don't have relationships to other classes.
+    </li>
+    <li>
+      More Difficult to add a new class: It is easier to add a new class in composition compared to Inheritance as the need to write code explicitly in a new class to reuse the existing ode.
+    </li>
+    <li>
+      Performance Cost: The explicit method call forwarding/delegation approach has a performance cost compared to inheritance single invocation.
+    </li>
+  </ul>
+
+  <h2>0. Conclusion</h2>
+
+  <p>
+    It is all about the perspective on how we see the world, how we perceive the entities, how we recognize relationships between those entities. The object-oriented approach is not the only philosophy we should follow but seems like it is pervasive because it can solve the problems of the 21 century.
+  </p>
+
+  <h2>Appendix A. References</h2>
+
+  <div class="csl-bib-body" style="line-height: 1.35; ">
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[1]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“(2) 075 Dependency Inversion Principle - YouTube.” [Online]. Available: <a href="https://www.youtube.com/watch?v=2mHq-EF50m8">https://www.youtube.com/watch?v=2mHq-EF50m8</a>. [Accessed: 11-Aug-2019].</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=(2)%20075%20Dependency%20Inversion%20Principle%20-%20YouTube&amp;rft.identifier=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D2mHq-EF50m8"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[2]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“(2) CTO Message - The L in Solid (Liskov Substitution Principle) - YouTube.” [Online]. Available: <a href="https://www.youtube.com/watch?v=FKg9O9coKGw">https://www.youtube.com/watch?v=FKg9O9coKGw</a>. [Accessed: 11-Aug-2019].</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=(2)%20CTO%20Message%20-%20The%20L%20in%20Solid%20(Liskov%20Substitution%20Principle)%20-%20YouTube&amp;rft.identifier=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DFKg9O9coKGw"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[3]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“(2) Liskov Substitution Principle | SOLID Principles | Code Like a Pro with Dylan Israel - YouTube.” [Online]. Available: <a href="https://www.youtube.com/watch?v=Jecou7B3nhc">https://www.youtube.com/watch?v=Jecou7B3nhc</a>. [Accessed: 11-Aug-2019].</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=(2)%20Liskov%20Substitution%20Principle%20%7C%20SOLID%20Principles%20%7C%20Code%20Like%20a%20Pro%20with%20Dylan%20Israel%20-%20YouTube&amp;rft.identifier=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DJecou7B3nhc"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[4]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“(2) OOP Design Principles: Dependency Inversion Principle - YouTube.” [Online]. Available: <a href="https://www.youtube.com/watch?v=qL2-5g_lJTs">https://www.youtube.com/watch?v=qL2-5g_lJTs</a>. [Accessed: 11-Aug-2019].</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=(2)%20OOP%20Design%20Principles%3A%20Dependency%20Inversion%20Principle%20-%20YouTube&amp;rft.identifier=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DqL2-5g_lJTs"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[5]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Abstraction (computer science),” <i>Wikipedia</i>. 03-Jun-2019.</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=encyclopediaArticle&amp;rft.title=Abstraction%20(computer%20science)&amp;rft.rights=Creative%20Commons%20Attribution-ShareAlike%20License&amp;rft.description=In%20software%20engineering%20and%20computer%20science%2C%20abstraction%20is%3A%0A%0Athe%20process%20of%20removing%20physical%2C%20spatial%2C%20or%20temporal%20details%20or%20attributes%20in%20the%20study%20of%20objects%20or%20systems%20in%20order%20to%20focus%20attention%20on%20details%20of%20higher%20importance%2C%20it%20is%20also%20very%20similar%20in%20nature%20to%20the%20process%20of%20generalization%3B%0Athe%20creation%20of%20abstract%20concept-objects%20which%20are%20created%20by%20mirroring%20common%20features%20or%20attributes%20from%20various%20non-abstract%20objects%20or%20systems%20of%20study%20%E2%80%94%20the%20result%20of%20the%20process%20of%20abstraction.Abstraction%2C%20in%20general%2C%20is%20a%20fundamental%20concept%20to%20computer%20science%20and%20software%20development.%20The%20process%20of%20abstraction%20can%20also%20be%20referred%20to%20as%20modeling%20and%20is%20closely%20related%20to%20the%20concepts%20of%20theory%20and%20design.%20Models%20can%20also%20be%20considered%20types%20of%20abstractions%20per%20their%20generalization%20of%20aspects%20of%20reality.%0AAbstraction%20in%20computer%20science%20is%20also%20closely%20related%20to%20abstraction%20in%20mathematics%20due%20to%20their%20common%20focus%20on%20building%20abstractions%20as%20objects%2C%20but%20is%20also%20related%20to%20other%20notions%20of%20abstraction%20used%20in%20other%20fields%20such%20as%20art.Abstractions%20may%20also%20refer%20to%20real-world%20objects%20and%20systems%2C%20rules%20of%20computational%20systems%20or%20rules%20of%20programming%20languages%20that%20carry%20or%20utilize%20features%20of%20abstraction%20itself%2C%20such%20as%3A%0A%0Athe%20usage%20data%20types%20to%20perform%20data%20abstraction%20to%20separate%20usage%20from%20working%20representations%20of%20data%20structures%20within%20programs%3B%0Athe%20concept%20of%20procedures%2C%20functions%2C%20or%20subroutines%20which%20represent%20a%20specific%20of%20implementing%20control%20flow%20in%20programs%3B%0Athe%20rules%20commonly%20named%20%22abstraction%22%20that%20generalize%20expressions%20using%20free%20and%20bound%20variables%20in%20the%20various%20versions%20of%20lambda%20calculus%3B%0Athe%20usage%20of%20S-expressions%20as%20an%20abstraction%20of%20data%20structures%20and%20programs%20in%20the%20Lisp%20programming%20language%3B%0Athe%20process%20of%20reorganizing%20common%20behavior%20from%20non-abstract%20classes%20into%20%22abstract%20classes%22%20using%20inheritance%20to%20abstract%20over%20sub-classes%20as%20seen%20in%20the%20object-oriented%20C%2B%2B%20and%20Java%20programming%20languages.&amp;rft.identifier=https%3A%2F%2Fen.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DAbstraction_(computer_science)%26oldid%3D900092028&amp;rft.date=2019-06-03&amp;rft.language=en"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[6]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Composition over inheritance,” <i>Wikipedia</i>. 09-Aug-2019.</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=encyclopediaArticle&amp;rft.title=Composition%20over%20inheritance&amp;rft.rights=Creative%20Commons%20Attribution-ShareAlike%20License&amp;rft.description=Composition%20over%20inheritance%20(or%20composite%20reuse%20principle)%20in%20object-oriented%20programming%20(OOP)%20is%20the%20principle%20that%20classes%20should%20achieve%20polymorphic%20behavior%20and%20code%20reuse%20by%20their%20composition%20(by%20containing%20instances%20of%20other%20classes%20that%20implement%20the%20desired%20functionality)%20rather%20than%20inheritance%20from%20a%20base%20or%20parent%20class.%20This%20is%20an%20often-stated%20principle%20of%20OOP%2C%20such%20as%20in%20the%20influential%20book%20Design%20Patterns.&amp;rft.identifier=https%3A%2F%2Fen.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DComposition_over_inheritance%26oldid%3D910024703&amp;rft.date=2019-08-09&amp;rft.language=en"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[7]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">G. link, Facebook, Twitter, Pinterest, Email, and O. Apps, “Controller GRASP Pattern.” .</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=blogPost&amp;rft.title=Controller%20GRASP%20Pattern&amp;rft.description=A%20blog%20about%20design%20patterns%20in%20Java%2FJ2EE.%20Design%20Pattern%20is%20a%20general%20repeatable%20solution%20to%20a%20commonly%20occurring%20problem%20in%20software%20design&amp;rft.identifier=https%3A%2F%2Fwww.sourcecodeexamples.net%2F2018%2F06%2Fcontroller-grasp-pattern.html&amp;rft.aufirst=Get&amp;rft.aulast=link&amp;rft.au=Get%20link&amp;rft.au=Facebook&amp;rft.au=Twitter&amp;rft.au=Pinterest&amp;rft.au=Email&amp;rft.au=Other%20Apps"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[8]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Core Design Principles for Software Developers by Venkat Subramaniam - YouTube.” [Online]. Available: <a href="https://www.youtube.com/watch?v=llGgO74uXMI">https://www.youtube.com/watch?v=llGgO74uXMI</a>. [Accessed: 04-Aug-2019].</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Core%20Design%20Principles%20for%20Software%20Developers%20by%20Venkat%20Subramaniam%20-%20YouTube&amp;rft.identifier=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DllGgO74uXMI"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[9]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Dependency inversion principle,” <i>Wikipedia</i>. 26-Jul-2019.</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=encyclopediaArticle&amp;rft.title=Dependency%20inversion%20principle&amp;rft.rights=Creative%20Commons%20Attribution-ShareAlike%20License&amp;rft.description=In%20object-oriented%20design%2C%20the%20dependency%20inversion%20principle%20is%20a%20specific%20form%20of%20decoupling%20software%20modules.%20When%20following%20this%20principle%2C%20the%20conventional%20dependency%20relationships%20established%20from%20high-level%2C%20policy-setting%20modules%20to%20low-level%2C%20dependency%20modules%20are%20reversed%2C%20thus%20rendering%20high-level%20modules%20independent%20of%20the%20low-level%20module%20implementation%20details.%20The%20principle%20states%3A%0A%0ABy%20dictating%20that%20both%20high-level%20and%20low-level%20objects%20must%20depend%20on%20the%20same%20abstraction%2C%20this%20design%20principle%20inverts%20the%20way%20some%20people%20may%20think%20about%20object-oriented%20programming.The%20idea%20behind%20points%20A%20and%20B%20of%20this%20principle%20is%20that%20when%20designing%20the%20interaction%20between%20a%20high-level%20module%20and%20a%20low-level%20one%2C%20the%20interaction%20should%20be%20thought%20of%20as%20an%20abstract%20interaction%20between%20them.%20This%20not%20only%20has%20implications%20on%20the%20design%20of%20the%20high-level%20module%2C%20but%20also%20on%20the%20low-level%20one%3A%20the%20low-level%20one%20should%20be%20designed%20with%20the%20interaction%20in%20mind%20and%20it%20may%20be%20necessary%20to%20change%20its%20usage%20interface.%0AIn%20many%20cases%2C%20thinking%20about%20the%20interaction%20in%20itself%20as%20an%20abstract%20concept%20allows%20the%20coupling%20of%20the%20components%20to%20be%20reduced%20without%20introducing%20additional%20coding%20patterns%2C%20allowing%20only%20a%20lighter%20and%20less%20implementation%20dependent%20interaction%20schema.%0AWhen%20the%20discovered%20abstract%20interaction%20schema(s)%20between%20two%20modules%20is%2Fare%20generic%20and%20generalization%20makes%20sense%2C%20this%20design%20principle%20also%20leads%20to%20the%20following%20dependency%20inversion%20coding%20pattern.&amp;rft.identifier=https%3A%2F%2Fen.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DDependency_inversion_principle%26oldid%3D907913934&amp;rft.date=2019-07-26&amp;rft.language=en"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[10]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Design Principles | Object Oriented Design.” [Online]. Available: <a href="https://www.oodesign.com/design-principles.html">https://www.oodesign.com/design-principles.html</a>. [Accessed: 24-Jun-2019].</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Design%20Principles%20%7C%20Object%20Oriented%20Design&amp;rft.identifier=https%3A%2F%2Fwww.oodesign.com%2Fdesign-principles.html"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[11]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“GRASP - General Responsibility Assignment Software Patterns Explained,” <i>Kamil Grzybek</i>, 08-Apr-2019. .</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=blogPost&amp;rft.title=GRASP%20-%20General%20Responsibility%20Assignment%20Software%20Patterns%20Explained&amp;rft.description=GRASP.%20Explanation%20of%20fundamental%20Object-Oriented%20Design%20General%20Responsibility%20Assignment%20Software%20Patterns%20(or%20Principles).&amp;rft.identifier=http%3A%2F%2Fwww.kamilgrzybek.com%2Fdesign%2Fgrasp-explained%2F&amp;rft.date=2019-04-08&amp;rft.language=en-US"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[12]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“GRASP (object-oriented design),” <i>Wikipedia</i>. 09-May-2019.</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=encyclopediaArticle&amp;rft.title=GRASP%20(object-oriented%20design)&amp;rft.rights=Creative%20Commons%20Attribution-ShareAlike%20License&amp;rft.description=General%20Responsibility%20Assignment%20Software%20Patterns%20(or%20Principles)%2C%20abbreviated%20GRASP%2C%20consist%20of%20guidelines%20for%20assigning%20responsibility%20to%20classes%20and%20objects%20in%20object-oriented%20design.%20It%20is%20not%20related%20to%20the%20SOLID%20design%20principle.%0AThe%20different%20patterns%20and%20principles%20used%20in%20GRASP%20are%20controller%2C%20creator%2C%20indirection%2C%20information%20expert%2C%20high%20cohesion%2C%20low%20coupling%2C%20polymorphism%2C%20protected%20variations%2C%20and%20pure%20fabrication.%20All%20these%20patterns%20answer%20some%20software%20problems%2C%20and%20these%20problems%20are%20common%20to%20almost%20every%20software%20development%20project.%20These%20techniques%20have%20not%20been%20invented%20to%20create%20new%20ways%20of%20working%2C%20but%20to%20better%20document%20and%20standardize%20old%2C%20tried-and-tested%20programming%20principles%20in%20object-oriented%20design.%20%0AComputer%20scientist%20Craig%20Larman%20states%20that%20%22the%20critical%20design%20tool%20for%20software%20development%20is%20a%20mind%20well%20educated%20in%20design%20principles.%20It%20is%20not%20UML%20or%20any%20other%20technology.%22%20Thus%2C%20GRASP%20are%20really%20a%20mental%20toolset%2C%20a%20learning%20aid%20to%20help%20in%20the%20design%20of%20object-oriented%20software.&amp;rft.identifier=https%3A%2F%2Fen.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DGRASP_(object-oriented_design)%26oldid%3D896262970&amp;rft.date=2019-05-09&amp;rft.language=en"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[13]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">D. Capka, “GRASP design patterns.” [Online]. Available: <a href="https://www.ict.social/grasp-design-patterns">https://www.ict.social/grasp-design-patterns</a>. [Accessed: 27-Jun-2019].</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=GRASP%20design%20patterns&amp;rft.description=A%20complex%20tutorial%20about%20GRASP%20responsibility%20patterns%3A%20Controller%2C%20Creator%2C%20High%20cohesion%2C%20Indirection%2C%20Expert%2C%20Low%20coupling%2C%20Protected%20variations...&amp;rft.identifier=https%3A%2F%2Fwww.ict.social%2Fgrasp-design-patterns&amp;rft.aufirst=David&amp;rft.aulast=Capka&amp;rft.au=David%20Capka&amp;rft.language=en"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[14]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Hollywood Principle – Don’t Call Us, We’ll Call You!” [Online]. Available: <a href="http://matthewtmead.com/blog/hollywood-principle-dont-call-us-well-call-you-4/">http://matthewtmead.com/blog/hollywood-principle-dont-call-us-well-call-you-4/</a>. [Accessed: 11-Aug-2019].</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Hollywood%20Principle%20%E2%80%93%20Don%E2%80%99t%20Call%20Us%2C%20We%E2%80%99ll%20Call%20You!&amp;rft.identifier=http%3A%2F%2Fmatthewtmead.com%2Fblog%2Fhollywood-principle-dont-call-us-well-call-you-4%2F"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[15]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“How to explain object-oriented programming concepts to a 6-year-old,” <i>freeCodeCamp.org News</i>, 27-Jun-2018. [Online]. Available: <a href="https://www.freecodecamp.org/news/how-to-explain-object-oriented-programming-concepts-to-a-6-year-old-21bb035f7260/">https://www.freecodecamp.org/news/how-to-explain-object-oriented-programming-concepts-to-a-6-year-old-21bb035f7260/</a>. [Accessed: 24-Jun-2019].</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=How%20to%20explain%20object-oriented%20programming%20concepts%20to%20a%206-year-old&amp;rft.description=by%20Alexander%20Petkov%0A%0AHow%20to%20explain%20object-oriented%20programming%20concepts%20to%20a%206-year-old%0AHave%20you%20noticed%20how%20the%20same%20cliche%20questions%20always%20get%20asked%20at%20job%0Ainterviews%20%E2%80%94%20over%20and%20over%20again%3F%0A%0AI%E2%80%99m%20sure%20you%20know%20what%20I%20mean.%0A%0AFor%20example%3A%0A%0A%3E%20Where%20do%20you%20see%20yourself%20in%20five%20years%3F%0Aor%2C%20even%20worse%3A%0A%0A%3E%20What%20do%20you%20consider%20to%20be%20your%20greatest%20weakness%3F%0AUgh%E2%80%A6give%20me%20a%20break.%20I%20consider%20answering%20this%20question%20a%20great%20weakness!%0AAnyway%2C%20not%20my%20point.%0A%0AAs%20trivial%20as%20questions%20like%20these%20may%20be%2C%20they%20a&amp;rft.identifier=https%3A%2F%2Fwww.freecodecamp.org%2Fnews%2Fhow-to-explain-object-oriented-programming-concepts-to-a-6-year-old-21bb035f7260%2F&amp;rft.date=2018-06-27&amp;rft.language=en"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[16]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Inheritance Vs Composition,” <i>TechJini</i>, 23-Dec-2016. .</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=blogPost&amp;rft.title=Inheritance%20Vs%20Composition&amp;rft.description=Inheritance%20Vs%20Composition%20This%20article%20defines%20and%20compares%20Inheritance%20and%20Composition%20and%20also%20provide%20guidance%20on%20usage.&amp;rft.identifier=https%3A%2F%2Fwww.techjini.com%2Fblog%2Finheritance-vs-composition%2F&amp;rft.date=2016-12-23"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[17]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Inversion of control,” <i>Wikipedia</i>. 08-May-2019.</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=encyclopediaArticle&amp;rft.title=Inversion%20of%20control&amp;rft.rights=Creative%20Commons%20Attribution-ShareAlike%20License&amp;rft.description=In%20software%20engineering%2C%20inversion%20of%20control%20(IoC)%20is%20a%20programming%20principle.%20IoC%20inverts%20the%20flow%20of%20control%20as%20compared%20to%20traditional%20control%20flow.%20In%20IoC%2C%20custom-written%20portions%20of%20a%20computer%20program%20receive%20the%20flow%20of%20control%20from%20a%20generic%20framework.%20A%20software%20architecture%20with%20this%20design%20inverts%20control%20as%20compared%20to%20traditional%20procedural%20programming%3A%20in%20traditional%20programming%2C%20the%20custom%20code%20that%20expresses%20the%20purpose%20of%20the%20program%20calls%20into%20reusable%20libraries%20to%20take%20care%20of%20generic%20tasks%2C%20but%20with%20inversion%20of%20control%2C%20it%20is%20the%20framework%20that%20calls%20into%20the%20custom%2C%20or%20task-specific%2C%20code.%0AInversion%20of%20control%20is%20used%20to%20increase%20modularity%20of%20the%20program%20and%20make%20it%20extensible%2C%20and%20has%20applications%20in%20object-oriented%20programming%20and%20other%20programming%20paradigms.%20The%20term%20was%20used%20by%20Michael%20Mattsson%20in%20a%20thesis%2C%20taken%20from%20there%20by%20Stefano%20Mazzocchi%20and%20popularized%20by%20him%20in%201999%20in%20a%20defunct%20Apache%20Software%20Foundation%20project%2C%20Avalon%2C%20then%20further%20popularized%20in%202004%20by%20Robert%20C.%20Martin%20and%20Martin%20Fowler.%0AThe%20term%20is%20related%20to%2C%20but%20different%20from%2C%20the%20dependency%20inversion%20principle%2C%20which%20concerns%20itself%20with%20decoupling%20dependencies%20between%20high-level%20and%20low-level%20%20layers%20through%20shared%20abstractions.%20The%20general%20concept%20is%20also%20related%20to%20event-driven%20programming%20in%20that%20it%20is%20often%20implemented%20using%20IoC%2C%20so%20that%20the%20custom%20code%20is%20commonly%20only%20concerned%20with%20the%20handling%20of%20events%2C%20whereas%20the%20event%20loop%20and%20dispatch%20of%20events%2Fmessages%20is%20handled%20by%20the%20framework%20or%20the%20runtime%20environment.&amp;rft.identifier=https%3A%2F%2Fen.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DInversion_of_control%26oldid%3D896049549&amp;rft.date=2019-05-08&amp;rft.language=en"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[18]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“language agnostic - Prefer composition over inheritance?,” <i>Stack Overflow</i>. [Online]. Available: <a href="https://stackoverflow.com/questions/49002/prefer-composition-over-inheritance">https://stackoverflow.com/questions/49002/prefer-composition-over-inheritance</a>. [Accessed: 12-Aug-2019].</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=language%20agnostic%20-%20Prefer%20composition%20over%20inheritance%3F&amp;rft.identifier=https%3A%2F%2Fstackoverflow.com%2Fquestions%2F49002%2Fprefer-composition-over-inheritance"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[19]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“object oriented - Is the KISS principle more important than utilizing OOP to solve a problem?,” <i>Software Engineering Stack Exchange</i>. [Online]. Available: <a href="https://softwareengineering.stackexchange.com/questions/257218/is-the-kiss-principle-more-important-than-utilizing-oop-to-solve-a-problem">https://softwareengineering.stackexchange.com/questions/257218/is-the-kiss-principle-more-important-than-utilizing-oop-to-solve-a-problem</a>. [Accessed: 11-Aug-2019].</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=object%20oriented%20-%20Is%20the%20KISS%20principle%20more%20important%20than%20utilizing%20OOP%20to%20solve%20a%20problem%3F&amp;rft.identifier=https%3A%2F%2Fsoftwareengineering.stackexchange.com%2Fquestions%2F257218%2Fis-the-kiss-principle-more-important-than-utilizing-oop-to-solve-a-problem"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[20]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">H. Özel, “Object Oriented Design Principles - Halil Özel,” <i>Medium</i>, 10-Feb-2019. [Online]. Available: <a href="https://medium.com/@halilozel1903/object-oriented-design-principles-9fbbb4f0f4da">https://medium.com/@halilozel1903/object-oriented-design-principles-9fbbb4f0f4da</a>. [Accessed: 24-Jun-2019].</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Object%20Oriented%20Design%20Principles%20-%20Halil%20%C3%96zel&amp;rft.description=Hello%20Friends%2C&amp;rft.identifier=https%3A%2F%2Fmedium.com%2F%40halilozel1903%2Fobject-oriented-design-principles-9fbbb4f0f4da&amp;rft.aufirst=Halil&amp;rft.aulast=%C3%96zel&amp;rft.au=Halil%20%C3%96zel&amp;rft.date=2019-02-10&amp;rft.language=en"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[21]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“OOP Concept for Beginners: What is Abstraction?,” <i>Stackify</i>, 23-Nov-2017. [Online]. Available: <a href="https://stackify.com/oop-concept-abstraction/">https://stackify.com/oop-concept-abstraction/</a>. [Accessed: 26-Jun-2019].</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=OOP%20Concept%20for%20Beginners%3A%20What%20is%20Abstraction%3F&amp;rft.description=Abstraction%20is%20one%20of%20the%20key%20concepts%20of%20object-oriented%20programming%20(OOP)%20languages.%20Read%20examples%20to%20better%20handle%20complexity.&amp;rft.identifier=https%3A%2F%2Fstackify.com%2Foop-concept-abstraction%2F&amp;rft.date=2017-11-23&amp;rft.language=en-US"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[22]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Package principles,” <i>Wikipedia</i>. 25-Feb-2019.</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=encyclopediaArticle&amp;rft.title=Package%20principles&amp;rft.rights=Creative%20Commons%20Attribution-ShareAlike%20License&amp;rft.description=In%20computer%20programming%2C%20package%20principles%20are%20a%20way%20of%20organizing%20classes%20in%20larger%20systems%20to%20make%20them%20more%20organized%20and%20manageable.%20They%20aid%20in%20understanding%20which%20classes%20should%20go%20into%20which%20packages%20(package%20cohesion)%20and%20how%20these%20packages%20should%20relate%20with%20one%20another%20(package%20coupling).%20%20Package%20principles%20also%20includes%20software%20package%20metrics%2C%20which%20help%20to%20quantify%20the%20dependency%20structure%2C%20giving%20different%20and%2For%20more%20precise%20insights%20into%20the%20overall%20structure%20of%20classes%20and%20packages.&amp;rft.identifier=https%3A%2F%2Fen.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DPackage_principles%26oldid%3D884992908&amp;rft.date=2019-02-25&amp;rft.language=en"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[23]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Presentation Patterns : MVC, MVP, PM, MVVM,” <i>Manoj Jaggavarapu</i>, 02-May-2012. .</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=blogPost&amp;rft.title=Presentation%20Patterns%20%3A%20MVC%2C%20MVP%2C%20PM%2C%20MVVM&amp;rft.description=In%20this%20blog%20post%2C%20I%20will%20explain%20different%20presentation%20patterns%2C%20why%20do%20we%20need%20these%20patterns%20and%20how%20to%20use%20them.%20Why%20do%20we%20need%20these%20patterns%20%3F%C2%A0%C2%A0%20Why%20do%20we%20need%20these%20patterns%20in%20%C2%A0the%20first%20p%E2%80%A6&amp;rft.identifier=https%3A%2F%2Fmanojjaggavarapu.wordpress.com%2F2012%2F05%2F02%2Fpresentation-patterns-mvc-mvp-pm-mvvm%2F&amp;rft.date=2012-05-02&amp;rft.language=en"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[24]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Principles of Object-Oriented Design.” [Online]. Available: <a href="http://www.cs.utsa.edu/~cs3443/notes/designPrinciples/designPrinciples.html">http://www.cs.utsa.edu/~cs3443/notes/designPrinciples/designPrinciples.html</a>. [Accessed: 24-Jun-2019].</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Principles%20of%20Object-Oriented%20Design&amp;rft.identifier=http%3A%2F%2Fwww.cs.utsa.edu%2F~cs3443%2Fnotes%2FdesignPrinciples%2FdesignPrinciples.html"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[25]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">S. Oloruntoba, “S.O.L.I.D: The First 5 Principles of Object Oriented Design,” <i>Scotch</i>. [Online]. Available: <a href="http://scotch.io/bar-talk/s-o-l-i-d-the-first-five-principles-of-object-oriented-design">http://scotch.io/bar-talk/s-o-l-i-d-the-first-five-principles-of-object-oriented-design</a>. [Accessed: 24-Jun-2019].</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=S.O.L.I.D%3A%20The%20First%205%20Principles%20of%20Object%20Oriented%20Design&amp;rft.description=S.O.L.I.D%20is%20an%20acronym%20for%20the%20first%20five%20object-oriented%20design(OOD)%20principles%20by%20Robert%20C.%20Martin%2C%20popularly%20known%20as%20Uncle%20Bob.%20These%20principles%2C%20when%20com&amp;rft.identifier=http%3A%2F%2Fscotch.io%2Fbar-talk%2Fs-o-l-i-d-the-first-five-principles-of-object-oriented-design&amp;rft.aufirst=Samuel&amp;rft.aulast=Oloruntoba&amp;rft.au=Samuel%20Oloruntoba&amp;rft.language=en"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[26]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Single Responsibility Principle | Object Oriented Design.” [Online]. Available: <a href="https://www.oodesign.com/single-responsibility-principle.html">https://www.oodesign.com/single-responsibility-principle.html</a>. [Accessed: 24-Jun-2019].</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Single%20Responsibility%20Principle%20%7C%20Object%20Oriented%20Design&amp;rft.identifier=https%3A%2F%2Fwww.oodesign.com%2Fsingle-responsibility-principle.html"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[27]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Software Design Principles DRY and KISS - DZone Java,” <i>dzone.com</i>. [Online]. Available: <a href="https://dzone.com/articles/software-design-principles-dry-and-kiss">https://dzone.com/articles/software-design-principles-dry-and-kiss</a>. [Accessed: 11-Aug-2019].</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Software%20Design%20Principles%20DRY%20and%20KISS%20-%20DZone%20Java&amp;rft.description=Explore%20two%20important%20software%20design%20principles%3A%20Don't%20Repeat%20Yourself%20(DRY)%20and%20Keep%20It%20Simple%2C%20Stupid%20(KISS).%20Check%20out%20their%20benefits%20and%20advice%20for%20use.&amp;rft.identifier=https%3A%2F%2Fdzone.com%2Farticles%2Fsoftware-design-principles-dry-and-kiss&amp;rft.language=en"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[28]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Software Design Principles For Beginners - YouTube.” [Online]. Available: <a href="https://www.youtube.com/watch?v=60EqoRcanpo">https://www.youtube.com/watch?v=60EqoRcanpo</a>. [Accessed: 04-Aug-2019].</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Software%20Design%20Principles%20For%20Beginners%20-%20YouTube&amp;rft.identifier=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D60EqoRcanpo"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[29]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“SOLID,” <i>Wikipedia</i>. 29-May-2019.</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=encyclopediaArticle&amp;rft.title=SOLID&amp;rft.rights=Creative%20Commons%20Attribution-ShareAlike%20License&amp;rft.description=In%20object-oriented%20computer%20programming%2C%20SOLID%20is%20a%20mnemonic%20acronym%20for%20five%20design%20principles%20intended%20to%20make%20software%20designs%20more%20understandable%2C%20flexible%20and%20maintainable.%20It%20is%20not%20related%20to%20the%20GRASP%20software%20design%20principles.%20The%20principles%20are%20a%20subset%20of%20many%20principles%20promoted%20by%20American%20software%20engineer%20and%20instructor%20Robert%20C.%20Martin.%20Though%20they%20apply%20to%20any%20object-oriented%20design%2C%20the%20SOLID%20principles%20can%20also%20form%20a%20core%20philosophy%20for%20methodologies%20such%20as%20agile%20development%20or%20adaptive%20software%20development.%20The%20theory%20of%20SOLID%20principles%20was%20introduced%20by%20Martin%20in%20his%202000%20paper%20Design%20Principles%20and%20Design%20Patterns%2C%20although%20the%20SOLID%20acronym%20was%20introduced%20later%20by%20Michael%20Feathers.&amp;rft.identifier=https%3A%2F%2Fen.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DSOLID%26oldid%3D899311582&amp;rft.date=2019-05-29&amp;rft.language=en"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[30]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">admin, “SOLID | DevIQ.” .</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=blogPost&amp;rft.title=SOLID%20%7C%20DevIQ&amp;rft.description=The%20SOLID%20principles%20of%20Object%20Oriented%20Design%20include%20these%20five%20principles%3A%20SRP%20-%20Single%20Responsibility%20Principle%20OCP%20-%20Open%2FClosed%20Principle%20LSP%20-&amp;rft.identifier=https%3A%2F%2Fdeviq.com%2Fsolid%2F&amp;rft.au=undefined&amp;rft.language=en-US"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[31]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">A. P. Barber, “SOLID Principles - Five Principles of Object-Oriented Programming and Design,” <i>Alan P. Barber</i>, 06-Aug-2015. [Online]. Available: <a href="https://alanbarber.com/post/solid-principles-five-principles-of-objectoriented-programming-and-design/">https://alanbarber.com/post/solid-principles-five-principles-of-objectoriented-programming-and-design/</a>. [Accessed: 24-Jun-2019].</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=SOLID%20Principles%20-%20Five%20Principles%20of%20Object-Oriented%20Programming%20and%20Design&amp;rft.description=This%20is%20the%20first%20of%20what%20will%20be%20a%20series%20of%20posts%20on%20each%20of%20The%20SOLID%20Principles.%0ABefore%20we%20go%20into%20details%20lets%20look%20at%20an%20overview%20of%20the%20principles.%0AEvery%20software%20developer%20should%20be%20aware%20of%20the%20acronym%20%E2%80%9CSOLID%E2%80%9D%20and%20what%20it%20stands%20for.%20If%20you%20have%20not%20then%20you%20really%20should%20read%20this%20blog%20to%20learn%20it.%20Even%20if%20you%20do%2C%20there%E2%80%99s%20a%20good%20chance%20your%20understanding%20might%20be%20a%20bit%20fuzzy%20and%20a%20refresher%20on%20it%20never%20hurt%20anyone.&amp;rft.identifier=https%3A%2F%2Falanbarber.com%2Fpost%2Fsolid-principles-five-principles-of-objectoriented-programming-and-design%2F&amp;rft.aufirst=Alan%20P.&amp;rft.aulast=Barber&amp;rft.au=Alan%20P.%20Barber&amp;rft.date=2015-08-06&amp;rft.language=en-us"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[32]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“SOLID, GRASP, and Other Basic Principles of Object-Oriented Design - DZone Web Dev,” <i>dzone.com</i>. [Online]. Available: <a href="https://dzone.com/articles/solid-grasp-and-other-basic-principles-of-object-o">https://dzone.com/articles/solid-grasp-and-other-basic-principles-of-object-o</a>. [Accessed: 27-Jun-2019].</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=SOLID%2C%20GRASP%2C%20and%20Other%20Basic%20Principles%20of%20Object-Oriented%20Design%20-%20DZone%20Web%20Dev&amp;rft.description=A%20developer%20discusses%20the%20principles%20of%20object-oriented%20design%2C%20such%20as%20SOLID%20and%20GRASP%20and%20how%20to%20achieve%20maintainability%2C%20extensibility%2C%20and%20modularity.&amp;rft.identifier=https%3A%2F%2Fdzone.com%2Farticles%2Fsolid-grasp-and-other-basic-principles-of-object-o&amp;rft.language=en"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[33]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">Byron, “The Common Closure Principle,” 06-Mar-2015. .</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=blogPost&amp;rft.title=The%20Common%20Closure%20Principle&amp;rft.description=When%20creating%20packages%20for%20classes%2C%20there%20are%20some%20guidelines%20that%20the%20book%20Software%20Principles%20and%20Patterns%20points%20out%20that%20can%20help%20keep%20your%20project%20structure.%20One%20of%20the%20principles%20that%20stood%20o%E2%80%A6&amp;rft.identifier=https%3A%2F%2Fbyrontech.wordpress.com%2F2015%2F03%2F06%2Fthe-common-closure-principle%2F&amp;rft.au=undefined&amp;rft.date=2015-03-06&amp;rft.language=en"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[34]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“The Dependency Inversion Principle | SOLID Principles | Code Like a Pro with Dylan Israel - YouTube.” [Online]. Available: <a href="https://www.youtube.com/watch?v=RS6XHQp_5F8">https://www.youtube.com/watch?v=RS6XHQp_5F8</a>. [Accessed: 11-Aug-2019].</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=The%20Dependency%20Inversion%20Principle%20%7C%20SOLID%20Principles%20%7C%20Code%20Like%20a%20Pro%20with%20Dylan%20Israel%20-%20YouTube&amp;rft.identifier=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DRS6XHQp_5F8"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[35]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">F. Despoudis, “Understanding SOLID Principles: Single Responsibility,” <i>codeburst</i>, 22-Aug-2017. [Online]. Available: <a href="https://codeburst.io/understanding-solid-principles-single-responsibility-b7c7ec0bf80">https://codeburst.io/understanding-solid-principles-single-responsibility-b7c7ec0bf80</a>. [Accessed: 24-Jun-2019].</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Understanding%20SOLID%20Principles%3A%20Single%20Responsibility&amp;rft.description=This%20is%20the%202nd%20part%20of%20the%20series%20of%20understanding%20SOLID%20Principles%20where%20we%20explore%20what%20is%20Single%20Responsibility%20and%20why%20it%20helps%20with%E2%80%A6&amp;rft.identifier=https%3A%2F%2Fcodeburst.io%2Funderstanding-solid-principles-single-responsibility-b7c7ec0bf80&amp;rft.aufirst=Fanis&amp;rft.aulast=Despoudis&amp;rft.au=Fanis%20Despoudis&amp;rft.date=2017-08-22"></span>
+      <div class="csl-entry" style="clear: left; ">
+        <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[36]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">R. Koopmans, “Understanding the GRASP Design Patterns - Regan Koopmans,” <i>Medium</i>, 28-Sep-2017. [Online]. Available: <a href="https://medium.com/@ReganKoopmans/understanding-the-grasp-design-patterns-2cab23c7226e">https://medium.com/@ReganKoopmans/understanding-the-grasp-design-patterns-2cab23c7226e</a>. [Accessed: 27-Jun-2019].</div>
+      </div>
+      <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Understanding%20the%20GRASP%20Design%20Patterns%20-%20Regan%20Koopmans&amp;rft.description=Design%20Patterns%20are%20incredibly%20important%20tools%20for%20software%20developers.%20Above%20solving%20common%20problems%2C%20they%20give%20people%20a%20standard%E2%80%A6&amp;rft.identifier=https%3A%2F%2Fmedium.com%2F%40ReganKoopmans%2Funderstanding-the-grasp-design-patterns-2cab23c7226e&amp;rft.aufirst=Regan&amp;rft.aulast=Koopmans&amp;rft.au=Regan%20Koopmans&amp;rft.date=2017-09-28&amp;rft.language=en"></span>
+    </div>
+
+</body>
+</html>

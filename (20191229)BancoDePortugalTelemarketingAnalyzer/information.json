@@ -1,0 +1,5 @@
+{
+  "title": "Banco De Portugal Telemarketing Analyzer",
+  "subtitle": "A Full-Stack Machine learning Suite for Querying, Processing, and Training Models",
+  "description": "A full-stack data analysis application to predict future responses of respondents for the bank's telemarketing by using React, Material UI, Python, Flask, Pandas, and Scikit."
+}

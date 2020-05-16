@@ -1,0 +1,5 @@
+{
+  "title": "Auto Insurance Claim Prediction",
+  "subtitle": "A Research Project for Fair Premium Pricing",
+  "description": "A custom data analysis framework to predict the future claim amount based on customer’s attributes and past behaviors by using R, Python, Tensorflow, Pandas, Scikit, and XGBoost."
+}

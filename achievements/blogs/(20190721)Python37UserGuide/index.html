@@ -1,0 +1,2029 @@
+<html>
+<head>
+
+</head>
+<body>
+
+  <div style="text-align: center;">
+    <h1><b>Python 3.7 User Guide</b></h1>
+    <p>
+      Reinterpret and reorganize the official Python documentation for constructing a complete language usage model.
+    </p>
+    <p>2019/07/21</p>
+  </div>
+
+  <h2>0. Introduction</h2>
+
+  <p>
+    It has been a while I have been Python for various purposes. As my programming skills have been improved, I became wanting to use advanced features of the language to maximize the engineering potential for projects. I tried to learn by reading and watching tutorials and guides online; however, I realized that most of them just see very small sides of the language.
+  </p>
+
+  <p>
+    What I want to have is a sound and complete mental model to be able to use the maximum spectrum of the language to fully utilize all the features. Fortunately, the official Python documentation is the place all the information exists. But the problem is it has too deep structures and doesn't prioritize by the experience levels.
+  </p>
+
+  <p>
+    This article is for my own reference, reinterpreting and reorganizing the document indices to accommodate constructing my mental model for the tool and support my programming workflow.  
+  </p>
+
+  <h2>1. References</h2>
+
+  <h3>1.1. Language Reference</h3>
+
+  <ul>
+    <li><a target="_blank" href="https://docs.python.org/3/reference/introduction.html">1. Introduction</a>
+      <ul>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/reference/introduction.html#alternate-implementations">1.1. Alternate
+            Implementations</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/introduction.html#notation">1.2. Notation</a>
+        </li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/reference/lexical_analysis.html">2. Lexical analysis</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/lexical_analysis.html#line-structure">2.1. Line
+            structure</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/lexical_analysis.html#other-tokens">2.2. Other
+            tokens</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/lexical_analysis.html#identifiers">2.3.
+            Identifiers and keywords</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/lexical_analysis.html#literals">2.4.
+            Literals</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/lexical_analysis.html#operators">2.5.
+            Operators</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/lexical_analysis.html#delimiters">2.6.
+            Delimiters</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/reference/datamodel.html">3. Data model</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/datamodel.html#objects-values-and-types">3.1.
+            Objects, values and types</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/reference/datamodel.html#the-standard-type-hierarchy">3.2. The standard type
+            hierarchy</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/datamodel.html#special-method-names">3.3.
+            Special method names</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/datamodel.html#coroutines">3.4. Coroutines</a>
+        </li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/reference/executionmodel.html">4. Execution model</a>
+      <ul>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/reference/executionmodel.html#structure-of-a-program">4.1. Structure of a
+            program</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/executionmodel.html#naming-and-binding">4.2.
+            Naming and binding</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/executionmodel.html#exceptions">4.3.
+            Exceptions</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/reference/import.html">5. The import system</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/import.html#importlib">5.1.
+            <code><span >importlib</span></code></a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/import.html#packages">5.2. Packages</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/import.html#searching">5.3. Searching</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/import.html#loading">5.4. Loading</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/import.html#the-path-based-finder">5.5. The
+            Path Based Finder</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/reference/import.html#replacing-the-standard-import-system">5.6. Replacing
+            the standard import system</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/import.html#package-relative-imports">5.7.
+            Package Relative Imports</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/reference/import.html#special-considerations-for-main">5.8. Special
+            considerations for __main__</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/import.html#open-issues">5.9. Open issues</a>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/import.html#references">5.10. References</a>
+        </li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/reference/expressions.html">6. Expressions</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/expressions.html#arithmetic-conversions">6.1.
+            Arithmetic conversions</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/expressions.html#atoms">6.2. Atoms</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/expressions.html#primaries">6.3. Primaries</a>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/expressions.html#await-expression">6.4. Await
+            expression</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/expressions.html#the-power-operator">6.5. The
+            power operator</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/reference/expressions.html#unary-arithmetic-and-bitwise-operations">6.6.
+            Unary arithmetic and bitwise operations</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/reference/expressions.html#binary-arithmetic-operations">6.7. Binary
+            arithmetic operations</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/expressions.html#shifting-operations">6.8.
+            Shifting operations</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/reference/expressions.html#binary-bitwise-operations">6.9. Binary bitwise
+            operations</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/expressions.html#comparisons">6.10.
+            Comparisons</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/expressions.html#boolean-operations">6.11.
+            Boolean operations</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/expressions.html#conditional-expressions">6.12.
+            Conditional expressions</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/expressions.html#lambda">6.13. Lambdas</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/expressions.html#expression-lists">6.14.
+            Expression lists</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/expressions.html#evaluation-order">6.15.
+            Evaluation order</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/expressions.html#operator-precedence">6.16.
+            Operator precedence</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/reference/simple_stmts.html">7. Simple statements</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/simple_stmts.html#expression-statements">7.1.
+            Expression statements</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/simple_stmts.html#assignment-statements">7.2.
+            Assignment statements</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/simple_stmts.html#the-assert-statement">7.3.
+            The <code><span >assert</span></code> statement</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/simple_stmts.html#the-pass-statement">7.4. The
+            <code><span >pass</span></code> statement</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/simple_stmts.html#the-del-statement">7.5. The
+            <code><span >del</span></code> statement</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/simple_stmts.html#the-return-statement">7.6.
+            The <code><span >return</span></code> statement</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/simple_stmts.html#the-yield-statement">7.7. The
+            <code><span >yield</span></code> statement</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/simple_stmts.html#the-raise-statement">7.8. The
+            <code><span >raise</span></code> statement</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/simple_stmts.html#the-break-statement">7.9. The
+            <code><span >break</span></code> statement</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/simple_stmts.html#the-continue-statement">7.10.
+            The <code><span >continue</span></code> statement</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/simple_stmts.html#the-import-statement">7.11.
+            The <code><span >import</span></code> statement</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/simple_stmts.html#the-global-statement">7.12.
+            The <code><span >global</span></code> statement</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/simple_stmts.html#the-nonlocal-statement">7.13.
+            The <code><span >nonlocal</span></code> statement</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/reference/compound_stmts.html">8. Compound statements</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/compound_stmts.html#the-if-statement">8.1. The
+            <code><span >if</span></code> statement</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/compound_stmts.html#the-while-statement">8.2.
+            The <code><span >while</span></code> statement</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/compound_stmts.html#the-for-statement">8.3. The
+            <code><span >for</span></code> statement</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/compound_stmts.html#the-try-statement">8.4. The
+            <code><span >try</span></code> statement</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/compound_stmts.html#the-with-statement">8.5.
+            The <code><span >with</span></code> statement</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/compound_stmts.html#function-definitions">8.6.
+            Function definitions</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/compound_stmts.html#class-definitions">8.7.
+            Class definitions</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/compound_stmts.html#coroutines">8.8.
+            Coroutines</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/reference/toplevel_components.html">9. Top-level
+        components</a>
+      <ul>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/reference/toplevel_components.html#complete-python-programs">9.1. Complete
+            Python programs</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/toplevel_components.html#file-input">9.2. File
+            input</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/reference/toplevel_components.html#interactive-input">9.3. Interactive
+            input</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/reference/toplevel_components.html#expression-input">9.4.
+            Expression input</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/reference/grammar.html">10. Full Grammar specification</a>
+    </li>
+  </ul>
+
+  <h3>1.2. Library Reference</h3>
+
+  <ul>
+    <li><a target="_blank" href="https://docs.python.org/3/library/intro.html">Introduction</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/intro.html#notes-on-availability">Notes on
+            availability</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/functions.html">Built-in Functions</a></li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/constants.html">Built-in Constants</a>
+      <ul>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/constants.html#constants-added-by-the-site-module">Constants added
+            by
+            the <code><span >site</span></code> module</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/stdtypes.html">Built-in Types</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/stdtypes.html#truth-value-testing">Truth Value
+            Testing</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/stdtypes.html#boolean-operations-and-or-not">Boolean Operations —
+            <code><span >and</span></code>, <code><span >or</span></code>, <code><span >not</span></code></a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/stdtypes.html#comparisons">Comparisons</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/stdtypes.html#numeric-types-int-float-complex">Numeric Types —
+            <code><span >int</span></code>, <code><span >float</span></code>, <code><span >complex</span></code></a>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/stdtypes.html#iterator-types">Iterator Types</a>
+        </li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/stdtypes.html#sequence-types-list-tuple-range">Sequence Types —
+            <code><span >list</span></code>, <code><span >tuple</span></code>, <code><span >range</span></code></a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str">Text
+            Sequence
+            Type — <code><span >str</span></code></a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/stdtypes.html#binary-sequence-types-bytes-bytearray-memoryview">Binary
+            Sequence Types — <code><span >bytes</span></code>, <code><span >bytearray</span></code>,
+            <code><span >memoryview</span></code></a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/stdtypes.html#set-types-set-frozenset">Set Types
+            —
+            <code><span >set</span></code>, <code><span >frozenset</span></code></a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/stdtypes.html#mapping-types-dict">Mapping Types —
+            <code><span >dict</span></code></a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/stdtypes.html#context-manager-types">Context
+            Manager Types</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/stdtypes.html#other-built-in-types">Other
+            Built-in
+            Types</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/stdtypes.html#special-attributes">Special
+            Attributes</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/exceptions.html">Built-in Exceptions</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/exceptions.html#base-classes">Base classes</a>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/exceptions.html#concrete-exceptions">Concrete
+            exceptions</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/exceptions.html#warnings">Warnings</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/exceptions.html#exception-hierarchy">Exception
+            hierarchy</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/text.html">Text Processing Services</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/string.html"><code><span >string</span></code> —
+            Common string operations</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/re.html"><code><span >re</span></code> — Regular
+            expression operations</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/difflib.html"><code><span >difflib</span></code>
+            —
+            Helpers for computing deltas</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/textwrap.html"><code><span >textwrap</span></code>
+            — Text wrapping and filling</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/unicodedata.html"><code><span >unicodedata</span></code> — Unicode
+            Database</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/stringprep.html"><code><span >stringprep</span></code> — Internet
+            String Preparation</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/readline.html"><code><span >readline</span></code>
+            — GNU readline interface</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/rlcompleter.html"><code><span >rlcompleter</span></code> —
+            Completion
+            function for GNU readline</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/binary.html">Binary Data Services</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/struct.html"><code><span >struct</span></code> —
+            Interpret bytes as packed binary data</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/codecs.html"><code><span >codecs</span></code> —
+            Codec registry and base classes</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/datatypes.html">Data Types</a>
+      <ul>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/datetime.html"><code><span >datetime</span></code>
+            — Basic date and time types</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/calendar.html"><code><span >calendar</span></code>
+            — General calendar-related functions</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/collections.html"><code><span >collections</span></code> — Container
+            datatypes</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/collections.abc.html"><code><span >collections.abc</span></code> —
+            Abstract Base Classes for Containers</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/heapq.html"><code><span >heapq</span></code> —
+            Heap
+            queue algorithm</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/bisect.html"><code><span >bisect</span></code> —
+            Array bisection algorithm</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/array.html"><code><span >array</span></code> —
+            Efficient arrays of numeric values</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/weakref.html"><code><span >weakref</span></code>
+            —
+            Weak references</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/types.html"><code><span >types</span></code> —
+            Dynamic type creation and names for built-in types</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/copy.html"><code><span >copy</span></code> —
+            Shallow and deep copy operations</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/pprint.html"><code><span >pprint</span></code> —
+            Data pretty printer</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/reprlib.html"><code><span >reprlib</span></code>
+            —
+            Alternate <code><span >repr()</span></code> implementation</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/enum.html"><code><span >enum</span></code> —
+            Support for enumerations</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/numeric.html">Numeric and Mathematical Modules</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/numbers.html"><code><span >numbers</span></code>
+            —
+            Numeric abstract base classes</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/math.html"><code><span >math</span></code> —
+            Mathematical functions</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/cmath.html"><code><span >cmath</span></code> —
+            Mathematical functions for complex numbers</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/decimal.html"><code><span >decimal</span></code>
+            —
+            Decimal fixed point and floating point arithmetic</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/fractions.html"><code><span >fractions</span></code> — Rational
+            numbers</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/random.html"><code><span >random</span></code> —
+            Generate pseudo-random numbers</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/statistics.html"><code><span >statistics</span></code> —
+            Mathematical
+            statistics functions</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/functional.html">Functional Programming Modules</a>
+      <ul>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/itertools.html"><code><span >itertools</span></code> — Functions
+            creating iterators for efficient looping</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/functools.html"><code><span >functools</span></code> — Higher-order
+            functions and operations on callable objects</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/operator.html"><code><span >operator</span></code>
+            — Standard operators as functions</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/filesys.html">File and Directory Access</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/pathlib.html"><code><span >pathlib</span></code>
+            —
+            Object-oriented filesystem paths</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/os.path.html"><code><span >os.path</span></code>
+            —
+            Common pathname manipulations</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/fileinput.html"><code><span >fileinput</span></code> — Iterate over
+            lines from multiple input streams</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/stat.html"><code><span >stat</span></code> —
+            Interpreting <code><span >stat()</span></code> results</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/filecmp.html"><code><span >filecmp</span></code>
+            —
+            File and Directory Comparisons</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/tempfile.html"><code><span >tempfile</span></code>
+            — Generate temporary files and directories</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/glob.html"><code><span >glob</span></code> — Unix
+            style pathname pattern expansion</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/fnmatch.html"><code><span >fnmatch</span></code>
+            —
+            Unix filename pattern matching</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/linecache.html"><code><span >linecache</span></code> — Random access
+            to text lines</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/shutil.html"><code><span >shutil</span></code> —
+            High-level file operations</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/macpath.html"><code><span >macpath</span></code>
+            —
+            Mac OS 9 path manipulation functions</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/persistence.html">Data Persistence</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/pickle.html"><code><span >pickle</span></code> —
+            Python object serialization</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/copyreg.html"><code><span >copyreg</span></code>
+            —
+            Register <code><span >pickle</span></code> support functions</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/shelve.html"><code><span >shelve</span></code> —
+            Python object persistence</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/marshal.html"><code><span >marshal</span></code>
+            —
+            Internal Python object serialization</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/dbm.html"><code><span >dbm</span></code> —
+            Interfaces to Unix “databases”</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/sqlite3.html"><code><span >sqlite3</span></code>
+            —
+            DB-API 2.0 interface for SQLite databases</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/archiving.html">Data Compression and Archiving</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/zlib.html"><code><span >zlib</span></code> —
+            Compression compatible with <strong>gzip</strong></a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/gzip.html"><code><span >gzip</span></code> —
+            Support for <strong>gzip</strong> files</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/bz2.html"><code><span >bz2</span></code> —
+            Support
+            for <strong>bzip2</strong> compression</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/lzma.html"><code><span >lzma</span></code> —
+            Compression using the LZMA algorithm</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/zipfile.html"><code><span >zipfile</span></code>
+            —
+            Work with ZIP archives</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/tarfile.html"><code><span >tarfile</span></code>
+            —
+            Read and write tar archive files</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/fileformats.html">File Formats</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/csv.html"><code><span >csv</span></code> — CSV
+            File
+            Reading and Writing</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/configparser.html"><code><span >configparser</span></code> —
+            Configuration file parser</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/netrc.html"><code><span >netrc</span></code> —
+            netrc file processing</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/xdrlib.html"><code><span >xdrlib</span></code> —
+            Encode and decode XDR data</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/plistlib.html"><code><span >plistlib</span></code>
+            — Generate and parse Mac OS X <code><span >.plist</span></code> files</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/crypto.html">Cryptographic Services</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/hashlib.html"><code><span >hashlib</span></code>
+            —
+            Secure hashes and message digests</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/hmac.html"><code><span >hmac</span></code> —
+            Keyed-Hashing for Message Authentication</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/secrets.html"><code><span >secrets</span></code>
+            —
+            Generate secure random numbers for managing secrets</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/allos.html">Generic Operating System Services</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/os.html"><code><span >os</span></code> —
+            Miscellaneous operating system interfaces</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/io.html"><code><span >io</span></code> — Core
+            tools
+            for working with streams</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/time.html"><code><span >time</span></code> — Time
+            access and conversions</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/argparse.html"><code><span >argparse</span></code>
+            — Parser for command-line options, arguments and sub-commands</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/getopt.html"><code><span >getopt</span></code> —
+            C-style parser for command line options</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/logging.html"><code><span >logging</span></code>
+            —
+            Logging facility for Python</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/logging.config.html"><code><span >logging.config</span></code> —
+            Logging configuration</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/logging.handlers.html"><code><span >logging.handlers</span></code> —
+            Logging handlers</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/getpass.html"><code><span >getpass</span></code>
+            —
+            Portable password input</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/curses.html"><code><span >curses</span></code> —
+            Terminal handling for character-cell displays</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/curses.html#module-curses.textpad"><code><span >curses.textpad</span></code>
+            — Text input widget for curses programs</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/curses.ascii.html"><code><span >curses.ascii</span></code> —
+            Utilities
+            for ASCII characters</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/curses.panel.html"><code><span >curses.panel</span></code> — A panel
+            stack extension for curses</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/platform.html"><code><span >platform</span></code>
+            — Access to underlying platform’s identifying data</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/errno.html"><code><span >errno</span></code> —
+            Standard errno system symbols</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/ctypes.html"><code><span >ctypes</span></code> —
+            A
+            foreign function library for Python</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/concurrency.html">Concurrent Execution</a>
+      <ul>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/threading.html"><code><span >threading</span></code> — Thread-based
+            parallelism</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/multiprocessing.html"><code><span >multiprocessing</span></code> —
+            Process-based parallelism</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/concurrent.html">The
+            <code><span >concurrent</span></code> package</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/concurrent.futures.html"><code><span >concurrent.futures</span></code>
+            — Launching parallel tasks</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/subprocess.html"><code><span >subprocess</span></code> — Subprocess
+            management</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/sched.html"><code><span >sched</span></code> —
+            Event scheduler</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/queue.html"><code><span >queue</span></code> — A
+            synchronized queue class</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/_thread.html"><code><span >_thread</span></code>
+            —
+            Low-level threading API</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/_dummy_thread.html"><code><span >_dummy_thread</span></code> —
+            Drop-in
+            replacement for the <code><span >_thread</span></code> module</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/dummy_threading.html"><code><span >dummy_threading</span></code> —
+            Drop-in replacement for the <code><span >threading</span></code> module</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank"
+        href="https://docs.python.org/3/library/contextvars.html"><code><span >contextvars</span></code> — Context
+        Variables</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/contextvars.html#context-variables">Context
+            Variables</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/contextvars.html#manual-context-management">Manual
+            Context Management</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/contextvars.html#asyncio-support">asyncio
+            support</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/ipc.html">Networking and Interprocess
+        Communication</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/asyncio.html"><code><span >asyncio</span></code>
+            —
+            Asynchronous I/O</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/socket.html"><code><span >socket</span></code> —
+            Low-level networking interface</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/ssl.html"><code><span >ssl</span></code> —
+            TLS/SSL
+            wrapper for socket objects</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/select.html"><code><span >select</span></code> —
+            Waiting for I/O completion</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/selectors.html"><code><span >selectors</span></code> — High-level
+            I/O
+            multiplexing</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/asyncore.html"><code><span >asyncore</span></code>
+            — Asynchronous socket handler</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/asynchat.html"><code><span >asynchat</span></code>
+            — Asynchronous socket command/response handler</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/signal.html"><code><span >signal</span></code> —
+            Set handlers for asynchronous events</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/mmap.html"><code><span >mmap</span></code> —
+            Memory-mapped file support</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/netdata.html">Internet Data Handling</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/email.html"><code><span >email</span></code> — An
+            email and MIME handling package</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/json.html"><code><span >json</span></code> — JSON
+            encoder and decoder</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/mailcap.html"><code><span >mailcap</span></code>
+            —
+            Mailcap file handling</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/mailbox.html"><code><span >mailbox</span></code>
+            —
+            Manipulate mailboxes in various formats</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/mimetypes.html"><code><span >mimetypes</span></code> — Map filenames
+            to MIME types</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/base64.html"><code><span >base64</span></code> —
+            Base16, Base32, Base64, Base85 Data Encodings</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/binhex.html"><code><span >binhex</span></code> —
+            Encode and decode binhex4 files</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/binascii.html"><code><span >binascii</span></code>
+            — Convert between binary and ASCII</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/quopri.html"><code><span >quopri</span></code> —
+            Encode and decode MIME quoted-printable data</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/uu.html"><code><span >uu</span></code> — Encode
+            and
+            decode uuencode files</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/markup.html">Structured Markup Processing Tools</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/html.html"><code><span >html</span></code> —
+            HyperText Markup Language support</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/html.parser.html"><code><span >html.parser</span></code> — Simple
+            HTML
+            and XHTML parser</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/html.entities.html"><code><span >html.entities</span></code> —
+            Definitions of HTML general entities</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/xml.html">XML Processing Modules</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/xml.etree.elementtree.html"><code><span >xml.etree.ElementTree</span></code>
+            — The ElementTree XML API</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/xml.dom.html"><code><span >xml.dom</span></code>
+            —
+            The Document Object Model API</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/xml.dom.minidom.html"><code><span >xml.dom.minidom</span></code> —
+            Minimal DOM implementation</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/xml.dom.pulldom.html"><code><span >xml.dom.pulldom</span></code> —
+            Support for building partial DOM trees</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/xml.sax.html"><code><span >xml.sax</span></code>
+            —
+            Support for SAX2 parsers</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/xml.sax.handler.html"><code><span >xml.sax.handler</span></code> —
+            Base classes for SAX handlers</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/xml.sax.utils.html"><code><span >xml.sax.saxutils</span></code> —
+            SAX
+            Utilities</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/xml.sax.reader.html"><code><span >xml.sax.xmlreader</span></code> —
+            Interface for XML parsers</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/pyexpat.html"><code><span >xml.parsers.expat</span></code> — Fast
+            XML
+            parsing using Expat</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/internet.html">Internet Protocols and Support</a>
+      <ul>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/webbrowser.html"><code><span >webbrowser</span></code> — Convenient
+            Web-browser controller</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/cgi.html"><code><span >cgi</span></code> — Common
+            Gateway Interface support</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/cgitb.html"><code><span >cgitb</span></code> —
+            Traceback manager for CGI scripts</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/wsgiref.html"><code><span >wsgiref</span></code>
+            —
+            WSGI Utilities and Reference Implementation</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/urllib.html"><code><span >urllib</span></code> —
+            URL handling modules</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/urllib.request.html"><code><span >urllib.request</span></code> —
+            Extensible library for opening URLs</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/urllib.request.html#module-urllib.response"><code><span >urllib.response</span></code>
+            — Response classes used by urllib</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/urllib.parse.html"><code><span >urllib.parse</span></code> — Parse
+            URLs into components</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/urllib.error.html"><code><span >urllib.error</span></code> —
+            Exception
+            classes raised by urllib.request</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/urllib.robotparser.html"><code><span >urllib.robotparser</span></code>
+            — Parser for robots.txt</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/http.html"><code><span >http</span></code> — HTTP
+            modules</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/http.client.html"><code><span >http.client</span></code> — HTTP
+            protocol client</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/ftplib.html"><code><span >ftplib</span></code> —
+            FTP protocol client</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/poplib.html"><code><span >poplib</span></code> —
+            POP3 protocol client</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/imaplib.html"><code><span >imaplib</span></code>
+            —
+            IMAP4 protocol client</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/nntplib.html"><code><span >nntplib</span></code>
+            —
+            NNTP protocol client</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/smtplib.html"><code><span >smtplib</span></code>
+            —
+            SMTP protocol client</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/smtpd.html"><code><span >smtpd</span></code> —
+            SMTP
+            Server</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/telnetlib.html"><code><span >telnetlib</span></code> — Telnet
+            client</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/uuid.html"><code><span >uuid</span></code> — UUID
+            objects according to <strong>RFC 4122</strong></a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/socketserver.html"><code><span >socketserver</span></code> — A
+            framework for network servers</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/http.server.html"><code><span >http.server</span></code> — HTTP
+            servers</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/http.cookies.html"><code><span >http.cookies</span></code> — HTTP
+            state management</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/http.cookiejar.html"><code><span >http.cookiejar</span></code> —
+            Cookie handling for HTTP clients</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/xmlrpc.html"><code><span >xmlrpc</span></code> —
+            XMLRPC server and client modules</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/xmlrpc.client.html"><code><span >xmlrpc.client</span></code> —
+            XML-RPC
+            client access</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/xmlrpc.server.html"><code><span >xmlrpc.server</span></code> — Basic
+            XML-RPC servers</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/ipaddress.html"><code><span >ipaddress</span></code> — IPv4/IPv6
+            manipulation library</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/mm.html">Multimedia Services</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/audioop.html"><code><span >audioop</span></code>
+            —
+            Manipulate raw audio data</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/aifc.html"><code><span >aifc</span></code> — Read
+            and write AIFF and AIFC files</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/sunau.html"><code><span >sunau</span></code> —
+            Read
+            and write Sun AU files</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/wave.html"><code><span >wave</span></code> — Read
+            and write WAV files</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/chunk.html"><code><span >chunk</span></code> —
+            Read
+            IFF chunked data</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/colorsys.html"><code><span >colorsys</span></code>
+            — Conversions between color systems</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/imghdr.html"><code><span >imghdr</span></code> —
+            Determine the type of an image</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/sndhdr.html"><code><span >sndhdr</span></code> —
+            Determine type of sound file</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/ossaudiodev.html"><code><span >ossaudiodev</span></code> — Access to
+            OSS-compatible audio devices</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/i18n.html">Internationalization</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/gettext.html"><code><span >gettext</span></code>
+            —
+            Multilingual internationalization services</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/locale.html"><code><span >locale</span></code> —
+            Internationalization services</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/frameworks.html">Program Frameworks</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/turtle.html"><code><span >turtle</span></code> —
+            Turtle graphics</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/cmd.html"><code><span >cmd</span></code> —
+            Support
+            for line-oriented command interpreters</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/shlex.html"><code><span >shlex</span></code> —
+            Simple lexical analysis</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/tk.html">Graphical User Interfaces with Tk</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/tkinter.html"><code><span >tkinter</span></code>
+            —
+            Python interface to Tcl/Tk</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/tkinter.ttk.html"><code><span >tkinter.ttk</span></code> — Tk themed
+            widgets</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/tkinter.tix.html"><code><span >tkinter.tix</span></code> — Extension
+            widgets for Tk</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/tkinter.scrolledtext.html"><code><span >tkinter.scrolledtext</span></code>
+            — Scrolled Text Widget</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/idle.html">IDLE</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/othergui.html">Other Graphical User Interface
+            Packages</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/development.html">Development Tools</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/typing.html"><code><span >typing</span></code> —
+            Support for type hints</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/pydoc.html"><code><span >pydoc</span></code> —
+            Documentation generator and online help system</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/doctest.html"><code><span >doctest</span></code>
+            —
+            Test interactive Python examples</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/unittest.html"><code><span >unittest</span></code>
+            — Unit testing framework</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/unittest.mock.html"><code><span >unittest.mock</span></code> — mock
+            object library</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/unittest.mock-examples.html"><code><span >unittest.mock</span></code>
+            — getting started</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/2to3.html">2to3 - Automated Python 2 to 3 code
+            translation</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/test.html"><code><span >test</span></code> —
+            Regression tests package for Python</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/test.html#module-test.support"><code><span >test.support</span></code>
+            — Utilities for the Python test suite</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/test.html#module-test.support.script_helper"><code><span >test.support.script_helper</span></code>
+            — Utilities for the Python execution tests</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/debug.html">Debugging and Profiling</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/bdb.html"><code><span >bdb</span></code> —
+            Debugger
+            framework</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/faulthandler.html"><code><span >faulthandler</span></code> — Dump
+            the
+            Python traceback</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/pdb.html"><code><span >pdb</span></code> — The
+            Python Debugger</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/profile.html">The Python Profilers</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/timeit.html"><code><span >timeit</span></code> —
+            Measure execution time of small code snippets</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/trace.html"><code><span >trace</span></code> —
+            Trace or track Python statement execution</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/tracemalloc.html"><code><span >tracemalloc</span></code> — Trace
+            memory allocations</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/distribution.html">Software Packaging and
+        Distribution</a>
+      <ul>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/distutils.html"><code><span >distutils</span></code> — Building and
+            installing Python modules</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/ensurepip.html"><code><span >ensurepip</span></code> — Bootstrapping
+            the <code><span >pip</span></code> installer</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/venv.html"><code><span >venv</span></code> —
+            Creation of virtual environments</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/zipapp.html"><code><span >zipapp</span></code> —
+            Manage executable Python zip archives</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/python.html">Python Runtime Services</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/sys.html"><code><span >sys</span></code> —
+            System-specific parameters and functions</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/sysconfig.html"><code><span >sysconfig</span></code> — Provide
+            access
+            to Python’s configuration information</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/builtins.html"><code><span >builtins</span></code>
+            — Built-in objects</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/__main__.html"><code><span >__main__</span></code>
+            — Top-level script environment</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/warnings.html"><code><span >warnings</span></code>
+            — Warning control</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/dataclasses.html"><code><span >dataclasses</span></code> — Data
+            Classes</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/contextlib.html"><code><span >contextlib</span></code> — Utilities
+            for
+            <code><span >with</span></code>-statement contexts</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/abc.html"><code><span >abc</span></code> —
+            Abstract
+            Base Classes</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/atexit.html"><code><span >atexit</span></code> —
+            Exit handlers</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/traceback.html"><code><span >traceback</span></code> — Print or
+            retrieve a stack traceback</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/__future__.html"><code><span >__future__</span></code> — Future
+            statement definitions</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/gc.html"><code><span >gc</span></code> — Garbage
+            Collector interface</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/inspect.html"><code><span >inspect</span></code>
+            —
+            Inspect live objects</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/site.html"><code><span >site</span></code> —
+            Site-specific configuration hook</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/custominterp.html">Custom Python Interpreters</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/code.html"><code><span >code</span></code> —
+            Interpreter base classes</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/codeop.html"><code><span >codeop</span></code> —
+            Compile Python code</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/modules.html">Importing Modules</a>
+      <ul>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/zipimport.html"><code><span >zipimport</span></code> — Import
+            modules
+            from Zip archives</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/pkgutil.html"><code><span >pkgutil</span></code>
+            —
+            Package extension utility</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/modulefinder.html"><code><span >modulefinder</span></code> — Find
+            modules used by a script</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/runpy.html"><code><span >runpy</span></code> —
+            Locating and executing Python modules</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/importlib.html"><code><span >importlib</span></code> — The
+            implementation of <code><span >import</span></code></a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/language.html">Python Language Services</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/parser.html"><code><span >parser</span></code> —
+            Access Python parse trees</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/ast.html"><code><span >ast</span></code> —
+            Abstract
+            Syntax Trees</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/symtable.html"><code><span >symtable</span></code>
+            — Access to the compiler’s symbol tables</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/symbol.html"><code><span >symbol</span></code> —
+            Constants used with Python parse trees</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/token.html"><code><span >token</span></code> —
+            Constants used with Python parse trees</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/keyword.html"><code><span >keyword</span></code>
+            —
+            Testing for Python keywords</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/tokenize.html"><code><span >tokenize</span></code>
+            — Tokenizer for Python source</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/tabnanny.html"><code><span >tabnanny</span></code>
+            — Detection of ambiguous indentation</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/pyclbr.html"><code><span >pyclbr</span></code> —
+            Python class browser support</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/py_compile.html"><code><span >py_compile</span></code> — Compile
+            Python source files</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/compileall.html"><code><span >compileall</span></code> —
+            Byte-compile
+            Python libraries</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/dis.html"><code><span >dis</span></code> —
+            Disassembler for Python bytecode</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/pickletools.html"><code><span >pickletools</span></code> — Tools for
+            pickle developers</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/misc.html">Miscellaneous Services</a>
+      <ul>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/formatter.html"><code><span >formatter</span></code> — Generic
+            output
+            formatting</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/windows.html">MS Windows Specific Services</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/msilib.html"><code><span >msilib</span></code> —
+            Read and write Microsoft Installer files</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/msvcrt.html"><code><span >msvcrt</span></code> —
+            Useful routines from the MS VC++ runtime</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/winreg.html"><code><span >winreg</span></code> —
+            Windows registry access</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/winsound.html"><code><span >winsound</span></code>
+            — Sound-playing interface for Windows</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/unix.html">Unix Specific Services</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/posix.html"><code><span >posix</span></code> —
+            The
+            most common POSIX system calls</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/pwd.html"><code><span >pwd</span></code> — The
+            password database</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/spwd.html"><code><span >spwd</span></code> — The
+            shadow password database</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/grp.html"><code><span >grp</span></code> — The
+            group database</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/crypt.html"><code><span >crypt</span></code> —
+            Function to check Unix passwords</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/termios.html"><code><span >termios</span></code>
+            —
+            POSIX style tty control</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/tty.html"><code><span >tty</span></code> —
+            Terminal
+            control functions</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/pty.html"><code><span >pty</span></code> —
+            Pseudo-terminal utilities</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/fcntl.html"><code><span >fcntl</span></code> —
+            The
+            <code><span >fcntl</span></code> and <code><span >ioctl</span></code> system calls</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/pipes.html"><code><span >pipes</span></code> —
+            Interface to shell pipelines</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/resource.html"><code><span >resource</span></code>
+            — Resource usage information</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/nis.html"><code><span >nis</span></code> —
+            Interface to Sun’s NIS (Yellow Pages)</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/syslog.html"><code><span >syslog</span></code> —
+            Unix syslog library routines</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/superseded.html">Superseded Modules</a>
+      <ul>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/library/optparse.html"><code><span >optparse</span></code>
+            — Parser for command line options</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/library/imp.html"><code><span >imp</span></code> — Access
+            the <span>import</span> internals</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/library/undoc.html">Undocumented Modules</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/library/undoc.html#platform-specific-modules">Platform
+            specific modules</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>1.3. Python Package Index PyPi</h3>
+
+  <p>
+    There are a countless number of packages developed by the community. You can make your own and share your module as well as search a module that fits your need at the following Python package index (PyPi):
+  </p>
+
+  <p>
+    <a target="_blank" href="https://pypi.org/">PyPi</a>
+  </p>
+
+  <h2>2. Extensions</h2>
+
+  <h3>2.1. Python/C API</h3>
+
+  <ul>
+    <li><a target="_blank" href="https://docs.python.org/3/c-api/intro.html">Introduction</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/intro.html#coding-standards">Coding standards</a>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/intro.html#include-files">Include Files</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/intro.html#useful-macros">Useful macros</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/c-api/intro.html#objects-types-and-reference-counts">Objects, Types and
+            Reference Counts</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/intro.html#exceptions">Exceptions</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/intro.html#embedding-python">Embedding Python</a>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/intro.html#debugging-builds">Debugging Builds</a>
+        </li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/c-api/stable.html">Stable Application Binary Interface</a>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/c-api/veryhigh.html">The Very High Level Layer</a></li>
+    <li><a target="_blank" href="https://docs.python.org/3/c-api/refcounting.html">Reference Counting</a></li>
+    <li><a target="_blank" href="https://docs.python.org/3/c-api/exceptions.html">Exception Handling</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/exceptions.html#printing-and-clearing">Printing and
+            clearing</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/exceptions.html#raising-exceptions">Raising
+            exceptions</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/exceptions.html#issuing-warnings">Issuing
+            warnings</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/c-api/exceptions.html#querying-the-error-indicator">Querying the error
+            indicator</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/exceptions.html#signal-handling">Signal
+            Handling</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/exceptions.html#exception-classes">Exception
+            Classes</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/exceptions.html#exception-objects">Exception
+            Objects</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/exceptions.html#unicode-exception-objects">Unicode
+            Exception Objects</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/exceptions.html#recursion-control">Recursion
+            Control</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/exceptions.html#standard-exceptions">Standard
+            Exceptions</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/c-api/exceptions.html#standard-warning-categories">Standard Warning
+            Categories</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/c-api/utilities.html">Utilities</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/sys.html">Operating System Utilities</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/sys.html#system-functions">System Functions</a>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/sys.html#process-control">Process Control</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/import.html">Importing Modules</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/marshal.html">Data marshalling support</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/arg.html">Parsing arguments and building values</a>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/conversion.html">String conversion and
+            formatting</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/reflection.html">Reflection</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/codec.html">Codec registry and support
+            functions</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/c-api/abstract.html">Abstract Objects Layer</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/object.html">Object Protocol</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/number.html">Number Protocol</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/sequence.html">Sequence Protocol</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/mapping.html">Mapping Protocol</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/iter.html">Iterator Protocol</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/buffer.html">Buffer Protocol</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/objbuffer.html">Old Buffer Protocol</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/c-api/concrete.html">Concrete Objects Layer</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/concrete.html#fundamental-objects">Fundamental
+            Objects</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/concrete.html#numeric-objects">Numeric Objects</a>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/concrete.html#sequence-objects">Sequence
+            Objects</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/concrete.html#container-objects">Container
+            Objects</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/concrete.html#function-objects">Function
+            Objects</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/concrete.html#other-objects">Other Objects</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/c-api/init.html">Initialization, Finalization, and
+        Threads</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/init.html#before-python-initialization">Before
+            Python Initialization</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/init.html#global-configuration-variables">Global
+            configuration variables</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/c-api/init.html#initializing-and-finalizing-the-interpreter">Initializing
+            and finalizing the interpreter</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/init.html#process-wide-parameters">Process-wide
+            parameters</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/c-api/init.html#thread-state-and-the-global-interpreter-lock">Thread State
+            and the Global Interpreter Lock</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/init.html#sub-interpreter-support">Sub-interpreter
+            support</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/init.html#asynchronous-notifications">Asynchronous
+            Notifications</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/init.html#profiling-and-tracing">Profiling and
+            Tracing</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/init.html#advanced-debugger-support">Advanced
+            Debugger Support</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/init.html#thread-local-storage-support">Thread
+            Local Storage Support</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/c-api/memory.html">Memory Management</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/memory.html#overview">Overview</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/memory.html#raw-memory-interface">Raw Memory
+            Interface</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/memory.html#memory-interface">Memory Interface</a>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/memory.html#object-allocators">Object
+            allocators</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/memory.html#default-memory-allocators">Default
+            Memory Allocators</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/memory.html#customize-memory-allocators">Customize
+            Memory Allocators</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/memory.html#the-pymalloc-allocator">The pymalloc
+            allocator</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/memory.html#tracemalloc-c-api">tracemalloc C
+            API</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/memory.html#examples">Examples</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/c-api/objimpl.html">Object Implementation Support</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/allocation.html">Allocating Objects on the Heap</a>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/structures.html">Common Object Structures</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/typeobj.html">Type Objects</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/typeobj.html#number-object-structures">Number
+            Object Structures</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/typeobj.html#mapping-object-structures">Mapping
+            Object Structures</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/typeobj.html#sequence-object-structures">Sequence
+            Object Structures</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/typeobj.html#buffer-object-structures">Buffer
+            Object Structures</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/typeobj.html#async-object-structures">Async Object
+            Structures</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/c-api/gcsupport.html">Supporting Cyclic Garbage
+            Collection</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/c-api/apiabiversion.html">API and ABI Versioning</a></li>
+  </ul>
+
+  <h3>2.2. Distributing Python Modules</h3>
+
+  <p>
+    To distribute a module you wrote, refer to the following link:
+  </p>
+
+  <p>
+    <a target="_blank" href="https://docs.python.org/3/distributing/index.html">Distributing Python Modules</a>
+  </p>
+
+  <h2>3. Tutorials</h2>
+
+  <h3>3.1. Python Setup and Usage</h3>
+
+  <ul>
+    <li><a target="_blank" href="https://docs.python.org/3/using/cmdline.html">1. Command line and environment</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/using/cmdline.html#command-line">1.1. Command line</a>
+          <ul>
+            <li><a target="_blank" href="https://docs.python.org/3/using/cmdline.html#interface-options">1.1.1.
+                Interface options</a></li>
+            <li><a target="_blank" href="https://docs.python.org/3/using/cmdline.html#generic-options">1.1.2. Generic
+                options</a></li>
+            <li><a target="_blank" href="https://docs.python.org/3/using/cmdline.html#miscellaneous-options">1.1.3.
+                Miscellaneous options</a></li>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/using/cmdline.html#options-you-shouldn-t-use">1.1.4. Options you
+                shouldn’t use</a></li>
+          </ul>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/using/cmdline.html#environment-variables">1.2.
+            Environment variables</a>
+          <ul>
+            <li><a target="_blank" href="https://docs.python.org/3/using/cmdline.html#debug-mode-variables">1.2.1.
+                Debug-mode variables</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/using/unix.html">2. Using Python on Unix platforms</a>
+      <ul>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/using/unix.html#getting-and-installing-the-latest-version-of-python">2.1.
+            Getting and installing the latest version of Python</a>
+          <ul>
+            <li><a target="_blank" href="https://docs.python.org/3/using/unix.html#on-linux">2.1.1. On Linux</a></li>
+            <li><a target="_blank" href="https://docs.python.org/3/using/unix.html#on-freebsd-and-openbsd">2.1.2. On
+                FreeBSD and OpenBSD</a></li>
+            <li><a target="_blank" href="https://docs.python.org/3/using/unix.html#on-opensolaris">2.1.3. On
+                OpenSolaris</a></li>
+          </ul>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/using/unix.html#building-python">2.2. Building
+            Python</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/using/unix.html#python-related-paths-and-files">2.3.
+            Python-related paths and files</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/using/unix.html#miscellaneous">2.4. Miscellaneous</a>
+        </li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/using/windows.html">3. Using Python on Windows</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/using/windows.html#the-full-installer">3.1. The full
+            installer</a>
+          <ul>
+            <li><a target="_blank" href="https://docs.python.org/3/using/windows.html#installation-steps">3.1.1.
+                Installation steps</a></li>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/using/windows.html#removing-the-max-path-limitation">3.1.2. Removing
+                the MAX_PATH Limitation</a></li>
+            <li><a target="_blank" href="https://docs.python.org/3/using/windows.html#installing-without-ui">3.1.3.
+                Installing Without UI</a></li>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/using/windows.html#installing-without-downloading">3.1.4. Installing
+                Without Downloading</a></li>
+            <li><a target="_blank" href="https://docs.python.org/3/using/windows.html#modifying-an-install">3.1.5.
+                Modifying an install</a></li>
+          </ul>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/using/windows.html#the-microsoft-store-package">3.2.
+            The Microsoft Store package</a>
+          <ul>
+            <li><a target="_blank" href="https://docs.python.org/3/using/windows.html#known-issues">3.2.1. Known
+                Issues</a></li>
+          </ul>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/using/windows.html#the-nuget-org-packages">3.3. The
+            nuget.org packages</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/using/windows.html#the-embeddable-package">3.4. The
+            embeddable package</a>
+          <ul>
+            <li><a target="_blank" href="https://docs.python.org/3/using/windows.html#python-application">3.4.1.
+                Python Application</a></li>
+            <li><a target="_blank" href="https://docs.python.org/3/using/windows.html#embedding-python">3.4.2.
+                Embedding Python</a></li>
+          </ul>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/using/windows.html#alternative-bundles">3.5.
+            Alternative bundles</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/using/windows.html#configuring-python">3.6. Configuring
+            Python</a>
+          <ul>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/using/windows.html#excursus-setting-environment-variables">3.6.1.
+                Excursus: Setting environment variables</a></li>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/using/windows.html#finding-the-python-executable">3.6.2. Finding the
+                Python executable</a></li>
+          </ul>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/using/windows.html#python-launcher-for-windows">3.7.
+            Python Launcher for Windows</a>
+          <ul>
+            <li><a target="_blank" href="https://docs.python.org/3/using/windows.html#getting-started">3.7.1. Getting
+                started</a>
+              <ul>
+                <li><a target="_blank"
+                    href="https://docs.python.org/3/using/windows.html#from-the-command-line">3.7.1.1. From the
+                    command-line</a></li>
+                <li><a target="_blank"
+                    href="https://docs.python.org/3/using/windows.html#virtual-environments">3.7.1.2. Virtual
+                    environments</a></li>
+                <li><a target="_blank" href="https://docs.python.org/3/using/windows.html#from-a-script">3.7.1.3. From
+                    a script</a></li>
+                <li><a target="_blank"
+                    href="https://docs.python.org/3/using/windows.html#from-file-associations">3.7.1.4. From file
+                    associations</a></li>
+              </ul>
+            </li>
+            <li><a target="_blank" href="https://docs.python.org/3/using/windows.html#shebang-lines">3.7.2. Shebang
+                Lines</a></li>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/using/windows.html#arguments-in-shebang-lines">3.7.3. Arguments in
+                shebang lines</a></li>
+            <li><a target="_blank" href="https://docs.python.org/3/using/windows.html#customization">3.7.4.
+                Customization</a>
+              <ul>
+                <li><a target="_blank"
+                    href="https://docs.python.org/3/using/windows.html#customization-via-ini-files">3.7.4.1.
+                    Customization via INI files</a></li>
+                <li><a target="_blank"
+                    href="https://docs.python.org/3/using/windows.html#customizing-default-python-versions">3.7.4.2.
+                    Customizing default Python versions</a></li>
+              </ul>
+            </li>
+            <li><a target="_blank" href="https://docs.python.org/3/using/windows.html#diagnostics">3.7.5.
+                Diagnostics</a></li>
+          </ul>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/using/windows.html#finding-modules">3.8. Finding
+            modules</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/using/windows.html#additional-modules">3.9. Additional
+            modules</a>
+          <ul>
+            <li><a target="_blank" href="https://docs.python.org/3/using/windows.html#pywin32">3.9.1. PyWin32</a></li>
+            <li><a target="_blank" href="https://docs.python.org/3/using/windows.html#cx-freeze">3.9.2. cx_Freeze</a>
+            </li>
+            <li><a target="_blank" href="https://docs.python.org/3/using/windows.html#wconio">3.9.3. WConio</a></li>
+          </ul>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/using/windows.html#compiling-python-on-windows">3.10.
+            Compiling Python on Windows</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/using/windows.html#other-platforms">3.11. Other
+            Platforms</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/using/mac.html">4. Using Python on a Macintosh</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/using/mac.html#getting-and-installing-macpython">4.1.
+            Getting and Installing MacPython</a>
+          <ul>
+            <li><a target="_blank" href="https://docs.python.org/3/using/mac.html#how-to-run-a-python-script">4.1.1.
+                How to run a Python script</a></li>
+            <li><a target="_blank" href="https://docs.python.org/3/using/mac.html#running-scripts-with-a-gui">4.1.2.
+                Running scripts with a GUI</a></li>
+            <li><a target="_blank" href="https://docs.python.org/3/using/mac.html#configuration">4.1.3.
+                Configuration</a></li>
+          </ul>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/using/mac.html#the-ide">4.2. The IDE</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/using/mac.html#installing-additional-python-packages">4.3. Installing
+            Additional Python Packages</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/using/mac.html#gui-programming-on-the-mac">4.4. GUI
+            Programming on the Mac</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/using/mac.html#distributing-python-applications-on-the-mac">4.5.
+            Distributing Python Applications on the Mac</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/using/mac.html#other-resources">4.6. Other
+            Resources</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/using/editors.html">5. Editors and IDEs</a></li>
+  </ul>
+
+  <h3>3.2. Installing Python Modules</h3>
+
+  <p>
+    To install packages and modules, see the following link:
+  </p>
+
+  <p>
+    <a target="_blank" href="https://docs.python.org/3/installing/index.html">Installing Python Modules</a>
+  </p>
+
+  <h3>3.3. Tutorial</h3>
+
+  <ul>
+    <li><a target="_blank" href="https://docs.python.org/3/tutorial/appetite.html">1. Whetting Your Appetite</a></li>
+    <li><a target="_blank" href="https://docs.python.org/3/tutorial/interpreter.html">2. Using the Python
+        Interpreter</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/interpreter.html#invoking-the-interpreter">2.1.
+            Invoking the Interpreter</a>
+          <ul>
+            <li><a target="_blank" href="https://docs.python.org/3/tutorial/interpreter.html#argument-passing">2.1.1.
+                Argument Passing</a></li>
+            <li><a target="_blank" href="https://docs.python.org/3/tutorial/interpreter.html#interactive-mode">2.1.2.
+                Interactive Mode</a></li>
+          </ul>
+        </li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/tutorial/interpreter.html#the-interpreter-and-its-environment">2.2. The
+            Interpreter and Its Environment</a>
+          <ul>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/tutorial/interpreter.html#source-code-encoding">2.2.1. Source Code
+                Encoding</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/tutorial/introduction.html">3. An Informal Introduction to
+        Python</a>
+      <ul>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/tutorial/introduction.html#using-python-as-a-calculator">3.1. Using Python
+            as a Calculator</a>
+          <ul>
+            <li><a target="_blank" href="https://docs.python.org/3/tutorial/introduction.html#numbers">3.1.1.
+                Numbers</a></li>
+            <li><a target="_blank" href="https://docs.python.org/3/tutorial/introduction.html#strings">3.1.2.
+                Strings</a></li>
+            <li><a target="_blank" href="https://docs.python.org/3/tutorial/introduction.html#lists">3.1.3. Lists</a>
+            </li>
+          </ul>
+        </li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/tutorial/introduction.html#first-steps-towards-programming">3.2. First Steps
+            Towards Programming</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/tutorial/controlflow.html">4. More Control Flow Tools</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/controlflow.html#if-statements">4.1.
+            <code><span >if</span></code> Statements</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/controlflow.html#for-statements">4.2.
+            <code><span >for</span></code> Statements</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/controlflow.html#the-range-function">4.3. The
+            <code><span >range()</span></code> Function</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/tutorial/controlflow.html#break-and-continue-statements-and-else-clauses-on-loops">4.4.
+            <code><span >break</span></code> and <code><span >continue</span></code> Statements, and
+            <code><span >else</span></code> Clauses on Loops</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/controlflow.html#pass-statements">4.5.
+            <code><span >pass</span></code> Statements</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/controlflow.html#defining-functions">4.6.
+            Defining Functions</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/tutorial/controlflow.html#more-on-defining-functions">4.7. More on Defining
+            Functions</a>
+          <ul>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/tutorial/controlflow.html#default-argument-values">4.7.1. Default
+                Argument Values</a></li>
+            <li><a target="_blank" href="https://docs.python.org/3/tutorial/controlflow.html#keyword-arguments">4.7.2.
+                Keyword Arguments</a></li>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/tutorial/controlflow.html#arbitrary-argument-lists">4.7.3. Arbitrary
+                Argument Lists</a></li>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/tutorial/controlflow.html#unpacking-argument-lists">4.7.4. Unpacking
+                Argument Lists</a></li>
+            <li><a target="_blank" href="https://docs.python.org/3/tutorial/controlflow.html#lambda-expressions">4.7.5.
+                Lambda Expressions</a></li>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/tutorial/controlflow.html#documentation-strings">4.7.6. Documentation
+                Strings</a></li>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/tutorial/controlflow.html#function-annotations">4.7.7. Function
+                Annotations</a></li>
+          </ul>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/controlflow.html#intermezzo-coding-style">4.8.
+            Intermezzo: Coding Style</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/tutorial/datastructures.html">5. Data Structures</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/datastructures.html#more-on-lists">5.1. More on
+            Lists</a>
+          <ul>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/tutorial/datastructures.html#using-lists-as-stacks">5.1.1. Using Lists
+                as Stacks</a></li>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/tutorial/datastructures.html#using-lists-as-queues">5.1.2. Using Lists
+                as Queues</a></li>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions">5.1.3. List
+                Comprehensions</a></li>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/tutorial/datastructures.html#nested-list-comprehensions">5.1.4. Nested
+                List Comprehensions</a></li>
+          </ul>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/datastructures.html#the-del-statement">5.2. The
+            <code><span >del</span></code> statement</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences">5.3.
+            Tuples and Sequences</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/datastructures.html#sets">5.4. Sets</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/datastructures.html#dictionaries">5.5.
+            Dictionaries</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/datastructures.html#looping-techniques">5.6.
+            Looping Techniques</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/datastructures.html#more-on-conditions">5.7.
+            More on Conditions</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/tutorial/datastructures.html#comparing-sequences-and-other-types">5.8.
+            Comparing Sequences and Other Types</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/tutorial/modules.html">6. Modules</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/modules.html#more-on-modules">6.1. More on
+            Modules</a>
+          <ul>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/tutorial/modules.html#executing-modules-as-scripts">6.1.1. Executing
+                modules as scripts</a></li>
+            <li><a target="_blank" href="https://docs.python.org/3/tutorial/modules.html#the-module-search-path">6.1.2.
+                The Module Search Path</a></li>
+            <li><a target="_blank" href="https://docs.python.org/3/tutorial/modules.html#compiled-python-files">6.1.3.
+                “Compiled” Python files</a></li>
+          </ul>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/modules.html#standard-modules">6.2. Standard
+            Modules</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/modules.html#the-dir-function">6.3. The
+            <code><span >dir()</span></code> Function</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/modules.html#packages">6.4. Packages</a>
+          <ul>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/tutorial/modules.html#importing-from-a-package">6.4.1. Importing * From
+                a Package</a></li>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/tutorial/modules.html#intra-package-references">6.4.2. Intra-package
+                References</a></li>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/tutorial/modules.html#packages-in-multiple-directories">6.4.3. Packages
+                in Multiple Directories</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/tutorial/inputoutput.html">7. Input and Output</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/inputoutput.html#fancier-output-formatting">7.1.
+            Fancier Output Formatting</a>
+          <ul>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/tutorial/inputoutput.html#formatted-string-literals">7.1.1. Formatted
+                String Literals</a></li>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/tutorial/inputoutput.html#the-string-format-method">7.1.2. The String
+                format() Method</a></li>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/tutorial/inputoutput.html#manual-string-formatting">7.1.3. Manual String
+                Formatting</a></li>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/tutorial/inputoutput.html#old-string-formatting">7.1.4. Old string
+                formatting</a></li>
+          </ul>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files">7.2.
+            Reading and Writing Files</a>
+          <ul>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/tutorial/inputoutput.html#methods-of-file-objects">7.2.1. Methods of
+                File Objects</a></li>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/tutorial/inputoutput.html#saving-structured-data-with-json">7.2.2.
+                Saving structured data with <code><span >json</span></code></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/tutorial/errors.html">8. Errors and Exceptions</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/errors.html#syntax-errors">8.1. Syntax
+            Errors</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/errors.html#exceptions">8.2. Exceptions</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/errors.html#handling-exceptions">8.3. Handling
+            Exceptions</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/errors.html#raising-exceptions">8.4. Raising
+            Exceptions</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/errors.html#user-defined-exceptions">8.5.
+            User-defined Exceptions</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/errors.html#defining-clean-up-actions">8.6.
+            Defining Clean-up Actions</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/errors.html#predefined-clean-up-actions">8.7.
+            Predefined Clean-up Actions</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/tutorial/classes.html">9. Classes</a>
+      <ul>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/tutorial/classes.html#a-word-about-names-and-objects">9.1. A Word About
+            Names and Objects</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/classes.html#python-scopes-and-namespaces">9.2.
+            Python Scopes and Namespaces</a>
+          <ul>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/tutorial/classes.html#scopes-and-namespaces-example">9.2.1. Scopes and
+                Namespaces Example</a></li>
+          </ul>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/classes.html#a-first-look-at-classes">9.3. A
+            First Look at Classes</a>
+          <ul>
+            <li><a target="_blank" href="https://docs.python.org/3/tutorial/classes.html#class-definition-syntax">9.3.1.
+                Class Definition Syntax</a></li>
+            <li><a target="_blank" href="https://docs.python.org/3/tutorial/classes.html#class-objects">9.3.2. Class
+                Objects</a></li>
+            <li><a target="_blank" href="https://docs.python.org/3/tutorial/classes.html#instance-objects">9.3.3.
+                Instance Objects</a></li>
+            <li><a target="_blank" href="https://docs.python.org/3/tutorial/classes.html#method-objects">9.3.4. Method
+                Objects</a></li>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/tutorial/classes.html#class-and-instance-variables">9.3.5. Class and
+                Instance Variables</a></li>
+          </ul>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/classes.html#random-remarks">9.4. Random
+            Remarks</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/classes.html#inheritance">9.5. Inheritance</a>
+          <ul>
+            <li><a target="_blank" href="https://docs.python.org/3/tutorial/classes.html#multiple-inheritance">9.5.1.
+                Multiple Inheritance</a></li>
+          </ul>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/classes.html#private-variables">9.6. Private
+            Variables</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/classes.html#odds-and-ends">9.7. Odds and
+            Ends</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/classes.html#iterators">9.8. Iterators</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/classes.html#generators">9.9. Generators</a>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/classes.html#generator-expressions">9.10.
+            Generator Expressions</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/tutorial/stdlib.html">10. Brief Tour of the Standard
+        Library</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/stdlib.html#operating-system-interface">10.1.
+            Operating System Interface</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/stdlib.html#file-wildcards">10.2. File
+            Wildcards</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/stdlib.html#command-line-arguments">10.3.
+            Command Line Arguments</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/tutorial/stdlib.html#error-output-redirection-and-program-termination">10.4.
+            Error Output Redirection and Program Termination</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/stdlib.html#string-pattern-matching">10.5.
+            String Pattern Matching</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/stdlib.html#mathematics">10.6. Mathematics</a>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/stdlib.html#internet-access">10.7. Internet
+            Access</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/stdlib.html#dates-and-times">10.8. Dates and
+            Times</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/stdlib.html#data-compression">10.9. Data
+            Compression</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/stdlib.html#performance-measurement">10.10.
+            Performance Measurement</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/stdlib.html#quality-control">10.11. Quality
+            Control</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/stdlib.html#batteries-included">10.12. Batteries
+            Included</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/tutorial/stdlib2.html">11. Brief Tour of the Standard Library
+        — Part II</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/stdlib2.html#output-formatting">11.1. Output
+            Formatting</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/stdlib2.html#templating">11.2. Templating</a>
+        </li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/tutorial/stdlib2.html#working-with-binary-data-record-layouts">11.3. Working
+            with Binary Data Record Layouts</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/stdlib2.html#multi-threading">11.4.
+            Multi-threading</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/stdlib2.html#logging">11.5. Logging</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/stdlib2.html#weak-references">11.6. Weak
+            References</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/stdlib2.html#tools-for-working-with-lists">11.7.
+            Tools for Working with Lists</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/tutorial/stdlib2.html#decimal-floating-point-arithmetic">11.8. Decimal
+            Floating Point Arithmetic</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/tutorial/venv.html">12. Virtual Environments and Packages</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/venv.html#introduction">12.1. Introduction</a>
+        </li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/venv.html#creating-virtual-environments">12.2.
+            Creating Virtual Environments</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/venv.html#managing-packages-with-pip">12.3.
+            Managing Packages with pip</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/tutorial/whatnow.html">13. What Now?</a></li>
+    <li><a target="_blank" href="https://docs.python.org/3/tutorial/interactive.html">14. Interactive Input Editing and
+        History Substitution</a>
+      <ul>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/tutorial/interactive.html#tab-completion-and-history-editing">14.1. Tab
+            Completion and History Editing</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/tutorial/interactive.html#alternatives-to-the-interactive-interpreter">14.2.
+            Alternatives to the Interactive Interpreter</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/tutorial/floatingpoint.html">15. Floating Point Arithmetic:
+        Issues and Limitations</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/floatingpoint.html#representation-error">15.1.
+            Representation Error</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/tutorial/appendix.html">16. Appendix</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/tutorial/appendix.html#interactive-mode">16.1.
+            Interactive Mode</a>
+          <ul>
+            <li><a target="_blank" href="https://docs.python.org/3/tutorial/appendix.html#error-handling">16.1.1. Error
+                Handling</a></li>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/tutorial/appendix.html#executable-python-scripts">16.1.2. Executable
+                Python Scripts</a></li>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/tutorial/appendix.html#the-interactive-startup-file">16.1.3. The
+                Interactive Startup File</a></li>
+            <li><a target="_blank"
+                href="https://docs.python.org/3/tutorial/appendix.html#the-customization-modules">16.1.4. The
+                Customization Modules</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>3.4. Python HOWTOs</h3>
+
+  <ul>
+    <li><a target="_blank" href="https://docs.python.org/3/howto/pyporting.html">Porting Python 2 Code to Python 3</a>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/howto/cporting.html">Porting Extension Modules to Python
+        3</a></li>
+    <li><a target="_blank" href="https://docs.python.org/3/howto/curses.html">Curses Programming with Python</a></li>
+    <li><a target="_blank" href="https://docs.python.org/3/howto/descriptor.html">Descriptor HowTo Guide</a></li>
+    <li><a target="_blank" href="https://docs.python.org/3/howto/functional.html">Functional Programming HOWTO</a></li>
+    <li><a target="_blank" href="https://docs.python.org/3/howto/logging.html">Logging HOWTO</a></li>
+    <li><a target="_blank" href="https://docs.python.org/3/howto/logging-cookbook.html">Logging Cookbook</a></li>
+    <li><a target="_blank" href="https://docs.python.org/3/howto/regex.html">Regular Expression HOWTO</a></li>
+    <li><a target="_blank" href="https://docs.python.org/3/howto/sockets.html">Socket Programming HOWTO</a></li>
+    <li><a target="_blank" href="https://docs.python.org/3/howto/sorting.html">Sorting HOW TO</a></li>
+    <li><a target="_blank" href="https://docs.python.org/3/howto/unicode.html">Unicode HOWTO</a></li>
+    <li><a target="_blank" href="https://docs.python.org/3/howto/urllib2.html">HOWTO Fetch Internet Resources Using The
+        urllib Package</a></li>
+    <li><a target="_blank" href="https://docs.python.org/3/howto/argparse.html">Argparse Tutorial</a></li>
+    <li><a target="_blank" href="https://docs.python.org/3/howto/ipaddress.html">An introduction to the ipaddress
+        module</a></li>
+    <li><a target="_blank" href="https://docs.python.org/3/howto/clinic.html">Argument Clinic How-To</a></li>
+    <li><a target="_blank" href="https://docs.python.org/3/howto/instrumentation.html">Instrumenting CPython with DTrace
+        and SystemTap</a></li>
+  </ul>
+
+  <h3>3.5. Extending and Embeddings</h3>
+
+  <p>
+    Creating extensions without third party tools
+  </p>
+
+  <ul>
+    <li><a target="_blank" href="https://docs.python.org/3/extending/extending.html">1. Extending Python with C or
+        C++</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/extending/extending.html#a-simple-example">1.1. A Simple
+            Example</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/extending/extending.html#intermezzo-errors-and-exceptions">1.2. Intermezzo:
+            Errors and Exceptions</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/extending/extending.html#back-to-the-example">1.3. Back
+            to the Example</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/extending/extending.html#the-module-s-method-table-and-initialization-function">1.4.
+            The Module’s Method Table and Initialization Function</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/extending/extending.html#compilation-and-linkage">1.5.
+            Compilation and Linkage</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/extending/extending.html#calling-python-functions-from-c">1.6. Calling
+            Python Functions from C</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/extending/extending.html#extracting-parameters-in-extension-functions">1.7.
+            Extracting Parameters in Extension Functions</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/extending/extending.html#keyword-parameters-for-extension-functions">1.8.
+            Keyword Parameters for Extension Functions</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/extending/extending.html#building-arbitrary-values">1.9.
+            Building Arbitrary Values</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/extending/extending.html#reference-counts">1.10.
+            Reference Counts</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/extending/extending.html#writing-extensions-in-c">1.11.
+            Writing Extensions in C++</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/extending/extending.html#providing-a-c-api-for-an-extension-module">1.12.
+            Providing a C API for an Extension Module</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/extending/newtypes_tutorial.html">2. Defining Extension
+        Types: Tutorial</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/extending/newtypes_tutorial.html#the-basics">2.1. The
+            Basics</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/extending/newtypes_tutorial.html#adding-data-and-methods-to-the-basic-example">2.2.
+            Adding data and methods to the Basic example</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/extending/newtypes_tutorial.html#providing-finer-control-over-data-attributes">2.3.
+            Providing finer control over data attributes</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/extending/newtypes_tutorial.html#supporting-cyclic-garbage-collection">2.4.
+            Supporting cyclic garbage collection</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/extending/newtypes_tutorial.html#subclassing-other-types">2.5. Subclassing
+            other types</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/extending/newtypes.html">3. Defining Extension Types:
+        Assorted Topics</a>
+      <ul>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/extending/newtypes.html#finalization-and-de-allocation">3.1. Finalization
+            and De-allocation</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/extending/newtypes.html#object-presentation">3.2. Object
+            Presentation</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/extending/newtypes.html#attribute-management">3.3.
+            Attribute Management</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/extending/newtypes.html#object-comparison">3.4. Object
+            Comparison</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/extending/newtypes.html#abstract-protocol-support">3.5.
+            Abstract Protocol Support</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/extending/newtypes.html#weak-reference-support">3.6. Weak
+            Reference Support</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/extending/newtypes.html#more-suggestions">3.7. More
+            Suggestions</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/extending/building.html">4. Building C and C++ Extensions</a>
+      <ul>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/extending/building.html#building-c-and-c-extensions-with-distutils">4.1.
+            Building C and C++ Extensions with distutils</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/extending/building.html#distributing-your-extension-modules">4.2.
+            Distributing your extension modules</a></li>
+      </ul>
+    </li>
+    <li><a target="_blank" href="https://docs.python.org/3/extending/windows.html">5. Building C and C++ Extensions on
+        Windows</a>
+      <ul>
+        <li><a target="_blank" href="https://docs.python.org/3/extending/windows.html#a-cookbook-approach">5.1. A
+            Cookbook Approach</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/extending/windows.html#differences-between-unix-and-windows">5.2.
+            Differences Between Unix and Windows</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/extending/windows.html#using-dlls-in-practice">5.3. Using
+            DLLs in Practice</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <p>
+    Embedding the CPython runtime in a larger application
+  </p>
+
+  <ul>
+    <li><a target="_blank" href="https://docs.python.org/3/extending/embedding.html">1. Embedding Python in Another
+        Application</a>
+      <ul>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/extending/embedding.html#very-high-level-embedding">1.1. Very High Level
+            Embedding</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/extending/embedding.html#beyond-very-high-level-embedding-an-overview">1.2.
+            Beyond Very High Level Embedding: An overview</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/extending/embedding.html#pure-embedding">1.3. Pure
+            Embedding</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/extending/embedding.html#extending-embedded-python">1.4. Extending
+            Embedded Python</a></li>
+        <li><a target="_blank" href="https://docs.python.org/3/extending/embedding.html#embedding-python-in-c">1.5.
+            Embedding Python in C++</a></li>
+        <li><a target="_blank"
+            href="https://docs.python.org/3/extending/embedding.html#compiling-and-linking-under-unix-like-systems">1.6.
+            Compiling and Linking under Unix-like systems</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>3.6. Glossary</h3>
+
+  <p>
+    The most important terms are explained in the following page:
+  </p>
+
+  <p>
+    <a target="_blank" href="https://docs.python.org/3/glossary.html">Glossary</a>
+  </p>
+
+  <h3>3.7. FAQs</h3>
+
+  <ul>
+    <li><a target="_blank" href="https://docs.python.org/3/faq/general.html">General Python FAQ</a></li>
+    <li><a target="_blank" href="https://docs.python.org/3/faq/programming.html">Programming FAQ</a></li>
+    <li><a target="_blank" href="https://docs.python.org/3/faq/design.html">Design and History FAQ</a></li>
+    <li><a target="_blank" href="https://docs.python.org/3/faq/library.html">Library and Extension FAQ</a></li>
+    <li><a target="_blank" href="https://docs.python.org/3/faq/extending.html">Extending/Embedding FAQ</a></li>
+    <li><a target="_blank" href="https://docs.python.org/3/faq/windows.html">Python on Windows FAQ</a></li>
+    <li><a target="_blank" href="https://docs.python.org/3/faq/gui.html">Graphic User Interface FAQ</a></li>
+    <li><a target="_blank" href="https://docs.python.org/3/faq/installed.html">“Why is Python Installed on my Computer?”
+        FAQ</a></li>
+  </ul>
+
+  <h2>0. Conclusion</h2>
+
+  <p>
+    As I process the documentation for my personal reference, I conceived an idea that it would be nice to have these entries suggested automatically or semi-automatically by the IDE (integrated development environment). Basic linters and syntax error detectors are convenient guidance; however, they can't be navigation for the high-level options for the development process.
+  </p>
+
+  <p>
+    In the modern high-level programming environment, there is an enormous number of third-party packages available that can amp up productivity. However, engineers should be notified properly to enjoy the benefits of those packages and advanced possible idioms of the language. Wouldn't it be better to be able to supply that information to the development environment directly? I expect we can solve this in the near future.
+  </p>
+
+  <p>
+    Python forever!
+  </p>
+
+  <h2>Appendix A. References</h2>
+
+  <div class="csl-bib-body" style="line-height: 1.35; ">
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 1em;">[1]</div>
+      <div class="csl-right-inline" style="margin: 0 .4em 0 1.5em;">“3.7.4 Documentation.” [Online]. Available: <a href="https://docs.python.org/3/">https://docs.python.org/3/</a>. [Accessed: 21-Jul-2019].
+      </div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=3.7.4%20Documentation&amp;rft.identifier=https%3A%2F%2Fdocs.python.org%2F3%2F"></span>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,216 @@
+<html>
+<head>
+
+</head>
+<body>
+
+  <div style="text-align: center;">
+    <h1><b>C - C++ - All in One Include File</b></h1>
+    <p>
+      A header file that contains all possible C/C++ standard libraries.
+    </p>
+    <p>2018/08/01</p>
+  </div>
+
+  <h2>0. Introduction</h2>
+
+  <p>
+    It is hard for a C/C++ programmer to manage a mental list of all possible libraries. Also, there are some situations that you simply don't care what you include, but you want to include all of them (prototyping or solving algorithm questions). There is a convenient header file called "&lt;bits/stdc++.h&gt;", which contains all include files, but sometimes it's not enough to include all of them blindly.
+  </p>
+
+  <p>
+    So I made this file. Thanks to the most famous C/C++ reference pages (cppreference.com and cplusplus.com) giving me the base information. I organized it and reformatted it so the user simply drag & copy & paste. Although this is a secondary document that could be protected by copyright laws, I don't claim any of rights. You can use it for any purposes within the range that doesn't violate the rights of the first writer (probably C/C++ standard committee). If you improve it, it would be very appreciated if you can share with me.
+  </p>
+
+  <h2>1. c_all_headers.hpp</h2>
+
+  <pre><code class="language-c">/* c_all_headers.hpp
+Title: C All Headers
+Contents:
+This collective header file is made to save time to include required header
+files every time needed. The list is from the famous cppreference.com.
+To use it from any cpp file, simply #include "c_all_headers.hpp".
+*/
+#include &lt;assert.h&gt; /* Conditionally compiled macro that compares its argument to zero */
+#include &lt;complex.h&gt; /* (since C99) Complex number arithmetic */
+#include &lt;ctype.h&gt; /* Functions to determine the type contained in character data */
+#include &lt;errno.h&gt; /* Macros reporting error conditions */
+#include &lt;fenv.h&gt; /* (since C99) Floating-point environment */
+#include &lt;float.h&gt; /* Limits of float types */
+#include &lt;inttypes.h&gt; /* (since C99) Format conversion of integer types */
+#include &lt;iso646.h&gt; /* (since C95) Alternative operator spellings */
+#include &lt;limits.h&gt; /* Sizes of basic types */
+#include &lt;locale.h&gt; /* Localization utilities */
+#include &lt;math.h&gt; /* Common mathematics functions */
+#include &lt;setjmp.h&gt; /* Nonlocal jumps */
+#include &lt;signal.h&gt; /* Signal handling */
+#include &lt;stdalign.h&gt; /* (since C11) alignas and alignof convenience macros */
+#include &lt;stdarg.h&gt; /* Variable arguments */
+#include &lt;stdatomic.h&gt; /* (since C11) Atomic types */
+#include &lt;stdbool.h&gt; /* (since C99) Boolean type */
+#include &lt;stddef.h&gt; /* Common macro definitions */
+#include &lt;stdint.h&gt; /* (since C99) Fixed-width integer types */
+#include &lt;stdio.h&gt; /* Input/output */
+#include &lt;stdlib.h&gt; /* General utilities: memory management, program utilities, string conversions, random numbers */
+#include &lt;stdnoreturn.h&gt; /* (since C11) noreturn convenience macros */
+#include &lt;string.h&gt; /* String handling */
+#include &lt;tgmath.h&gt; /* (since C99) Type-generic math (macros wrapping math.h and complex.h) */
+#include &lt;threads.h&gt; /* (since C11) Thread library */
+#include &lt;time.h&gt; /* Time/date utilities */
+#include &lt;uchar.h&gt; /* (since C11) UTF-16 and UTF-32 character utilities */
+#include &lt;wchar.h&gt; /* (since C95) Extended multibyte and wide character utilities */
+#include &lt;wctype.h&gt; /* (since C95) Functions to determine the type contained in wide character data */
+</code></pre>
+
+  <h2>2. cpp_all_headers.hpp</h2>
+
+  <pre><code class="language-cpp">/* cpp_all_headers.hpp
+Title: C++ All Headers
+Contents:
+This collective header file is made to save time to include required header
+files every time needed. The list is from the famous cppreference.com.
+To use it from any cpp file, simply #include "cpp_all_headers.hpp".
+*/
+
+/* Concepts Library */
+//#include &lt;concepts&gt; // (since C++20) Fundamental library concepts
+
+/* Utilities Library */
+#include &lt;cstdlib&gt; // General purpose utilities: program control, dynamic memory allocation, random numbers, sort and search
+#include &lt;csignal&gt; // Functions and macro constants for signal management
+#include &lt;csetjmp&gt; // Macro (and function) that saves (and jumps) to an execution context
+#include &lt;cstdarg&gt; // Handling of variable length argument lists
+#include &lt;typeinfo&gt; // Runtime type information utilities
+#include &lt;typeindex&gt; // (since C++11) std::type_index
+#include &lt;type_traits&gt; // (since C++11) Compile-time type information
+#include &lt;bitset&gt; // std::bitset class template
+#include &lt;functional&gt; // Function objects, Function invocations, Bind operations and Reference wrappers
+#include &lt;utility&gt; // Various utility components
+#include &lt;ctime&gt; // C-style time/date utilites
+#include &lt;chrono&gt; // (since C++11) C++ time utilites
+#include &lt;cstddef&gt; // standard macros and typedefs
+#include &lt;initializer_list&gt; // (since C++11) std::initializer_list class template
+#include &lt;tuple&gt; // (since C++11) std::tuple class template
+#include &lt;any&gt; // (since C++17) std::any class
+#include &lt;optional&gt; // (since C++17) std::optional class template
+#include &lt;variant&gt; // (since C++17) std::variant class template
+//#include &lt;compare&gt; // (since C++20) Three-way comparison operator support
+//#include &lt;version&gt; // (since C++20) supplies implementation-dependent library information
+
+/* Dynamic Memory Management */
+#include &lt;new&gt; // Low-level memory management utilities
+#include &lt;memory&gt; // Higher level memory management utilities
+#include &lt;scoped_allocator&gt; // (since C++11) Nested allocator class
+//#include &lt;memory_resource&gt; // (since C++17) Polymorphic allocators and memory resources
+
+/* Numeric Limits */
+#include &lt;climits&gt; // limits of integral types
+#include &lt;cfloat&gt; // limits of float types
+#include &lt;cstdint&gt; // (since C++11) fixed-size types and limits of other types
+#include &lt;cinttypes&gt; // (since C++11) formatting macros , intmax_t and uintmax_t math and conversions
+#include &lt;limits&gt; // standardized way to query properties of arithmetic types
+
+/* Error Handling */
+#include &lt;exception&gt; // Exception handling utilities
+#include &lt;stdexcept&gt; // Standard exception objects
+#include &lt;cassert&gt; // Conditionally compiled macro that compares its argument to zero
+#include &lt;system_error&gt; // (since C++11) defines std::error_code, a platform-dependent error code
+#include &lt;cerrno&gt; // Macro containing the last error number
+//#include &lt;contract&gt; // (since C++20) Contract violation information
+
+/* Strings Library */
+#include &lt;cctype&gt; // Functions to determine the type contained in character data
+#include &lt;cwctype&gt; // Functions to determine the type contained in wide character data
+#include &lt;cstring&gt; // various narrow character string handling functions
+#include &lt;cwchar&gt; // various wide and multibyte string handling functions
+#include &lt;cuchar&gt; // (since C++11) C-style Unicode character conversion functions
+#include &lt;string&gt; // std::basic_string class template
+//#include &lt;string_view&gt; // (since C++17) std::basic_string_view class template
+//#include &lt;charconv&gt; // (since C++17) std::to_chars and std::from_chars
+
+/* Containers Library */
+#include &lt;array&gt; // (since C++11) std::array container
+#include &lt;vector&gt; // std::vector container
+#include &lt;deque&gt; // std::deque container
+#include &lt;list&gt; // std::list container
+#include &lt;forward_list&gt; // (since C++11) std::forward_list container
+#include &lt;set&gt; // std::set and std::multiset associative containers
+#include &lt;map&gt; // std::map and std::multimap associative containers
+#include &lt;unordered_set&gt; // (since C++11) std::unordered_set and std::unordered_multisetunordered associative containers
+#include &lt;unordered_map&gt; // (since C++11) std::unordered_map and std::unordered_multimapunordered associative containers
+#include &lt;stack&gt; // std::stack container adaptor
+#include &lt;queue&gt; // std::queue and std::priority_queue container adaptors
+//#include &lt;span&gt; // (since C++20) std::span view
+
+/* Algorithms Library */
+#include &lt;algorithm&gt; // Algorithms that operate on containers
+//#include &lt;execution&gt; // (C++17) Predefined execution policies for parallel versions of the algorithms
+
+/* Iterators Library */
+#include &lt;iterator&gt; // Container iterators
+
+/* Numerics Library */
+#include &lt;cmath&gt; // Common mathematics functions
+#include &lt;complex&gt; // Complex number type
+#include &lt;valarray&gt; // Class for representing and manipulating arrays of values
+#include &lt;random&gt; // (since C++11) Random number generators and distributions
+#include &lt;numeric&gt; // Numeric operations on values in containers
+#include &lt;ratio&gt; // (since C++11) Compile-time rational arithmetic
+#include &lt;cfenv&gt; // (since C++11) Floating-point environment access functions
+//#include &lt;bit&gt; // (since C++20) Bit manipulation functions
+
+/* Input/output Library */
+#include &lt;iosfwd&gt; // forward declarations of all classes in the input/output library
+#include &lt;ios&gt; // std::ios_base class, std::basic_ios class template and several typedefs
+#include &lt;istream&gt; // std::basic_istream class template and several typedefs
+#include &lt;ostream&gt; // std::basic_ostream, std::basic_iostream class templates and several typedefs
+#include &lt;iostream&gt; // several standard stream objects
+#include &lt;fstream&gt; // std::basic_fstream, std::basic_ifstream, std::basic_ofstream class templates and several typedefs
+#include &lt;sstream&gt; // std::basic_stringstream, std::basic_istringstream, std::basic_ostringstream class templates and several typedefs
+//#include &lt;syncstream&gt; // (since C++20) std::basic_osyncstream, std::basic_syncbuf, and typedefs
+//#include &lt;strstream&gt; // (deprecated) std::strstream, std::istrstream, std::ostrstream
+#include &lt;iomanip&gt; // Helper functions to control the format of input and output
+#include &lt;streambuf&gt; // std::basic_streambuf class template
+#include &lt;cstdio&gt; // C-style input-output functions
+
+/* Localization Library */
+#include &lt;locale&gt; // Localization utilities
+#include &lt;clocale&gt; // C localization utilities
+#include &lt;codecvt&gt; // (since C++11) (deprecated in C++17) Unicode conversion facilities
+
+/* Regular Expressions library */
+#include &lt;regex&gt; // (since C++11) Classes, algorithms and iterators to support regular expression processing
+
+/* Atomic Operations library */
+#include &lt;atomic&gt; // (since C++11) Atomic operations library
+
+/* Thread support library */
+#include &lt;thread&gt; // (since C++11) std::thread class and supporting functions
+#include &lt;mutex&gt; // (since C++11) mutual exclusion primitives
+#include &lt;shared_mutex&gt; // (since C++14) shared mutual exclusion primitives
+#include &lt;future&gt; // (since C++11) primitives for asynchronous computations
+#include &lt;condition_variable&gt; // (since C++11) thread waiting conditions
+
+/* Filesystem library */
+//#include &lt;filesystem&gt; // (since C++17) std::path class and supporting functions
+</code></pre>
+
+  <h2>0. Conclusion</h2>
+  To conclude, you need to organize things in a best form to manage it for creativity and productivity.
+
+  <h2>Appendix A. References</h2>
+
+  <p>
+    Standard C++ Foundation, "isocpp.org" 2018. [Online]. Available:https://isocpp.org/std/the-committee. [Accessed August 1, 2018].
+  </p>
+
+  <p>
+    cppreference.com, "cppreference.com" 2018. [Online]. Available:https://en.cppreference.com/w/. [Accessed August 1, 2018].
+  </p>
+
+  <p>
+    cplusplus.com, "cplusplus.com" 2018. [Online]. Available:http://www.cplusplus.com/.[Accessed August 1, 2018].
+  </p>
+
+</body>
+</html>

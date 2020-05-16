@@ -1,0 +1,794 @@
+<html>
+<head>
+
+</head>
+<body>
+
+  <div style="text-align: center;">
+    <h1><b>Getting Started with TensorFlow and OpenAI</b></h1>
+    <p>
+      An introduction to start exploring the world of AI techniques and applications with Ubuntu 18.04 64-bit, Google TensorFlow, OpenAI Foundation OpenAI Gym, and JetBrains Pycharm IDE.
+    </p>
+    <p>2018/08/23</p>
+  </div>
+
+  <h2>0. Introduction</h2>
+
+  <p>
+    The most important component part of learning the field (the artificial intelligence and machine learning) would be the pipeline. Starting from choosing the environment, setting up the features, finding a way to simulate, observe, and evaluate, constructing the model, training the model, evaluating the model, visualization for debugging and improvement are the parts of the pipeline. AI is a relatively young field and the theories are not that complex, but without understanding the practical aspects of it, the theories would be limited. The best way to understand the pipeline is to set up the environment to support it and to make experiments to verify the theories.
+  </p>
+
+  <p>
+    As of 2018, it is very fortunate for anyone to have an environment to support the AI pipeline. There is no need to buy sophisticated hardware unless the users want a performance boost. Most of the technologies are open source projects, so we are going to also use an open source operating system, Linux. If you want to purchase a powerful graphics card, NVIDIA is the only option to support the frameworks and libraries that will be introduced in this tutorial. You can do a research if you want to use other hardware stacks.
+  </p>
+
+  <h2>1. Installation</h2>
+
+  <h3>1.0. Ubuntu 18.04 64 bits</h3>
+
+  <p>
+    Ubuntu is one of the most popular Linux distros. The community is big and many applications exist for the ease of use. The computing environment is entirely programmable including the modules for its kernel. There are many step-by-step Ubuntu installation guides available online, so please follow one of those for the installation.
+  </p>
+
+  <h3>1.1. JetBrains Pycharm IDE</h3>
+
+  <p>
+    You don't need an IDE (Integrated Development Environment) for writing Python code. However, a good IDE will make you productive and efficient. There are many options, but JetBrains Pycharm is my personal choice. Type following commands in the Ubuntu terminal:
+  </p>
+
+  <pre><code class="language-bash">[user@host] $ sudo apt install snapd
+[user@host] $ sudo apt install python3-distutils
+</code></pre>
+
+  <p>
+    Then, simply go to the Ubuntu Software Center and search with the keyword "Pycharm":
+  </p>
+
+  <figure>
+    <img src="img00.jpg" alt="Pycharm CE in Ubuntu Software Center" width="100%">
+    <figcaption>Pycharm CE in Ubuntu Software Center</figcaption>
+  </figure>
+
+  <p>
+    Alternatively, you can just install Pycharm with the snap installer with the following commands:
+  </p>
+
+  <pre><code class="language-bash">[user@host] $ sudo snap install pycharm-community
+</code></pre>
+
+  <p>
+    In Pycharm IDE, a virtual environment can be made to separate multiple development environments. See the following image for a reference to set up which environment you want to use.
+  </p>
+
+  <figure>
+    <img src="img01.jpg" alt="Installation of a New Virtual Environment" width="100%">
+    <figcaption>Installation of a New Virtual Environment</figcaption>
+  </figure>
+
+  <h3>1.2. Google TensorFlow</h3>
+
+  <p>
+    TensorFlow is an open-source software library for dataflow programming across a range of tasks. It is a symbolic math library, and is also used for machine learning applications such as neural networks. It's well-supported by the sponsor (Google) who is trustworthy as a sponsor for one of the most important AI projects. In Pycharm, open up the environment manager and simply search TensorFlow to install:
+  </p>
+
+  <figure>
+    <img src="img02.jpg" alt="TensorFlow Installation" width="100%">
+    <figcaption>TensorFlow Installation</figcaption>
+  </figure>
+
+  <p>
+    After the installation, you need to verify. Make a new file and type the following code to run a session in TensorFlow to see the installation was performed successfully.
+  </p>
+
+  <pre><code class="language-python"># main.py
+import tensorflow as tf
+
+def main(): print(tf.__version__)
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+
+  <h3>1.3. OpenAI Foundation OpenAI Gym</h3>
+
+  <p>
+    OpenAI is a non-profit artificial intelligence (AI) research company that aims to promote and develop friendly AI in such a way as to benefit humanity as a whole. OpenAI Gym is an integrated environment to incorporate the object of OpenAI Foundation described above. To install the OpenAI Gym, install the cmake for the build process.
+  </p>
+
+  <pre><code class="language-bash">[user@host] $ sudo apt install cmake
+</code></pre>
+
+  <p>
+    After installing the cmake, you can just find the OpenAI Gym by searching with the keyword "gym" from the Pycharm environment manager like the following image:
+  </p>
+
+  <figure>
+    <img src="img03.jpg" alt="OpenAI Gym Installation" width="100%">
+    <figcaption>OpenAI Gym Installation</figcaption>
+  </figure>
+
+  <p>
+    Basically the "gym" package contains the most fundamental AI environments. There are many community-developed environments (or you can develop your own). These packages should be installed separately, so see the list of the search with the keyword "gym":
+  </p>
+
+  <figure>
+    <img src="img04.jpg" alt="OpenAI 3rd Party Gym Installation" width="100%">
+    <figcaption>OpenAI 3rd Party Gym Installation</figcaption>
+  </figure>
+
+  <p>
+    To verify the installation, type the following code and run:
+  </p>
+
+  <pre><code class="language-python"># main.py
+import tensorflow as tf
+import gym
+
+
+def main() :
+    print(tf.__version__)
+
+    # Initialize the environment named 'CartPole-v0'
+    env = gym.make('CartPole-v0')
+    env.reset()
+
+    # Do a random action from the action_space 1000 times.
+    for _ in range(1000):
+        env.render()
+        env.step(env.action_space.sample())
+
+    env.close()  # env.env.close() if there are errors.
+
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+
+  <h2>2. OpenAI Gym Reinforcement Learning Environment</h2>
+
+  <h3>2.1. Overview</h3>
+
+  <p>
+    This chapter is a reinterpretation of OpenAI Gym Documentation (http://gym.openai.com/docs/) for the beginners who are about to enter the world of artificial intelligence development. All necessary concepts of AI development will be explained as well. Most of the concepts and diagrams I will introduce is from the most famous AI textbook "Artificial Intelligence: a Modern Approach".
+  </p>
+
+  <h3>2.2. Agents and Environments</h3>
+
+  <p>
+    An AI system consists of two elements, which are an agent or the environment where the agent lives on. This is because traditionally the "intelligence" is defined as "an ability to change the environment in the desired way for the agent or for any directions the agent intends". Actually this is a simplified version from the perspective of computer science, but the Wikipedia says:
+  </p>
+
+  <blockquote>
+    A very general mental capability that, among other things, involves the ability to reason, plan, solve problems, think abstractly, comprehend complex ideas, learn quickly and learn from experience. It is not merely book learning, a narrow academic skill, or test-taking smarts. Rather, it reflects a broader and deeper capability for comprehending our surroundings—"catching on," "making sense" of things, or "figuring out" what to do. - Wikipedia
+  </blockquote>
+
+  <p>
+    The definition above tells more precise aspects of the intelligence, but only focused on the behaviors. Making an AI system is an engineering rather than science (knowing), so the subject of the behavior is important since the subject should be created. Therefore, we are going to use the former definition.
+  </p>
+
+  <p>
+    The agent has to react when it receives perceptions from the environment. The perceptions rely on the sensor the agent has. For example, humans have five (or six, according to some people) senses, that is the range of perceptions human can get. Depends on the perceptions, the agent makes influences to the environment to change the environment or get to the conceptual position (not necessarily geographical locations). In order to react, the agent needs actuators. For example, humans have arms and legs to move, kick, rotate, or type. A mouth is an actuator too since it can influence to the environment. See the following diagram as a summary of explanation so far.
+  </p>
+
+  <figure>
+    <img src="img05.jpg" alt="Agent with Sensors and Actuators" width="80%">
+    <figcaption>Agent with Sensors and Actuators</figcaption>
+  </figure>
+
+  <p>
+    In the past, all the elements described above have to be engineered (physical or virtual) separately. For example, if I want to make a self-driving car, I would have to make vision sensors, Lidar or Ladar, engines, wheels, learning systems, and also the hardest part, environments. A car can be dangerous if it is out of control, so ideally I should make a city where all the obstacles and other moving objects are located (these objects also should be controllable too). The environment can be replaced as a software. However, the biggest problem here is all these things are not really shareable and accessible with others for experimental, research, educational purposes. To make an AGI (Artificial General Intelligence), the more diverse environments the better. It's not realistic to make multiple environments by one person or a single group of people. What we need here is an open source collaboration platform.
+  </p>
+
+  <p>
+    The OpenAI Gym exactly satisfies this requirement. There are various 100% controlled environments, and these environments have well-documented interfaces where the sensors and actuators of the agent can interact with. The environments are community-developed and maintained, and you will be surprised at the number of available environments. This well-established standard makes the process easy to develop, execute, and experiment. In the following section, the interfaces for sensors and actuators will be explained.
+  </p>
+
+  <h3>2.3. Elements of Environments: PEAS</h3>
+
+  <p>
+    There are four elements of environments: Performance measures, environment systems, actuators, and sensors. Each of these elements is tied to the standardized interfaces of the OpenAI Gym. The code below is the basic structure of a complete AI system. I will refer to it when explaining each element.
+  </p>
+
+  <pre><code class="language-python"># main.py
+import tensorflow as tf
+import gym
+
+
+def main() :
+    env = gym.make('CartPole-v0')
+    for i_episode in range(20):
+        observation = env.reset()
+        for t in range(100):
+            env.render()
+            print(observation)
+            action = env.action_space.sample()
+            observation, reward, done, info = env.step(action)
+            if done:
+                print("Episode finished after {} timesteps".format(t+1))
+                break
+
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+
+  <h4>2.3.1. Performance Measures</h4>
+
+  <p>
+    Performance measures let the agent know whether it reacts properly to accomplish its goal. We call it "the reward". Each action is evaluated and the reward is given as a result of the action. See the variable <code class="language-python">reward</code> in the code above. It is returned as a result of <code class="language-python">env.step(action)</code>. Usually the value of the reward is greater if the agent is closer to the goal.
+  </p>
+
+  <h4>2.3.2. Environment Systems</h4>
+
+  <p>
+    Environment systems represent the virtual environment the agent interacts to. The agent can gather information about the environment only through the sensors. However, OpenAI Gym provides a dictionary filled with related information about the environment for a debugging purpose. See the <code class="language-python">info</code> variable returned from <code class="language-python">env.step(action)</code>.
+  </p>
+
+  <p>
+    The environment systems also let the agent know whether it reaches the goal or not by providing the boolean variable <code class="language-python">done</code>. Therefore, in each episode it is a good practice to escape from the loop when the variable <code class="language-python">done</code> is set to True.
+  </p>
+
+  <h4>2.3.3. Actuators</h4>
+
+  <p>
+    Actuators let the agent react to the environments. In the OpenAI environments, there are a finite number of actions the agent can choose from. See the <code class="language-python">action</code> variable returned from <code class="language-python">env.action_space.sample()</code>. The <code class="language-python">action_space</code> has all the actions.
+  </p>
+
+  <h4>2.3.4. Sensors</h4>
+
+  <p>
+    Sensors let the agent perceive the environments. In the OpenAI Gym, the variable <code class="language-python">observation</code> contains the data from the sensors of the agent. This variable can be utilized for learning and to generate a proper action. One thing to remember is that the environment should be reset before using it by <code class="language-python">env.reset()</code>. This piece of code returns the initial observation.
+  </p>
+
+  <p>
+    The observation space is defined and embedded in the environment, and you examine the range and characteristics of the observation space at <code class="language-python">env.observation_space</code>.
+  </p>
+
+  <h3>2.4. Characteristics of Environments</h3>
+
+  <p>
+    Environments have characteristics which have to be considered for developing an effective AI system. Sometimes an environment is only partially observable. There can be more than one agent, interacting with each other. The previous episode affects the episode that comes after the previous one. The environment itself can change, which makes choosing the action more difficult than the static environment. Some environments are not deterministic, which means you can't tell the exact output from an action. The following table summarizes the characteristics of environments, and shows some sample environments and its characteristics.
+  </p>
+
+  <figure>
+    <img src="img06.jpg" alt="Characteristics of Sample Tasks" width="100%">
+    <figcaption>Characteristics of Sample Tasks</figcaption>
+  </figure>
+
+  <p>
+    The full list of environments available in OpenAI Gym can be viewed by clicking this <a target="_blank" href="https://gym.openai.com/envs/">link</a>. If there is no environment you are looking for, it is possible to develop one and upload the environment to the OpenAI Gym. See the OpenAI Gym documentation.
+  </p>
+
+  <h3>2.5. Intelligent Agents</h3>
+
+  <p>
+    There are several models for intelligent agents: Simple Reflex, Model-Based, Goal-Based, Utility-Based, and Learning Agent. Each model has its advantages and limitations. In OpenAI Gym, the agent model is close to the Utility-based one in that the agent receives utilities (rewards) after taking one step forward. The following diagram shows how the utility-based model works. It has an internal model to predict the next state for possible actions. The agent executes the action when it finds the best action it can take at the stage.
+  </p>
+
+  <figure>
+    <img src="img07.jpg" alt="Utility-Based Agents" width="100%">
+    <figcaption>Utility-Based Agents</figcaption>
+  </figure>
+
+  <p>
+    In the utility-based agent, the internal model that represents the world (environment) helps to decide which action would generate the maximum utilities the agent can get. However, the model has to be given prior to the execution. It doesn't change over time in this model. This is problematic if the environment changes or the initial model is not available. Wouldn't it be good if the agent "learn" about the environment as it executes actions to examine the environment? That is the learning agent.
+  </p>
+
+  <figure>
+    <img src="img08.jpg" alt="Learning Agents" width="100%">
+    <figcaption>Learning Agents</figcaption>
+  </figure>
+
+  <p>
+    The learning agent has an internal flexible and adjustable model for the environment. It tries its best to get the maximum utilities at the given state, but also it tries to improve the internal model for the future use. If the learning algorithm is suitable and efficient, the performance will be improved over time. If not, the performance will be not good also consume a large number of computing resources because of the learning cost. If the environment is simple enough, the simple reflex model can be the best model for the performance and the cost. However, the learning agent pays off when the environment is too complex to be programmatically structurized. Let's see an example of a simple learning agent.
+  </p>
+
+  <h3>2.6. Taxi Driver Agent with Q-Learning</h3>
+
+  <p>
+    In this section, a learning agent which uses Q-learning will be introduced with the Taxi-v2 environment in OpenAI Gym. Q-learning is a good place to start because it is conceptually simple and intuitive. Let's start with the environment, which is the problem we have to solve. See the following image:
+  </p>
+
+  <figure>
+    <img src="img09.jpg" alt="Taxi-v2 in OpenAI Gym" width="100%">
+    <figcaption>Taxi-v2 in OpenAI Gym</figcaption>
+  </figure>
+
+  <p>
+    The letters represent the locations and the yellow block is the taxi. The agent drives the taxi and can move the taxi one block as an action. There are hundreds of states associated with the individual state which is made up with the location of the agent, the location of the passenger, and the fact that the passenger is in the taxi. With the possible six actions (up, down, right, left, pick up, or drop in), these states are interconnected to each other.
+  </p>
+
+  <p>
+    The fact that we can define all states and those states are connected by the actions of the agent is very important since it means the agent can learn the relationships between states and choose the best move in the future. This is the key concept of the Q-learning. For a former definition, let's see the definition from the Wikipedia:
+  </p>
+
+  <blockquote>
+    Q-learning is a reinforcement learning technique used in machine learning. The goal of Q-Learning is to learn a policy, which tells an agent what action to take under what circumstances. It does not require a model of the environment and can handle problems with stochastic transitions and rewards, without requiring adaptations.
+  </blockquote>
+
+  <p>
+    A reinforcement learning means the agent must execute and get punished (or rewarded) to perform a learning process. A policy means which action the agent should choose for the next move. The actual learning algorithm is the following:
+  </p>
+
+  <figure>
+    <img src="img10.jpg" alt="Q-Learning Formula" width="100%">
+    <figcaption>Q-Learning Formula</figcaption>
+  </figure>
+
+  <p>
+    It can be viewed as a retrospective learning because the agent would look back and adjust the actions in the past based on the result (reward or punishment) the agent is having now. The learning rate controls how much knowledge would be applied to the existing knowledge system. If the learning rate is high, the agent learns more aggressive. If the learning rate is low, the agent learns very conservatively. The optimal learning rate highly depends on the environment and other factors. The actual code would be the following.
+  </p>
+
+  <pre><code class="language-python"># q_learning.py
+import gym
+
+
+def main():
+    # Initialize the environment.
+    env = gym.make('Taxi-v2')
+
+    # Initialize the q_learning matrix and the learning rate.
+    Q = np.zeros([env.observation_space.n, env.action_space.n])
+    G = 0
+    alpha = 0.618
+
+    for episode in range(1, 1001):
+        done = False
+        G, reward = 0, 0
+
+        state = env.reset()
+
+        while done != True:
+            # Find the max Q and execute the action.
+            action = np.argmax(Q[state])
+            state_next, reward, done, info = env.step(action)
+
+            # Learn the result from the action executed.
+            Q[state, action] += alpha * (reward + np.max(Q[state_next]) - Q[state, action])
+            G += reward
+
+            # Move on to the next state.
+            state = state_next
+
+        # Print out the intermediate results.
+        if episode % 50 == 0:
+            print("Episode {}: Total Reward: {}".format(episode, G))
+
+    env.close()
+
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+
+  <p>
+    There are many learning algorithms but the structure would be the same. What is needed to use a different learning algorithm is to analyze the environment, states, actions and determine the design of the specific learning system. As explained, OpenAI Gym provides a convenient way to develop and experiment an AI system. For more complex learning systems, there are AI frameworks that enable researchers to use ready-made AI algorithms. It makes researchers be able to focus high-level logic instead of all the technicalities of the algorithms. One of them is Google TensorFlow.
+  </p>
+
+  <h2>3. Google TensorFlow Machine Learning Framework</h2>
+
+  <h3>3.1. Overview</h3>
+
+  <p>
+    Google launched the Tensorflow in 2015 by its AI/ML development team, Google Brain. It has been a major success in that there are thousands of developers participating in the open source project. There had been other machine learning libraries but it has never been like Tensorflow. It must have something to do with the brand image of Google, Alpha Go, and some other factors. The community is very active and many developers try to apply the framework to many other fields such as music generation (Project <a target="_blank" href="https://magenta.tensorflow.org/">Majenta</a>).
+  </p>
+
+  <figure>
+    <img src="img11.jpg" alt="Music Generator by Tero Parviainen" width="50%">
+    <figcaption>Music Generator by Tero Parviaine</figcaption>
+  </figure>
+
+  <p>
+    The echo system is one part, Google also makes hardware to accelerate the machine learning applications. TPU (Tensor Processing Unit) is proved that one TPU can do more than tens or hundreds of GPU -- I know it's not really fair because GPU is more general-purpose processing unit, but it is a very good news for the people who have been using many GPUs to get the proper learning power, since they don't play a graphic-intensive game with those machines. As of September 2018, it is not available yet in the market.
+  </p>
+
+  <p>
+    There are several levels APIs available in several languages, but only Python APIs will be introduced for the sake of brevity. It seems Python became the official language for machine learning development. There are lower level APIs that can control variables, tensors, and graphs. There are high level APIs that can build machine learning techniques with a few lines of code. Finally, there are visualization libraries which show things under the hood. Let's start with the low level APIs.
+  </p>
+
+  <h3>3.2. Low Level APIs</h3>
+
+  <p>
+    TensorFlow integrates other Python math libraries (e.g. numpy, etc.) into the components for the artificial intelligence and machine learning. The low-level APIs are wrappers for those math packages to provide consistent interfaces for the high-level operations. Let's see the following code as an example. The example is the famous MNIST number classification problem with neural networks. The code is very well commented, so read it in order:
+  </p>
+
+  <pre><code class="language-python"># lowapi.py
+import tensorflow as tf
+
+# Load the MNIST dataset.
+from tensorflow.examples.tutorials.mnist import input_data
+mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
+
+# Put the random seed.
+tf.set_random_seed(777)
+
+# Set up parameters.
+learning_rate = 0.001
+training_epochs = 15
+batch_size = 100
+total_batch = int(mnist.train.num_examples / batch_size)
+
+# Input place holders for x and y.
+X = tf.placeholder(tf.float32, [None, 784])
+Y = tf.placeholder(tf.float32, [None, 10])
+
+# Setup the dropout rate.
+keep_prob = tf.placeholder(tf.float32)
+
+# Construct neural network layers.
+W1 = tf.get_variable("W1", shape=[784, 512],
+                     initializer=tf.contrib.layers.xavier_initializer())
+b1 = tf.Variable(tf.random_normal([512]))
+L1 = tf.nn.relu(tf.matmul(X, W1) + b1)
+L1 = tf.nn.dropout(L1, keep_prob=keep_prob)
+
+W2 = tf.get_variable("W2", shape=[512, 512],
+                     initializer=tf.contrib.layers.xavier_initializer())
+b2 = tf.Variable(tf.random_normal([512]))
+L2 = tf.nn.relu(tf.matmul(L1, W2) + b2)
+L2 = tf.nn.dropout(L2, keep_prob=keep_prob)
+
+W3 = tf.get_variable("W3", shape=[512, 512],
+                     initializer=tf.contrib.layers.xavier_initializer())
+b3 = tf.Variable(tf.random_normal([512]))
+L3 = tf.nn.relu(tf.matmul(L2, W3) + b3)
+L3 = tf.nn.dropout(L3, keep_prob=keep_prob)
+
+W4 = tf.get_variable("W4", shape=[512, 512],
+                     initializer=tf.contrib.layers.xavier_initializer())
+b4 = tf.Variable(tf.random_normal([512]))
+L4 = tf.nn.relu(tf.matmul(L3, W4) + b4)
+L4 = tf.nn.dropout(L4, keep_prob=keep_prob)
+
+W5 = tf.get_variable("W5", shape=[512, 10],
+                     initializer=tf.contrib.layers.xavier_initializer())
+b5 = tf.Variable(tf.random_normal([10]))
+hypothesis = tf.matmul(L4, W5) + b5
+
+# Define cost and optimizing algorithm.
+cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=hypothesis, labels=Y))
+optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
+
+# Start the tf session and run.
+sess = tf.Session()
+sess.run(tf.global_variables_initializer())
+
+# Actual training process.
+for epoch in range(training_epochs):
+    avg_cost = 0
+
+    for i in range(total_batch):
+        batch_xs, batch_ys = mnist.train.next_batch(batch_size)
+        feed_dict = {X: batch_xs, Y: batch_ys, keep_prob: 0.7}
+        c, _ = sess.run([cost, optimizer], feed_dict=feed_dict)
+        avg_cost += c / total_batch
+
+    print('Epoch:', '%04d' % (epoch + 1), 'cost =', '{:.9f}'.format(avg_cost))
+
+# Test model and check accuracy.
+correct_prediction = tf.equal(tf.argmax(hypothesis, 1), tf.argmax(Y, 1))
+accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+print('Accuracy:', sess.run(accuracy,
+                            feed_dict={X: mnist.test.images,
+                                       Y: mnist.test.labels,
+                                       keep_prob: 1}))
+  </code></pre>
+
+  <h3>3.3. High Level APIs: Keras</h3>
+
+  <p>
+     Keras is an open source neural network library written in Python. It is capable of running on top of TensorFlow, Microsoft Cognitive Toolkit or Theano. Designed to enable fast experimentation with deep neural networks, it focuses on being user-friendly, modular, and extensible. As you can see the main objective of Keras interfaces, the following code do the same MNIST classification with much less lines of code:
+  </p>
+
+  <pre><code class="language-python"># keras.py
+import tensorflow as tf
+
+# Load the MNIST dataset.
+mnist = tf.keras.datasets.mnist
+(x_train, y_train),(x_test, y_test) = mnist.load_data()
+x_train, x_test = x_train / 255.0, x_test / 255.0
+
+# Select a model and add layers.
+model = tf.keras.models.Sequential()
+model.add(tf.keras.layers.Flatten())
+model.add(tf.keras.layers.Dense(2048, activation=tf.nn.relu))
+model.add(tf.keras.layers.Dense(2048, activation=tf.nn.relu))
+model.add(tf.keras.layers.Dense(2048, activation=tf.nn.relu))
+model.add(tf.keras.layers.Dropout(0.1))
+model.add(tf.keras.layers.Dense(10, activation=tf.nn.softmax))
+
+# Select an optimizing algorithm.
+model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
+
+# Learn and evaluate.
+model.fit(x_train, y_train, epochs=5)
+model.evaluate(x_test, y_test)
+  </code></pre>
+
+  <h3>3.4. TensorBoard</h3>
+
+  <p>
+    TensorBoard is a visualization package in TensorFlow like matplotlib. It is being operated as a web-server so it is possible to have multiple users for one visualization server to share information about the learning process of a powerful training machine. Run the following MNIST sample code from Google:
+  </p>
+
+  <pre><code class="language-python"># tensorboard.py
+# https://github.com/tensorflow/tensorflow/blob/master/tensorflow/examples/tutorials/mnist/mnist_with_summaries.py
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
+import argparse
+import os
+import sys
+
+import tensorflow as tf
+
+from tensorflow.examples.tutorials.mnist import input_data
+
+FLAGS = None
+
+
+def train():
+  # Import data
+  mnist = input_data.read_data_sets(FLAGS.data_dir,
+                                    fake_data=FLAGS.fake_data)
+
+  sess = tf.InteractiveSession()
+  # Create a multilayer model.
+
+  # Input placeholders
+  with tf.name_scope('input'):
+    x = tf.placeholder(tf.float32, [None, 784], name='x-input')
+    y_ = tf.placeholder(tf.int64, [None], name='y-input')
+
+  with tf.name_scope('input_reshape'):
+    image_shaped_input = tf.reshape(x, [-1, 28, 28, 1])
+    tf.summary.image('input', image_shaped_input, 10)
+
+  # We can't initialize these variables to 0 - the network will get stuck.
+  def weight_variable(shape):
+    """Create a weight variable with appropriate initialization."""
+    initial = tf.truncated_normal(shape, stddev=0.1)
+    return tf.Variable(initial)
+
+  def bias_variable(shape):
+    """Create a bias variable with appropriate initialization."""
+    initial = tf.constant(0.1, shape=shape)
+    return tf.Variable(initial)
+
+  def variable_summaries(var):
+    """Attach a lot of summaries to a Tensor (for TensorBoard visualization)."""
+    with tf.name_scope('summaries'):
+      mean = tf.reduce_mean(var)
+      tf.summary.scalar('mean', mean)
+      with tf.name_scope('stddev'):
+        stddev = tf.sqrt(tf.reduce_mean(tf.square(var - mean)))
+      tf.summary.scalar('stddev', stddev)
+      tf.summary.scalar('max', tf.reduce_max(var))
+      tf.summary.scalar('min', tf.reduce_min(var))
+      tf.summary.histogram('histogram', var)
+
+  def nn_layer(input_tensor, input_dim, output_dim, layer_name, act=tf.nn.relu):
+    """Reusable code for making a simple neural net layer.
+    It does a matrix multiply, bias add, and then uses ReLU to nonlinearize.
+    It also sets up name scoping so that the resultant graph is easy to read,
+    and adds a number of summary ops.
+    """
+    # Adding a name scope ensures logical grouping of the layers in the graph.
+    with tf.name_scope(layer_name):
+      # This Variable will hold the state of the weights for the layer
+      with tf.name_scope('weights'):
+        weights = weight_variable([input_dim, output_dim])
+        variable_summaries(weights)
+      with tf.name_scope('biases'):
+        biases = bias_variable([output_dim])
+        variable_summaries(biases)
+      with tf.name_scope('Wx_plus_b'):
+        preactivate = tf.matmul(input_tensor, weights) + biases
+        tf.summary.histogram('pre_activations', preactivate)
+      activations = act(preactivate, name='activation')
+      tf.summary.histogram('activations', activations)
+      return activations
+
+  hidden1 = nn_layer(x, 784, 500, 'layer1')
+
+  with tf.name_scope('dropout'):
+    keep_prob = tf.placeholder(tf.float32)
+    tf.summary.scalar('dropout_keep_probability', keep_prob)
+    dropped = tf.nn.dropout(hidden1, keep_prob)
+
+  # Do not apply softmax activation yet, see below.
+  y = nn_layer(dropped, 500, 10, 'layer2', act=tf.identity)
+
+  with tf.name_scope('cross_entropy'):
+    # The raw formulation of cross-entropy,
+    #
+    # tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(tf.softmax(y)),
+    #                               reduction_indices=[1]))
+    #
+    # can be numerically unstable.
+    #
+    # So here we use tf.losses.sparse_softmax_cross_entropy on the
+    # raw logit outputs of the nn_layer above, and then average across
+    # the batch.
+    with tf.name_scope('total'):
+      cross_entropy = tf.losses.sparse_softmax_cross_entropy(
+          labels=y_, logits=y)
+  tf.summary.scalar('cross_entropy', cross_entropy)
+
+  with tf.name_scope('train'):
+    train_step = tf.train.AdamOptimizer(FLAGS.learning_rate).minimize(
+        cross_entropy)
+
+  with tf.name_scope('accuracy'):
+    with tf.name_scope('correct_prediction'):
+      correct_prediction = tf.equal(tf.argmax(y, 1), y_)
+    with tf.name_scope('accuracy'):
+      accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+  tf.summary.scalar('accuracy', accuracy)
+
+  # Merge all the summaries and write them out to
+  # /tmp/tensorflow/mnist/logs/mnist_with_summaries (by default)
+  merged = tf.summary.merge_all()
+  train_writer = tf.summary.FileWriter(FLAGS.log_dir + '/train', sess.graph)
+  test_writer = tf.summary.FileWriter(FLAGS.log_dir + '/test')
+  tf.global_variables_initializer().run()
+
+  # Train the model, and also write summaries.
+  # Every 10th step, measure test-set accuracy, and write test summaries
+  # All other steps, run train_step on training data, & add training summaries
+
+  def feed_dict(train):
+    """Make a TensorFlow feed_dict: maps data onto Tensor placeholders."""
+    if train or FLAGS.fake_data:
+      xs, ys = mnist.train.next_batch(100, fake_data=FLAGS.fake_data)
+      k = FLAGS.dropout
+    else:
+      xs, ys = mnist.test.images, mnist.test.labels
+      k = 1.0
+    return {x: xs, y_: ys, keep_prob: k}
+
+  for i in range(FLAGS.max_steps):
+    if i % 10 == 0:  # Record summaries and test-set accuracy
+      summary, acc = sess.run([merged, accuracy], feed_dict=feed_dict(False))
+      test_writer.add_summary(summary, i)
+      print('Accuracy at step %s: %s' % (i, acc))
+    else:  # Record train set summaries, and train
+      if i % 100 == 99:  # Record execution stats
+        run_options = tf.RunOptions(trace_level=tf.RunOptions.FULL_TRACE)
+        run_metadata = tf.RunMetadata()
+        summary, _ = sess.run([merged, train_step],
+                              feed_dict=feed_dict(True),
+                              options=run_options,
+                              run_metadata=run_metadata)
+        train_writer.add_run_metadata(run_metadata, 'step%03d' % i)
+        train_writer.add_summary(summary, i)
+        print('Adding run metadata for', i)
+      else:  # Record a summary
+        summary, _ = sess.run([merged, train_step], feed_dict=feed_dict(True))
+        train_writer.add_summary(summary, i)
+  train_writer.close()
+  test_writer.close()
+
+
+def main(_):
+  if tf.gfile.Exists(FLAGS.log_dir):
+    tf.gfile.DeleteRecursively(FLAGS.log_dir)
+  tf.gfile.MakeDirs(FLAGS.log_dir)
+  train()
+
+
+if __name__ == '__main__':
+  parser = argparse.ArgumentParser()
+  parser.add_argument('--fake_data', nargs='?', const=True, type=bool,
+                      default=False,
+                      help='If true, uses fake data for unit testing.')
+  parser.add_argument('--max_steps', type=int, default=1000,
+                      help='Number of steps to run trainer.')
+  parser.add_argument('--learning_rate', type=float, default=0.001,
+                      help='Initial learning rate')
+  parser.add_argument('--dropout', type=float, default=0.9,
+                      help='Keep probability for training dropout.')
+  parser.add_argument(
+      '--data_dir',
+      type=str,
+      default=os.path.join(os.getenv('TEST_TMPDIR', '/tmp'),
+                           'tensorflow/mnist/input_data'),
+      help='Directory for storing input data')
+  parser.add_argument(
+      '--log_dir',
+      type=str,
+      default=os.path.join(os.getenv('TEST_TMPDIR', '/tmp'),
+                           'tensorflow/mnist/logs/mnist_with_summaries'),
+      help='Summaries log directory')
+  FLAGS, unparsed = parser.parse_known_args()
+  tf.app.run(main=main, argv=[sys.argv[0]] + unparsed)
+  </code></pre>
+
+  <p>
+    The code above saved all the result data on the disk. To start a local visualization server, type the following command:
+  </p>
+
+  <pre><code class="language-bash">[user@host] $ tensorboard --logdir=path/to/log-directory
+</code></pre>
+
+  <p>
+    You can see the following charts and interact with those:
+  </p>
+
+  <figure>
+    <img src="img12.jpg" alt="Tensorboard: Scalars" width="100%">
+    <figcaption>Tensorboard: Scalars</figcaption>
+  </figure>
+
+  <figure>
+    <img src="img13.jpg" alt="Tensorboard: Images" width="100%">
+    <figcaption>Tensorboard: Images</figcaption>
+  </figure>
+
+  <figure>
+    <img src="img14.jpg" alt="Tensorboard: Graphs" width="100%">
+    <figcaption>Tensorboard: Graphs</figcaption>
+  </figure>
+
+  <figure>
+    <img src="img15.jpg" alt="Tensorboard: Distributions" width="100%">
+    <figcaption>Tensorboard: Distributions</figcaption>
+  </figure>
+
+  <figure>
+    <img src="img16.jpg" alt="Tensorboard: Histograms" width="100%">
+    <figcaption>Tensorboard: Histograms</figcaption>
+  </figure>
+
+  <h2>0. Conclusion</h2>
+
+  <p>
+    OpenAI Gym and TensorFlow are huge subjects, but I thought it is really important to get a big picture for people who want to start learning. Artificial intelligence and machine learning have become the fundamental skill sets in computer science and professionals in diverse fields attempt to learn it. The framework itself is well-organized and easy to use; however, if one can't see the big picture, one can't apply the framework to their fields well. Unfortunately, there are not many easy courses for the public. Usually there are prerequisites in computer science such as discrete mathematics, algorithms, programming languages.
+  </p>
+
+  <p>
+    It would be nice to have an introductory AI/ML course which minimizes the complexity for the professionals of various fields so they can develop high level ideas for their own needs. Then they can use the frameworks to make prototypes to prove the concept, and if the prototype is successful, they can hire AI/ML specialists and software engineers to implement the application. Unfortunately, it's all about IT industries and limited fields (Medical, Law, and Financial) for now. This objective is important for open source projects. Open source projects are successful because there are many talents involved in the project. If we can lower the technical bar, imagine how awesome it would be to have all talents from other fields.
+  </p>
+
+  <p>
+    In the past, technologies were powerful but not as much as the present. Technologies are so pervasive -- I think it happened with the mobile revolution, affecting every single field we can imagine. Computers were limited to solve deterministic tasks which can be handled by finite lines of commands. Now AI/ML enables computers to solve stochastic tasks and predict the future. This opened up infinite possibilities for the mankind. I wish everyone can have the benefits of it.
+  </p>
+
+  <h2>Appendix A. References</h2>
+
+  <div class="csl-bib-body" style="line-height: 2; margin-left: 2em; text-indent:-2em;">
+    <div class="csl-entry">Connecting with Music Through Magenta.js. (n.d.). Retrieved September 6, 2018, from <a href="https://magenta.tensorflow.org/blog/2018/05/03/connecting-with-magenta-js/">https://magenta.tensorflow.org/blog/2018/05/03/connecting-with-magenta-js/</a></div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Connecting%20with%20Music%20Through%20Magenta.js&amp;rft.description=Editorial%20Note%3A%20Over%20the%20past%20few%20months%2C%20we%20have%20noticed%20many%20impressive%20apps%20built%20by%20Tero%20Parviainen%20ofcreative.ai%20popping%20up%20on%20Twitter%2C%20many%20of%20which%20us...&amp;rft.identifier=https%3A%2F%2Fmagenta.tensorflow.org%2Fblog%2F2018%2F05%2F03%2Fconnecting-with-magenta-js%2F"></span>
+    <div class="csl-entry">creative.ai. (n.d.). Retrieved September 6, 2018, from <a href="https://creative.ai/">https://creative.ai/</a></div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=creative.ai&amp;rft.identifier=https%3A%2F%2Fcreative.ai%2F"></span>
+    <div class="csl-entry">Francis, J. (2017, July 13). Introduction to reinforcement learning and OpenAI Gym. Retrieved September 1, 2018, from <a href="https://www.oreilly.com/learning/introduction-to-reinforcement-learning-and-openai-gym">https://www.oreilly.com/learning/introduction-to-reinforcement-learning-and-openai-gym</a></div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Introduction%20to%20reinforcement%20learning%20and%20OpenAI%20Gym&amp;rft.description=A%20demonstration%20of%20basic%20reinforcement%20learning%20problems.&amp;rft.identifier=https%3A%2F%2Fwww.oreilly.com%2Flearning%2Fintroduction-to-reinforcement-learning-and-openai-gym&amp;rft.aufirst=Justin&amp;rft.aulast=Francis&amp;rft.au=Justin%20Francis&amp;rft.date=2017-07-13&amp;rft.language=en"></span>
+    <div class="csl-entry">How To Install PyCharm In Ubuntu 18.04 and 16.04. (2015, August 1). Retrieved August 28, 2018, from <a href="https://itsfoss.com/install-pycharm-ubuntu/">https://itsfoss.com/install-pycharm-ubuntu/</a></div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=How%20To%20Install%20PyCharm%20In%20Ubuntu%2018.04%20and%2016.04&amp;rft.description=This%20is%20the%20easiest%20and%20painless%20way%20of%20installing%20PyCharm%20IDE%20in%20Ubuntu%2C%20Linux%20Mint%20and%20elementary%20OS.&amp;rft.identifier=https%3A%2F%2Fitsfoss.com%2Finstall-pycharm-ubuntu%2F&amp;rft.date=2015-08-01&amp;rft.language=en-US"></span>
+    <div class="csl-entry">Intelligence. (2018). In <i>Wikipedia</i>. Retrieved from <a href="https://en.wikipedia.org/w/index.php?title=Intelligence&amp;oldid=854564486">https://en.wikipedia.org/w/index.php?title=Intelligence&amp;oldid=854564486</a></div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=encyclopediaArticle&amp;rft.title=Intelligence&amp;rft.rights=Creative%20Commons%20Attribution-ShareAlike%20License&amp;rft.description=Intelligence%20has%20been%20defined%20in%20many%20ways%20to%20include%20the%20capacity%20for%20logic%2C%20understanding%2C%20self-awareness%2C%20learning%2C%20emotional%20knowledge%2C%20reasoning%2C%20planning%2C%20creativity%2C%20and%20problem%20solving.%20It%20can%20be%20more%20generally%20described%20as%20the%20ability%20to%20perceive%20or%20infer%20information%2C%20and%20to%20retain%20it%20as%20knowledge%20to%20be%20applied%20towards%20adaptive%20behaviors%20within%20an%20environment%20or%20context.%0AIntelligence%20is%20most%20widely%20studied%20in%20humans%20but%20has%20also%20been%20observed%20in%20both%20non-human%20animals%20and%20in%20plants.%20Intelligence%20in%20machines%20is%20called%20artificial%20intelligence%2C%20which%20is%20commonly%20implemented%20in%20computer%20systems%20using%20programs.&amp;rft.identifier=https%3A%2F%2Fen.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DIntelligence%26oldid%3D854564486&amp;rft.date=2018-08-12&amp;rft.language=en"></span>
+    <div class="csl-entry">Jaiswal, P. (2017, December 10). Getting Started with Reinforcement Q Learning. Retrieved September 1, 2018, from <a href="https://towardsdatascience.com/getting-started-with-reinforcement-q-learning-77499b1766b6">https://towardsdatascience.com/getting-started-with-reinforcement-q-learning-77499b1766b6</a></div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Getting%20Started%20with%20Reinforcement%20Q%20Learning&amp;rft.description=Introduction&amp;rft.identifier=https%3A%2F%2Ftowardsdatascience.com%2Fgetting-started-with-reinforcement-q-learning-77499b1766b6&amp;rft.aufirst=Percy&amp;rft.aulast=Jaiswal&amp;rft.au=Percy%20Jaiswal&amp;rft.date=2017-12-10"></span>
+    <div class="csl-entry">Magenta. (n.d.). Retrieved September 6, 2018, from <a href="https://magenta.tensorflow.org/">https://magenta.tensorflow.org/</a></div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Magenta&amp;rft.description=Magenta%20is%20a%20project%20devoted%20to%20music%20and%20art%20generation%20with%20machine%20intelligence.%20It%20is%20part%20of%20TensorFlow%2C%20an%20open%20source%20machine%20learning%20library.&amp;rft.identifier=https%3A%2F%2Fmagenta.tensorflow.org%2F"></span>
+    <div class="csl-entry">OpenAI. (n.d.-a). Gym: A toolkit for developing and comparing reinforcement learning algorithms. Retrieved August 28, 2018, from <a href="https://gym.openai.com">https://gym.openai.com</a></div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Gym%3A%20A%20toolkit%20for%20developing%20and%20comparing%20reinforcement%20learning%20algorithms&amp;rft.description=A%20toolkit%20for%20developing%20and%20comparing%20reinforcement%20learning%20algorithms&amp;rft.identifier=https%3A%2F%2Fgym.openai.com&amp;rft.aulast=OpenAI&amp;rft.au=OpenAI"></span>
+    <div class="csl-entry">OpenAI. (n.d.-b). Retrieved August 28, 2018, from <a href="https://openai.com/">https://openai.com/</a></div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=OpenAI&amp;rft.description=OpenAI%20is%20a%20non-profit%20AI%20research%20company%2C%20discovering%20and%20enacting%20the%20path%20to%20safe%20artificial%20general%20intelligence.&amp;rft.identifier=https%3A%2F%2Fopenai.com%2F&amp;rft.language=en-us"></span>
+    <div class="csl-entry">Q-learning. (2018). In <i>Wikipedia</i>. Retrieved from <a href="https://en.wikipedia.org/w/index.php?title=Q-learning&amp;oldid=855669929">https://en.wikipedia.org/w/index.php?title=Q-learning&amp;oldid=855669929</a></div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=encyclopediaArticle&amp;rft.title=Q-learning&amp;rft.rights=Creative%20Commons%20Attribution-ShareAlike%20License&amp;rft.description=Q-learning%20is%20a%20reinforcement%20learning%20technique%20used%20in%20machine%20learning.%20The%20goal%20of%20Q-Learning%20is%20to%20learn%20a%20policy%2C%20which%20tells%20an%20agent%20what%20action%20to%20take%20under%20what%20circumstances.%20It%20does%20not%20require%20a%20model%20of%20the%20environment%20and%20can%20handle%20problems%20with%20stochastic%20transitions%20and%20rewards%2C%20without%20requiring%20adaptations.%0AFor%20any%20finite%20Markov%20decision%20process%20(FMDP)%2C%20Q-learning%20finds%20a%20policy%20that%20is%20optimal%20in%20the%20sense%20that%20it%20maximizes%20the%20expected%20value%20of%20the%20total%20reward%20over%20all%20successive%20steps%2C%20starting%20from%20the%20current%20state.%20Q-learning%20can%20identify%20an%20optimal%20action-selection%20policy%20for%20any%20given%20FMDP%2C%20given%20infinite%20exploration%20time%20and%20a%20partly-random%20policy.%20%22Q%22%20names%20the%20function%20that%20returns%20the%20reward%20used%20to%20provide%20the%20reinforcement%20and%20can%20be%20said%20to%20stand%20for%20the%20%22quality%22%20of%20an%20action%20taken%20in%20a%20given%20state.&amp;rft.identifier=https%3A%2F%2Fen.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DQ-learning%26oldid%3D855669929&amp;rft.date=2018-08-20&amp;rft.language=en"></span>
+    <div class="csl-entry">Russell, S. J., &amp; Norvig, P. (2016). <i>Artificial intelligence: a modern approach</i>. Malaysia; Pearson Education Limited,.</div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.btitle=Artificial%20intelligence%3A%20a%20modern%20approach&amp;rft.publisher=Malaysia%3B%20Pearson%20Education%20Limited%2C&amp;rft.aufirst=Stuart%20J&amp;rft.aulast=Russell&amp;rft.au=Stuart%20J%20Russell&amp;rft.au=Peter%20Norvig&amp;rft.date=2016"></span>
+    <div class="csl-entry">Siraj Raval. (n.d.). Retrieved August 28, 2018, from <a href="https://www.youtube.com/channel/UCWN3xxRkmTPmbKwht9FuE5A">https://www.youtube.com/channel/UCWN3xxRkmTPmbKwht9FuE5A</a></div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Siraj%20Raval&amp;rft.description=I'm%20Siraj.%20I'm%20on%20a%20warpath%20to%20inspire%20and%20educate%20developers%20to%20build%20Artificial%20Intelligence.%20Games%2C%20music%2C%20chatbots%2C%20art%2C%20i'll%20teach%20you%20how%20to%20make%20it%20al...&amp;rft.identifier=https%3A%2F%2Fwww.youtube.com%2Fchannel%2FUCWN3xxRkmTPmbKwht9FuE5A"></span>
+    <div class="csl-entry">TensorFlow. (n.d.). Retrieved August 28, 2018, from <a href="https://www.tensorflow.org/">https://www.tensorflow.org/</a></div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=TensorFlow&amp;rft.description=An%20open%20source%20machine%20learning%20framework%20for%20everyone&amp;rft.identifier=https%3A%2F%2Fwww.tensorflow.org%2F&amp;rft.language=en"></span>
+    <div class="csl-entry">William Guss. (n.d.). <i>TensorFlow &amp; OpenAI Gym Tutorial: Behavioral Cloning!</i> Retrieved from <a href="https://www.youtube.com/watch?v=0rsrDOXsSeM">https://www.youtube.com/watch?v=0rsrDOXsSeM</a></div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=videoRecording&amp;rft.title=TensorFlow%20%26%20OpenAI%20Gym%20Tutorial%3A%20Behavioral%20Cloning!&amp;rft.identifier=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D0rsrDOXsSeM&amp;rft.au=undefined"></span>
+  </div>
+
+</body>
+</html>

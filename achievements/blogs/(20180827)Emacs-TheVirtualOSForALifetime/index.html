@@ -1,0 +1,219 @@
+<html>
+<head>
+
+</head>
+<body>
+
+  <div style="text-align: center;">
+    <h1><b>Emacs - The Virtual OS for a Lifetime</b></h1>
+    <p>
+      An initial exploration of how I can use Emacs as a virtual OS while using Vim as a primary text editor.
+    </p>
+    <p>2018/08/27</p>
+  </div>
+
+  <h2>0. Introduction</h2>
+
+  <p>
+    At the previous article, I am introduced (and introduced) Vim (to myself too). When I do the research on the text editors which can satisfy my vast and strict requirements, two names came up, which are Vim and Emacs. I had tried both, and conclude that it is quite meaningless to compare two side by side. They have their strengths and weaknesses. It would be quite nice to have just one text editor for everything, but seems like we are not living in the world like that. There are always opponents, adversaries, rivals, antagonists, competitors, and challengers. Maybe this is the rule of the world! Without those, there will be less motivation. The Cold War ignited the competition between USSR and US, making the mankind send people to the moon, right (believe or not, wait, which part?).
+  </p>
+
+  <p>
+    Another conclusion I made is that Vim is the one that can make my hands and arms rest while typing, Emacs is not. There are a bunch of articles why Emacs is violating the ergonomic design concept, and I agree. I am writing this article and searching the Internet with Chrome browser with Vimium plug-in, and I haven't touched the mouse or Ctrl key. If I was editing this with Emacs, I would have given up already because of too much Ctrl and Meta (Alt) key combinations. (Please, please Emacs guys don't send a sniper...) The reason I started using Vim was the ergonomic design, the same reason I changed my keyboard from full keysets to 61 keys.
+  </p>
+
+  <p>
+    However, I think there are reasons why people use Emacs. According to my research, Vim users are complaining about Vimscript (why not Perl or Python?) and praising Emacs on its extensibilities. It seems like Emacs is more like an operating system because it has everything. No kidding, it has literally anything you can find in an OS. File system management, compilation and execution environments, modes, macros, buffers, and even Tetris (Do you see "Virtual Machine" at the menu bar?!)!
+  </p>
+
+  <figure>
+    <img src="img00.jpg" alt="Tetris in Emacs" width="100%">
+    <figcaption>Tetris in Emacs</figcaption>
+  </figure>
+
+  <p>
+    Therefore, my goal is to learn both of them. Ambitious? Well, you don't really know things until you learn it at a certain level, right? I am not saying I am going to learn them 100%, but I think I will have to learn them until I understand all the limitations and possibilities as a daily user. Then I can choose one, or just keep using both, or integrate one to another, or even make a new one which has all the advantages from the both.
+  </p>
+
+  <p>
+    In this article, I will open up my journey by sharing all the information I gathered so far. The format is almost same as the Vim introduction, but at the third section, I will emphasize the strengths of Emacs by going over all the points which make Emacs the best virtual OS, which also can be utilized as a supplementary part for Vim.
+  </p>
+
+  <h2>1. Emacs</h2>
+
+  <h3>1.1. What is Emacs</h3>
+
+  <blockquote>
+    Emacs /ˈiːmæks/ is a family of text editors that are characterized by their extensibility. The manual for the most widely used variant, GNU Emacs, describes it as "the extensible, customizable, self-documenting, real-time display editor". - Wikipedia
+  </blockquote>
+
+  <p>
+    It is really hard to call Emacs a text editor since it has so much more than that. So I am going to call it a virtual OS, but who really cares? It is what it is, and it would be enough to know what you can do with it. Let's see some advantages.
+  </p>
+
+  <h3>1.2. Advantages</h3>
+
+  <p>
+    The followings are advantages reported by numerous articles from the Internet:
+  </p>
+
+  <ul>
+    <li>Free Open Source Software</li>
+    <li>Multi-Platform Support (Linux, Mac, and Windows)</li>
+    <li>Fast and Light-Weighted Software with a Small Amount of Memory Footprint</li>
+    <li>Diverse Editing Functionalities (Internal Clipboard History, Mark-Rings, etc)</li>
+    <li>Modes (Programming, LaTeX, IRC, Email, Terminal, Server, Games, etc)</li>
+    <li>Extremely Extensible with its Own Scripting Language, ELisp</li>
+    <li>Seamless Integration with External Tools</li>
+    <li>Session Sharing and Remote Access</li>
+    <li>Built-in File Management System</li>
+    <li>Flexible and Customizable Features, Functions, and Macros</li>
+    <li>Active, Talented Development Communities</li>
+  </ul>
+
+  <h3>1.3. Disadvantages</h3>
+
+  <p>
+    The followings are disadvantages:
+  </p>
+
+  <ul>
+    <li>Lack of Some Desirable Features of ELisp</li>
+    <li>Multi-Threading Problems</li>
+    <li>Lack of Ergonomic Keybinding Design</li>
+    <li>Steep Learning Curve (Reportedly, Slightly Better than Vim)</li>
+  </ul>
+
+  <p>
+    Interestingly, I could see many people are actually using both for tasks where it can excel at. To use both applications at the same time, there are some solutions which I will explain in the last chapter.
+  </p>
+
+  <h2>2. Best Learning Resources</h2>
+
+  <p>
+    The followings are some good learning resources I found over time (for me mostly), it will be added or modified if needed.
+  </p>
+
+  <h3>2.1. Tutorials</h3>
+
+  <ul>
+    <li><a target="_blank" href="http://www.jesshamrick.com/2012/09/10/absolute-beginners-guide-to-emacs/">Absolute Beginner's Guide to Emacs</a></li>
+    <li><a target="_blank" href="http://ergoemacs.org/emacs/emacs.html">Practical Emacs Tutorial</a></li>
+    <li><a target="_blank" href="http://cestlaz.github.io/stories/emacs/">Using Emacs Series</a></li>
+    <li><a target="_blank" href="https://mickael.kerjean.me/2017/03/18/emacs-tutorial-series-episode-0/">Emacs Tutorial Series</a></li>
+    <li><a target="_blank" href="https://www.gnu.org/software/emacs/tour/">A Guided Tour of Emacs</a></li>
+    <li><a target="_blank" href="https://www.emacswiki.org/emacs/LearningEmacs">EmacsWiki - LearningEmacs</a></li>
+    <li><a target="_blank" href="https://github.com/redguardtoo/mastering-emacs-in-one-year-guide">Master Emacs in One Year</a></li>
+    <li><a target="_blank" href="https://github.com/technomancy/emacs-starter-kit">Emacs Starter Kit</a></li>
+  </ul>
+
+  <h3>2.2. Communities</h3>
+
+  <ul>
+    <li><a target="_blank" href="https://plus.google.com/communities/114815898697665598016">Emacs Google+</a></li>
+    <li><a target="_blank" href="https://www.quora.com/topic/Emacs">Emacs Quora</a></li>
+    <li><a target="_blank" href="https://www.reddit.com/r/emacs/">Emacs Sub-Reddit</a></li>
+    <li><a target="_blank" href="https://community.linuxmint.com/software/view/emacs">Emacs in Linux Mint</a></li>
+  </ul>
+
+  <h3>2.3. Cheatsheets</h3>
+
+  <ul>
+    <li><a target="_blank" href="https://www.gnu.org/software/emacs/refcards/index.html">GNU Emacs Reference Cards</a></li>
+    <li><a target="_blank" href="https://www.gnu.org/software/emacs/refcards/pdf/refcard.pdf">GNU Emacs Reference Cards (PDF)</a></li>
+    <li><a target="_blank" href="http://www.rgrjr.com/emacs/emacs_cheat.html">David Cohen & Bob Rogers</a></li>
+    <li><a target="_blank" href="http://www.talisman.org/unix/notesheet-emacs.pdf">Emacs Visual Reference</a></li>
+    <li><a target="_blank" href="http://ergoemacs.org/emacs/emacs_kb_shortcuts.html">Emacs Key Layout Diagram</a></li>
+    <li><a target="_blank" href="http://www.wlindley.com/gnu/vi.htm">vim (vi) and emacs: "Rosetta Stone" Quick Reference</a></li>
+    <li><a target="_blank" href="http://www.andrew.cmu.edu/course/98-172/labitations/emacs-cheatsheet.pdf">Andrew CMU</a></li>
+  </ul>
+
+  <h2>3. Pressure Points</h2>
+
+  <p>
+    People might be wondering, what is the obsession about the ergonomic design and doing everything in a "text editor". A normal operating system and a set of programs will do everything that we need, then we don't need to use Vim and Emacs which are not pretty (sorry!) and user-unfriendly software. Then what is the reason that you, I, and we have to search the Internet "inside" of a text editor?
+  </p>
+
+  <p>
+    Ironically, the answer is the user interface. The "unified" user interface. A computer as a production tool for programmers, writers, and many text-based service providers and producers is nothing but a gigantic text editor. It is a very different story for graphic designers, songwriters, and sound designers. However, the former people do everything in text. Searching for information, writing text, modifying text, navigating text. File management, programming, project management, documentation, Internet browsing, email, chat, social network, news feed, etc. These tasks occupy 99%, and Emacs can do it without using external programs. For them, pixel numbers are meaningless, but text row and column numbers are essential.
+  </p>
+
+  <p>
+    The fact that you can do it everything inside of a text editor means you can use one unified user interface for all those activities. Also all those activities can be automated by the scripting language the editor provides. This aspect significantly reduces repetitive and mundane tasks, hence increases productivity. This is where Emacs shines.
+  </p>
+
+  <p>
+    Some might ask that you can do the same thing in Linux and Bash script. Partially true. Not because Linux and Bash are inferior to Emacs and ELisp, but the lack of standard and programmable interfaces. To write an extension in Emacs, the extension must give some interactive ways with the main Emacs part. Usually this is done by a programmable approach. For example, I can access the character located at row 12 and column 35 with ELisp or keybindings. However, can you do that easily for the Google Chrome in Linux? The answer is no. Usually the programs have different designs and it is not possible. There are some helper programs for the very purposes, but for 10 different applications you have to use 10 different helper programs. Do you see what I see?
+  </p>
+
+  <p>
+    Therefore, we (mostly me) need to maximize the strengths of the two programs by learning its best features. This is my personal preference / opinion so you don't have to agree. I think it is the best way for me. Other people who have strong arms/hands/wrists, they maybe prefer Emacs over Vim. I can't decide what suits for other people, and I think you shouldn't do that too. In the tech industry, there are too many egoistic wars to decide the best for something. A total waste of time, period.
+  </p>
+
+  <p>
+    Three main subjects will be investigated in the future, and here are the resources for that. This scheme might change in the future as I discover more features and possibilities. For Emacs, the focus is set to extensions and programmable interfaces (the scripting language ELisp). Finally, Vim mode in Emacs for my poor arms (and more productivity of course).
+  </p>
+
+  <h3>3.1. Extensions</h3>
+
+  <p>
+    The power of Emacs comes from a variety of extensions. First, see what extensions are available, and find out how you can use them to increase productivity by automation.
+  </p>
+
+  <ul>
+    <li><a target="_blank" href="https://github.com/emacs-tw/awesome-emacs">Awesome Emacs (Extension)</a></li>
+    <li><a target="_blank" href="https://www.reddit.com/r/emacs/comments/6s5470/useful_packages/">Emacs Useful Packages</a></li>
+    <li><a target="_blank" href="https://spin.atomicobject.com/2016/05/27/write-emacs-package/">Take Your Emacs to the Next Level by Writing Custom Packages</a></li>
+  </ul>
+
+  <h3>3.2. Emacs Lisp</h3>
+
+  <p>
+    To be an advanced user, it is mandatory to be able to use the scripting language to customize the Emacs experiences. Emacs uses ELisp, a dialect of Lisp, but the manual also says there are other language bindings such as Python and Ruby.
+  </p>
+
+  <ul>
+    <li><a target="_blank" href="https://www.gnu.org/software/emacs/manual/html_node/eintr/">An Introduction to Programming in Emacs Lisp</a></li>
+    <li><a target="_blank" href="http://ergoemacs.org/emacs/elisp.html">Practical Emacs Lisp</a></li>
+    <li><a target="_blank" href="https://learnxinyminutes.com/docs/elisp/">Learn X in Y minutes</a></li>
+    <li><a target="_blank" href="https://github.com/chrisdone/elisp-guide">Emacs Lisp Guide</a></li>
+    <li><a target="_blank" href="https://github.com/caiorss/Emacs-Elisp-Programming">Elisp Programming and Customization</a></li>
+    <li><a target="_blank" href="http://emacslife.com/emacs-lisp-tutorial.html">Learn Emacs Lisp while customizing Emacs</a></li>
+  </ul>
+
+  <h3>3.3. Vim in Emacs</h3>
+
+  <p>
+    Finally, Vim mode in Emacs for ergonomic typing. It has been reported that there are some conflicts when using Vim mode in Emacs, but currently I am not sure how serious it is for my own use cases. It is also possible to use custom ergonomic keybindings in a hardware level (programmable keyboards), but there are pros and cons. I will explore the options in the future.
+  </p>
+
+  <ul>
+    <li><a target="_blank" href="http://spacemacs.org/">SpacEmacs</a></li>
+    <li><a target="_blank" href="https://github.com/emacs-evil/evil">Evil</a></li>
+    <li><a target="_blank" href="https://www.gnu.org/software/emacs/manual/html_mono/viper.html">Viper</a></li>
+    <li><a target="_blank" href="https://www.emacswiki.org/emacs/Vimpulse">Vimpulse</a></li>
+  </ul>
+
+  <h2>0. Conclusion</h2>
+
+  <p>
+    Tools are tools. It must change over time, and the people who use tools have to have a flexible attitude. If there are better options which provide all features within the standard (or any standardized ways), I will consider using it even though it is hard to learn. And for the record, I truly hope that our next generation would not have to use any physical interfaces such as mouses and keyboards for the sake of computing itself.
+  </p>
+
+  <h2>Appendix A. References</h2>
+
+  <div class="csl-bib-body" style="line-height: 2; margin-left: 2em; text-indent:-2em;">
+    <div class="csl-entry">Emacs. (2018). In <i>Wikipedia</i>. Retrieved from <a href="https://en.wikipedia.org/w/index.php?title=Emacs&amp;oldid=856452546">https://en.wikipedia.org/w/index.php?title=Emacs&amp;oldid=856452546</a></div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=encyclopediaArticle&amp;rft.title=Emacs&amp;rft.rights=Creative%20Commons%20Attribution-ShareAlike%20License&amp;rft.description=Emacs%20%20is%20a%20family%20of%20text%20editors%20that%20are%20characterized%20by%20their%20extensibility.%20The%20manual%20for%20the%20most%20widely%20used%20variant%2C%20GNU%20Emacs%2C%20describes%20it%20as%20%22the%20extensible%2C%20customizable%2C%20self-documenting%2C%20real-time%20display%20editor%22.%20%20Development%20of%20the%20first%20Emacs%20began%20in%20the%20mid-1970s%2C%20and%20work%20on%20its%20direct%20descendant%2C%20GNU%20Emacs%2C%20continues%20actively%20as%20of%20%202018.%0AEmacs%20has%20over%2010%2C000%20built-in%20commands%20(many%20of%20which%20are%20macros%20themselves)%20and%20its%20user%20interface%20allows%20the%20user%20to%20combine%20these%20commands%20into%20macros%20to%20automate%20work.%20Implementations%20of%20Emacs%20typically%20feature%20a%20dialect%20of%20the%20Lisp%20programming%20language%20that%20provides%20a%20deep%20extension%20capability%2C%20allowing%20users%20and%20developers%20to%20write%20new%20commands%20and%20applications%20for%20the%20editor.%20Extensions%20have%20been%20written%20to%20manage%20email%2C%20files%2C%20outlines%2C%20and%20RSS%20feeds%2C%20as%20well%20as%20clones%20of%20ELIZA%2C%20Pong%2C%20Conway's%20Life%2C%20Snake%20and%20Tetris.The%20original%20EMACS%20was%20written%20in%201976%20by%20Carl%20Mikkelson%2C%20David%20A.%20Moon%20and%20Guy%20L.%20Steele%20Jr.%20as%20a%20set%20of%20Editor%20MACroS%20for%20the%20TECO%20editor.%20It%20was%20inspired%20by%20the%20ideas%20of%20the%20TECO-macro%20editors%20TECMAC%20and%20TMACS.The%20most%20popular%2C%20and%20most%20ported%2C%20version%20of%20Emacs%20is%20GNU%20Emacs%2C%20which%20was%20created%20by%20Richard%20Stallman%20for%20the%20GNU%20Project.%20XEmacs%20is%20a%20variant%20that%20branched%20from%20GNU%20Emacs%20in%201991.%20GNU%20Emacs%20and%20XEmacs%20use%20similar%20Lisp%20dialects%20and%20are%20for%20the%20most%20part%20compatible%20with%20each%20other.%0AEmacs%20is%2C%20along%20with%20vi%2C%20one%20of%20the%20two%20main%20contenders%20in%20the%20traditional%20editor%20wars%20of%20Unix%20culture.%20Emacs%20is%20among%20the%20oldest%20free%20open%20source%20projects%20still%20under%20development.&amp;rft.identifier=https%3A%2F%2Fen.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DEmacs%26oldid%3D856452546&amp;rft.date=2018-08-25&amp;rft.language=en"></span>
+    <div class="csl-entry">Emacs is sexy. (n.d.). Retrieved August 28, 2018, from <a href="http://emacs.sexy/">http://emacs.sexy/</a></div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Emacs%20is%20sexy&amp;rft.identifier=http%3A%2F%2Femacs.sexy%2F"></span>
+    <div class="csl-entry">GNU Emacs - GNU Project. (n.d.). Retrieved August 28, 2018, from <a href="https://www.gnu.org/software/emacs/">https://www.gnu.org/software/emacs/</a></div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=GNU%20Emacs%20-%20GNU%20Project&amp;rft.identifier=https%3A%2F%2Fwww.gnu.org%2Fsoftware%2Femacs%2F"></span>
+    <div class="csl-entry">Why Emacs? - (think). (n.d.). Retrieved August 28, 2018, from <a href="http://batsov.com/articles/2011/11/19/why-emacs/">http://batsov.com/articles/2011/11/19/why-emacs/</a></div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Why%20Emacs%3F%20-%20(think)&amp;rft.identifier=http%3A%2F%2Fbatsov.com%2Farticles%2F2011%2F11%2F19%2Fwhy-emacs%2F"></span>
+    <div class="csl-entry">Why Emacs Keys are Painful. (n.d.). Retrieved August 28, 2018, from <a href="http://ergoemacs.org/emacs/emacs_kb_shortcuts_pain.html">http://ergoemacs.org/emacs/emacs_kb_shortcuts_pain.html</a></div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Why%20Emacs%20Keys%20are%20Painful&amp;rft.identifier=http%3A%2F%2Fergoemacs.org%2Femacs%2Femacs_kb_shortcuts_pain.html"></span>
+  </div>
+
+</body>
+</html>

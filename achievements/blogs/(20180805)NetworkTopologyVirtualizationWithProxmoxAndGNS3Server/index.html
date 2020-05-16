@@ -1,0 +1,211 @@
+<html>
+<head>
+
+</head>
+<body>
+
+  <div style="text-align: center;">
+    <h1><b>Network Topology Virtualization with Proxmox and GNS3 Server</b></h1>
+    <p>
+      An introduction to construct a distributed virtual environment for network engineering experiments and exercises with the Proxmox, the GNS3 server, and several virtual machines.
+    </p>
+    <p>2018/08/05</p>
+  </div>
+
+  <h2>0. Introduction</h2>
+
+  <p>
+    Spaghetti network topologies always fascinate me. It looks like Nature in an artificial way. It doesn't make much sense when the sentence contains two very different words, "artificial" and "nature", however, there is a sense of poetic paradox that opens a new realm. Maybe it is a harangue for a tech-blog opening, but I wanted to say that networks should be complex to perform all mundane requirements. The problem is that it takes a huge amount of resources to make experiments.
+  </p>
+
+  <p>
+    In order to build various network topologies and play with it, you need a private data center made up of routers, switches, and terminal nodes. Probably it will cost you a fortune. Fortunately, there is an alternative -- software. Virtualization technologies are huge in the industry now, from the automated quality assurance to the web service deployment. The networking field is one of the most suitable applications for virtualization because of its dynamic nature.
+  </p>
+
+  <p>
+    GNS3 is the greatest network topology emulation/virtualization software, and Proxmox is also the greatest virtualization environment solution. I wanted to make experiments with them so I can explore the infinite possibilities of virtualization technologies and network topologies. The devices I am using:
+  </p>
+
+  <ul>
+    <li>Proxmox Server: Intel i3, 16GB Memory, 128GB SSD</li>
+    <li>Client Terminal: Intel i7, 32GB Memory, 1TB Hybrid HDD/SSD</li>
+  </ul>
+
+  <p>
+    Nothing special really. GNS3 notoriously consumes your CPU time. My main computer (described as the client terminal above) have to perform other tasks so all the heavy computation can be separated to the virtualization server Proxmox in this way. Furthermore, Proxmox server can run other types of network devices such as a load balancer or a UTM device (of course all of these are not actual devices), so these can be a part of the entire network topology. The possibilities are absolutely limitless, let's start!
+  </p>
+
+  <h2>1. Proxmox</h2>
+
+  <h3>1.1. Business-Level Virtualization Environment</h3>
+
+  <blockquote>
+    Proxmox Virtual Environment is an open-source server virtualization environment. It is a Debian-based Linux distribution with a modified Ubuntu LTS kernel and allows deployment and management of virtual machines and containers. - Wikipedia
+  </blockquote>
+
+  <p>
+    Actually, I put the word "Business-Level" at the title to emphasize that this thing is not a "toy". It could be super powerful, scaled up to hundreds or thousands of machines running simultaneously to support enterprises running numerous virtual machines for the design, development, tests, and deployment cycle (well, much more actually). In a nutshell, it is a machine that runs multiple virtual machines at the kernel level.
+  </p>
+
+  <h3>1.2. Installation</h3>
+
+  <p>
+    The installation process is embarrassingly easy. Go to the Proxmox homepage (https://www.proxmox.com/en/downloads) and download the latest stable version (ISO Installation) of it. Prepare a usb drive, and use one of the Bootable-USB Creation Tools (Etcher Recommended: https://etcher.io/) to make a bootable usb with Proxmox. The installation process is very simple and there are tons of videos on Youtube in case you need some visual help.
+  </p>
+
+  <p>
+    We need do some settings after the initial installation to make sure that all software is up-to-date. Log-in to the system with the root privilege (You set the password during the installation) and execute the following commands:
+  </p>
+
+  <pre><code class="language-bash">[root@host] # apt update
+[root@host] # apt upgrade
+</code></pre>
+
+  <h3>1.3. Configuration thru the Web Interface</h3>
+
+  <p>
+    Connect to the web interface from your local computer's browser. The IP address is shown on the Proxmox machine, but you can find out via your router too because the Proxmox machine is connected to your network. You have to put the "https://" for the secure connection and ignore the warning message. For example, "https://123.123.123.123:8004". Then log-in with your root credential. You will see the dashboard like the following:
+  </p>
+
+  <figure>
+    <img src="img00.jpg" alt="Proxmox Dashboard" width="100%">
+    <figcaption>Proxmox Dashboard</figcaption>
+  </figure>
+
+  <p>
+    Look at this beauty! Navigate through pages to get yourself familiarized with functionalities. When you first log-in, it says you don't have a valid subscription, but it is fine unless you've already paid for it. Proxmox is an open-source solution, but it provides maintenance services for enterprises. Before we proceed further, we are going to use the non-paid (open-source) version of Proxmox, so we need to add the community repository. Type the following commands:
+  </p>
+
+  <pre><code class="language-bash">[root@host] # echo "deb http://download.proxmox.com/debian stretch pve-no-subscription" >> /etc/apt/sources.list
+[root@host] # rm -f /etc/apt/sources.list.d/pve-enterprise.list
+[root@host] # apt update
+[root@host] # apt upgrade
+</code></pre>
+
+  <p>
+    All the upgrade should be done successfully. Now, we are all set. Let's install the GNS3 server!
+  </p>
+
+  <h2>2. GNS3 Server</h2>
+
+  <h3>2.1. Virtual Router Emulation Platform</h3>
+
+  <p>
+    The GNS3 server is not a simulator, but an emulator. Differences between a simulator and an emulator are huge. There is a very popular network simulator called "Cisco Packet Tracer" made by... Cisco of course, which is a truly awesome study material for the beginners. However, this simulator is limited in supporting functionalities, and it's not possible to integrate the simulator with the existing network for the advanced usage, experiments, or learning.
+  </p>
+
+  <p>
+    The GNS3 server can virtually run multiple IOSs -- the operating systems in the routers by Cisco, not the iOS by Apple. It emulates network environments which can be operated on its own or be integrated to the bigger network as a part. The best part would be of course you can learn and experiment without having to have physical devices. However, you need to get the IOS images from Cisco (can be purchased in the Cisco homepage). Let's start the installation.
+  </p>
+
+  <h3>2.2. Ubuntu Installation on Proxmox</h3>
+
+  <p>
+    The GNS3 Server needs a host operating system, and the GNS3 developers recommend to use Ubuntu 16.04 LTS. You can download the iso file from http://releases.ubuntu.com/xenial/. The installation process is very straightforward and there are many good step-by-step tutorials out there if you need one.
+  </p>
+
+  <h3>2.3. GNS3 Server Installation on Ubuntu</h3>
+
+  <p>
+    The GNS3 is written in the Python language, so technically there should be lots of dependencies. We have installed Ubuntu, but you need to manually satisfy all the dependencies if you want to use other Linux distributions. I have seen someone got it working with the notorious Arch Linux, so nothing is impossible! Type the following commands to install the GNS3 packages:
+  </p>
+
+  <pre><code class="language-bash">[user@host] $ sudo add-apt-repository ppa:gns3/ppa
+[user@host] $ sudo apt-get update
+[user@host] $ sudo apt-get install gns3-gui
+</code></pre>
+
+  <p>
+    If you want IOU suport (Optional):
+  </p>
+
+  <pre><code class="language-bash">[user@host] $ sudo dpkg --add-architecture i386
+[user@host] $ sudo apt-get update
+[user@host] $ sudo apt-get install gns3-iou
+</code></pre>
+
+  <p>
+    If you want Docker suport (Optional):
+  </p>
+
+  <pre><code class="language-bash">[user@host] $ sudo apt-get remove docker docker-engine docker.io
+[user@host] $ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
+[user@host] $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+[user@host] $ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+[user@host] $ sudo apt-get update
+[user@host] $ sudo apt-get install docker-ce
+[user@host] $ sudo usermod -a -G docker [username]
+</code></pre>
+
+  <p>
+    Add the GNS3 server path to the .bashrc so you can execute it from anywhere. After that, let's try running the GNS3 server. You should see the output like the following image.
+  </p>
+
+  <pre><code class="language-bash">[user@host] $ echo "export PATH=$PATH:/usr/share/gns3/gns3-server/bin" >> ~/.bashrc
+[user@host] $ tail ~/.bashrc
+</code></pre>
+
+  <figure>
+    <img src="img01.jpg" alt="GNS3 Server on Ubuntu on Proxmox Up and Running" width="100%">
+    <figcaption>GNS3 Server on Ubuntu on Proxmox Up and Running</figcaption>
+  </figure>
+
+  <h3>2.4. Configuration</h3>
+
+  <p>
+    We need to change some details of the configuration file. The configuration file is located at ~/.config/GNS3/gns3_server.conf. Use your favorite editor (vi, emac, nano, etc) to change the IP address, port, auth (if you want to set up the username and the password), username, and password.
+  </p>
+
+  <p>
+    It's time to connect to the remote GNS3 server from the client computer! How exciting it is! Execute the server from the server (Ubuntu on the Proxmox server), then open up any web browser from the client computer and type the ipaddress:port. If you can see the welcome page like the following image, it's all working! Yay!
+  </p>
+
+  <figure>
+    <img src="img02.jpg" alt="GNS3 Server Welcome Web Page" width="80%">
+    <figcaption>GNS3 Server Welcome Web Page</figcaption>
+  </figure>
+
+  <p>
+    In order to use this remote server as the main server from the client computer, go to "Preferences" and change the setting like the following image. You can use the local computer too, then add the remote server as a secondary server.
+  </p>
+
+  <figure>
+    <img src="img03.jpg" alt="Make the Remote Server the Main Server" width="100%">
+    <figcaption>Make the Remote Server the Main Server</figcaption>
+  </figure>
+
+  <p>
+    It's time to add your first router. Go to "Preferences"->"Dynamips"->"IOS routers". Click "New" and follow the dialog. If you don't have any IOS images, you have to get it first. When you come back to the main screen, you should see the remote server status in the "Servers Summary" tab. I build a simple network topology to see things are working well altogether.
+  </p>
+
+  <figure>
+    <img src="img04.jpg" alt="Simple Network Topology" width="100%">
+    <figcaption>Simple Network Topology</figcaption>
+  </figure>
+
+  <h2>0. Conclusion</h2>
+
+  <p>
+    The process was very smooth and not painful at all. During the research, I found that people using the Docker containers a lot to make terminal nodes and specific services. I remember the Docker wasn't a part of GNS3, but now it can be seen here and there, officially supported. I feel obligated to look into the container technologies in the future.
+  </p>
+
+  <h2>Appendix A. References</h2>
+
+  <p>
+    Jeremy Grossmann, "GNS3 Official" 2018. [Online]. Available:https://www.gns3.com/. [Accessed August 05, 2018].
+  </p>
+
+  <p>
+    David Bombal, "GNS3 Talks" 2018. [Online]. Available:https://www.youtube.com/channel/UCP7WmQ_U4GB3K51Od9QvM0w. [Accessed August 05, 2018].
+  </p>
+
+  <p>
+    Andrew Coleman; Julien Duponchelle; Ricar Ganancial, "GNS3 Installation on Linux" 2017. [Online]. Available:https://docs.gns3.com/1QXVIihk7dsOL7Xr7Bmz4zRzTsJ02wklfImGuHwTlaA4/index.html. [Accessed August 05, 2018].
+  </p>
+
+  <p>
+    Bartosz Miklaszewski, "GNS3 Run from the Cloud - Remote GNS3 Server" 2015. [Online]. Available:https://www.youtube.com/watch?v=dP4-JyKazZg. [Accessed August 05, 2018].
+  </p>
+
+</body>
+</html>

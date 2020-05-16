@@ -1,0 +1,235 @@
+API Gateway Pattern,,https://java-design-patterns.com/patterns/api-gateway/,Markusmo3
+Abstract Document Pattern,,https://en.wikipedia.org/wiki/Abstract_Document_Pattern,Wikipedia
+Abstract Factory Pattern,Gof - Creational,https://en.wikipedia.org/wiki/Abstract_factory_pattern,Wikipedia
+Action Domain Responder Pattern,Architectural,https://en.wikipedia.org/wiki/Action–domain–responder,Wikipedia
+Active Object Pattern,Concurrency,https://en.wikipedia.org/wiki/Active_object,Wikipedia
+Active Record Pattern,Architectural,https://en.wikipedia.org/wiki/Active_record_pattern,Wikipedia
+Actor Pattern,Concurrency,https://en.wikipedia.org/wiki/Actor_model,Wikipedia
+Acyclic Visitor Pattern,,https://java-design-patterns.com/patterns/acyclic-visitor/,Markusmo3
+Adapter Pattern a.k.a. Wrapper Pattern,Gof - Structural,https://en.wikipedia.org/uiki/Adapter_pattern,Wikipedia
+Aggregator Microservices Pattern,,https://java-design-patterns.com/patterns/aggregator-microservices/,Markusmo3
+Ambassador Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/ambassador,Microsoft Azure
+Anti-Corruption Layer Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/anti-corruption-layer,Microsoft Azure
+Async Method Invocation Pattern,,https://en.wikipedia.org/wiki/Asynchronous_method_invocation,Wikipedia
+Asynchronous Messaging Microservice Design Pattern,,http://blog.arungupta.me/microservice-design-patterns/,Arungupta
+Availability Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/category/availability,Microsoft Azure
+Backends for Frontends Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/backends-for-frontends,Microsoft Azure
+Balking Pattern,Concurrency,https://en.wikipedia.org/wiki/Balking_pattern,Wikipedia
+Barrier Pattern,Concurrency,https://en.wikipedia.org/wiki/Barrier_(computer_science),Wikipedia
+Binding Properties Pattern,Concurrency,https://en.wikipedia.org/wiki/Binding_properties_pattern,Wikipedia
+Blackboard Pattern,Behavioral,https://en.wikipedia.org/wiki/Blackboard_design_pattern,Wikipedia
+Borg Pattern,,http://foobarnbaz.com/2010/10/06/borg-pattern/,Borg Pattern from Foobarnbaz
+Branch Microservice Design Pattern,,http://blog.arungupta.me/microservice-design-patterns/,Arungupta
+Bridge Pattern,Gof - Structural,https://en.wikipedia.org/wiki/Bridge_pattern,Wikipedia
+Broker Pattern,Architectural,https://en.wikipedia.org/wiki/Broker_pattern,Wikipedia
+Builder Pattern,Gof - Creational,https://en.wikipedia.org/wiki/Builder_pattern,Wikipedia
+Bulkhead Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/bulkhead,Microsoft Azure
+Business Delegate Pattern,J2EE - Business Layer Design Pattern,https://en.wikipedia.org/wiki/Business_delegate_pattern,Wikipedia
+CQRS Pattern,Cloud - Distributed Systems,https://java-design-patterns.com/patterns/cqrs/,Markusmo3
+Cache-Aside Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/cache-aside,Microsoft Azure
+Caching Pattern,,https://java-design-patterns.com/patterns/caching/,Markusmo3
+Callback Pattern,,https://en.wikipedia.org/wiki/Callback_(computer_programming),Wikipedia
+Chain of Responsibility Pattern,GoF - Behavioral,https://en.wikipedia.org/wiki/Chain-of-responsibility_pattern,Wikipedia
+Chained Microservice Design Pattern,,http://blog.arungupta.me/microservice-design-patterns/,Arungupta
+Circuit Breaker Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/circuit-breaker,Microsoft Azure
+Claim Check Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/claim-check,Microsoft Azure
+Client–Server Pattern,Architectural,https://en.wikipedia.org/wiki/Client-server_model,Wikipedia
+Closure Pattern,Functional,https://en.wikipedia.org/wiki/Closure_(computer_programming),Wikipedia
+Collection-Pipeline Pattern,,https://java-design-patterns.com/patterns/collection-pipeline/,Markusmo3
+Command Pattern a.k.a. Action Pattern,GoF - Behavioral,https://en.wikipedia.org/wiki/Command_pattern,Wikipedia
+Command Pattern,Behavioral,https://en.wikipedia.org/wiki/Command_pattern,Wikipedia
+Command and Query Responsibility Segregation (CQRS) Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs,Microsoft Azure
+Commander Pattern,,https://java-design-patterns.com/patterns/commander/,Markusmo3
+Compensating Transaction Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/compensating-transaction,Microsoft Azure
+Competing Consumers Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/competing-consumers,Microsoft Azure
+Completable Future Pattern,,https://community.oracle.com/docs/DOC-995305,Oracle
+Component-Based Software Engineering Pattern,Architectural,https://en.wikipedia.org/wiki/Component-based_software_engineering,Wikipedia
+Composite Entity Pattern,,https://en.wikipedia.org/wiki/Composite_entity_pattern,Wikipedia
+Composite Pattern,Gof - Structural,https://en.wikipedia.org/wiki/Composite_pattern,Wikipedia
+Composite View Pattern,J2EE - Presentation Layer Design,https://www.dineshonjava.com/composite-view-design-pattern/,Dinesh
+Compute Kernel Pattern,Concurrency,https://en.wikipedia.org/wiki/Compute_kernel,Wikipedia
+Compute Resource Consolidation Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/compute-resource-consolidation,Microsoft Azure
+Converter Pattern,,https://java-design-patterns.com/patterns/converter/,Markusmo3
+Coroutine Pattern,Concurrency,https://en.wikipedia.org/wiki/Coroutine,Wikipedia
+Curiously Recurring Template Pattern CRTP,,https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern,Wikipedia
+Currying Pattern,Functional,https://en.wikipedia.org/wiki/Currying,Wikipedia
+Data Access Object Pattern,Architectural,https://en.wikipedia.org/wiki/Data_access_object,Wikipedia
+Data Bus Pattern,,https://java-design-patterns.com/patterns/data-bus/,Markusmo3
+Data Management Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/category/data-management,Microsoft Azure
+Data Mapper Pattern,,https://en.wikipedia.org/wiki/Data_mapper_pattern,Wikipedia
+Data Transfer Object Pattern,Architectural,https://en.wikipedia.org/wiki/Data_transfer_object,Wikipedia
+Decorator Pattern,Gof - Structural,https://en.wikipedia.org/wiki/Decorator_pattern,Wikipedia
+Delegation Pattern,Structural,https://en.wikipedia.org/wiki/Delegation_pattern,Wikipedia
+Dependency Injection Pattern,Creational,https://en.wikipedia.org/wiki/Dependency_injection,Wikipedia
+Design and Implementation Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/category/design-implementation,Microsoft Azure
+Dirty Flag Pattern,,https://java-design-patterns.com/patterns/dirty-flag/,Markusmo3
+Domain-Driven Design Pattern,Architectural,https://en.wikipedia.org/wiki/Domain-driven_design,Wikipedia
+Double Checked Locking Pattern,,https://java-design-patterns.com/patterns/double-checked-locking/,Markusmo3
+Double Dispatch Pattern,,https://en.wikipedia.org/wiki/Double_dispatch,Wikipedia
+Double-Checked Locking Pattern,Concurrency,https://en.wikipedia.org/wiki/Double-checked_locking,Wikipedia
+EIP Aggregator Pattern,,https://java-design-patterns.com/patterns/eip-aggregator/,Markusmo3
+EIP Message Channel Pattern,,https://java-design-patterns.com/patterns/eip-message-channel/,Markusmo3
+EIP Publish Subscribe Pattern,,https://java-design-patterns.com/patterns/eip-publish-subscribe/,Markusmo3
+EIP Splitter Pattern,,https://java-design-patterns.com/patterns/eip-splitter/,Markusmo3
+EIP Wire Tap Pattern,,https://java-design-patterns.com/patterns/eip-wire-tap/,Markusmo3
+Entity Component System Pattern,Architectural,https://en.wikipedia.org/wiki/Entity-component-system,Wikipedia
+Event Aggregator Pattern,,https://java-design-patterns.com/patterns/event-aggregator/,Markusmo3
+Event Driven Architecture Pattern,,https://java-design-patterns.com/patterns/event-driven-architecture/,Markusmo3
+Event Queue Pattern,,https://java-design-patterns.com/patterns/event-queue/,Markusmo3
+Event Sourcing Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing,Microsoft Azure
+Event-Based Asynchronous Pattern,Concurrency,https://en.wikipedia.org/wiki/Asynchronous_method_invocation,Wikipedia
+Event-Driven Architecture Pattern,Architectural,https://en.wikipedia.org/wiki/Event-driven_architecture,Wikipedia
+Event-Based Asynchronous Pattern,,https://java-design-patterns.com/patterns/event-asynchronous/,Markusmo3
+Execute Around Pattern,,https://java-design-patterns.com/patterns/execute-around/,Markusmo3
+Extension objects Pattern,,https://java-design-patterns.com/patterns/extension-objects/,Markusmo3
+External Configuration Store Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/external-configuration-store,Microsoft Azure
+Facade Pattern,Gof - Structural,https://en.wikipedia.org/wiki/Facade_pattern,Wikipedia
+Factory Kit Pattern,,https://java-design-patterns.com/patterns/factory-kit/,Markusmo3
+Factory Method Pattern,Gof - Creational,https://en.wikipedia.org/wiki/Factory_method_pattern,Wikipedia
+Factory Pattern,,https://www.tutorialspoint.com/design_pattern/factory_pattern.htm,Tutorialspoint
+Feature Toggle Pattern,,https://java-design-patterns.com/patterns/feature-toggle/,Markusmo3
+Federated Identity Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/federated-identity,Microsoft Azure
+Fiber Pattern,Concurrency,https://en.wikipedia.org/wiki/Fiber_(computer_science),Wikipedia
+Filter Pattern a.k.a. Criteria Pattern,Gof - Structural,https://www.tutorialspoint.com/design_pattern/filter_pattern,Tutorialspoint
+Fluent Interface Pattern,,https://java-design-patterns.com/patterns/fluentinterface/,Markusmo3
+Flux Pattern,,https://java-design-patterns.com/patterns/flux/,Markusmo3
+Flyweight Pattern,Gof - Structural,https://en.wikipedia.org/wiki/Flyweight_pattern,Wikipedia
+Front Controller Pattern,Structural,https://en.wikipedia.org/wiki/Front_controller,Wikipedia
+Function Composition Pattern,Functional,https://en.wikipedia.org/wiki/Function_composition_(computer_science),Wikipedia
+Functor Pattern,Functional,https://en.wikipedia.org/wiki/Function_object,Wikipedia
+Futex Pattern,Concurrency,https://en.wikipedia.org/wiki/Futex,Wikipedia
+Futures and Promises Pattern,Concurrency,https://en.wikipedia.org/wiki/Futures_and_promises,Wikipedia
+Gatekeeper Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/gatekeeper,Microsoft Azure
+Gateway Aggregation Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/gateway-aggregation,Microsoft Azure
+Gateway Offloading Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/gateway-offloading,Microsoft Azure
+Gateway Routing Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/gateway-routing,Microsoft Azure
+Generator Pattern,Functional,https://en.wikipedia.org/wiki/Generator_(computer_programming),Wikipedia
+Guarded Suspension Pattern,Concurrency,https://en.wikipedia.org/wiki/Guarded_suspension,Wikipedia
+Half-Sync/Half-Async Pattern,,https://java-design-patterns.com/patterns/half-sync-half-async/,Markusmo3
+Handle/Body Pattern,,https://www.cs.vu.nl/~eliens/online/tutorials/objects/patterns/handle.html,Vrije Universiteit Amsterdam
+Health Endpoint Monitoring Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/health-endpoint-monitoring,Microsoft Azure
+Hexagonal Architecture Pattern,,https://java-design-patterns.com/patterns/hexagonal/,Markusmo3
+Identity Map Pattern,Architectural,https://en.wikipedia.org/wiki/Identity_map_pattern,Wikipedia
+Immutable Object Pattern,Concurrency,https://en.wikipedia.org/wiki/Immutable_object,Wikipedia
+Implicit Invocation Pattern,Architectural,https://en.wikipedia.org/wiki/Implicit_invocation,Wikipedia
+Index Table Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/index-table,Microsoft Azure
+Intercepting Filter Pattern,J2EE - Presentation Layer Design,https://en.wikipedia.org/wiki/Intercepting_filter_pattern,Wikipedia
+Interceptor Pattern,GoF - Behavioral,https://en.wikipedia.org/wiki/Interceptor_pattern,Wikipedia
+Inversion of Control Pattern,Architectural,https://en.wikipedia.org/wiki/Inversion_of_control,Wikipedia
+Iterator Pattern,GoF - Behavioral,https://en.wikipedia.org/wiki/Iterator_pattern,Wikipedia
+JSP Model 2 Pattern,Architectural,https://en.wikipedia.org/wiki/JSP_model_2_architecture,Wikipedia
+Join Pattern,Concurrency,https://en.wikipedia.org/wiki/Join-pattern,Wikipedia
+Layers Pattern,,https://java-design-patterns.com/patterns/layers/,Markusmo3
+Lazy Initialization Pattern,Creational,https://en.wikipedia.org/wiki/Lazy_initialization,Wikipedia
+Lazy Loading Pattern,,https://en.wikipedia.org/wiki/Lazy_loading,Wikipedia
+Leader Election Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/leader-election,Microsoft Azure
+Lock Pattern,Concurrency,https://en.wikipedia.org/wiki/Lock_pattern,Wikipedia
+Management and Monitoring Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/category/management-monitoring,Microsoft Azure
+Mangler Pattern,,https://en.wikipedia.org/wiki/Mangler_pattern,Wikipedia
+MapReduce Pattern,Cloud - Distributed Systems,https://en.wikipedia.org/wiki/MapReduce,Wikipedia
+Marker Interface Pattern,Structural,https://en.wikipedia.org/wiki/Marker_interface_pattern,Wikipedia
+Master-Slave Pattern,,http://www.cs.sjsu.edu/~pearce/modules/lectures/oop/templates/threads/index.htm,San Jose State University
+Master-Worker Pattern,,https://java-design-patterns.com/patterns/master-worker-pattern/,Markusmo3
+Materialized View Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/materialized-view,Microsoft Azure
+Mediator Pattern,GoF - Behavioral,https://en.wikipedia.org/wiki/Mediator_pattern,Wikipedia
+Memento Pattern,GoF - Behavioral,https://en.wikipedia.org/wiki/Memento_pattern,Wikipedia
+Message-Oriented Middleware Pattern,Architectural,https://en.wikipedia.org/wiki/Message-oriented_middleware,Wikipedia
+Messaging Pattern,Concurrency,https://en.wikipedia.org/wiki/Messaging_pattern,Wikipedia
+Method Chaining Pattern,,https://en.wikipedia.org/wiki/Method_chaining,Wikipedia
+Microservices Pattern,Architectural,https://en.wikipedia.org/wiki/Microservices,Wikipedia
+Mock Object Pattern,,https://en.wikipedia.org/wiki/Mock_object,Wikipedia
+Model-View-Adapter Pattern,Architectural,https://en.wikipedia.org/wiki/Model-view-adapter,Wikipedia
+Model-View-Controller Pattern,Architectural,https://en.wikipedia.org/wiki/Model-view-controller,Wikipedia
+Model-View-Presenter Pattern,Architectural,https://en.wikipedia.org/wiki/Model-view-presenter,Wikipedia
+Model-View-View-Model Pattern,Architectural,https://en.wikipedia.org/wiki/Model-view-viewmodel,Wikipedia
+Module Pattern,Structural,https://en.wikipedia.org/wiki/Module_pattern,Wikipedia
+Monad Pattern,Functional,https://en.wikipedia.org/wiki/Monad_(functional_programming),Wikipedia
+Monitor Pattern,Concurrency,https://en.wikipedia.org/wiki/Monitor_(synchronization),Wikipedia
+MonoState Pattern,,https://java-design-patterns.com/patterns/monostate/,Markusmo3
+Monolithic Pattern,Architectural,https://en.wikipedia.org/wiki/Monolithic_application,Wikipedia
+Monostate Pattern,,https://www.codeproject.com/Tips/692285/Monostate-pattern,Code Project
+Multitier Pattern,Architectural,https://en.wikipedia.org/wiki/Multitier_architecture,Wikipedia
+Multiton Pattern,Creational,https://en.wikipedia.org/wiki/Multiton_pattern,Wikipedia
+Mute Idiom Pattern,,https://java-design-patterns.com/patterns/mute-idiom/,Markusmo3
+Mutex Pattern,,https://java-design-patterns.com/patterns/mutex/,Markusmo3
+Naked Objects Pattern,Architectural,https://en.wikipedia.org/wiki/Naked_objects,Wikipedia
+Nuclear Pattern,Concurrency,https://en.wikipedia.org/wiki/Nuclear_computation,Wikipedia
+Null Object Pattern,GoF - Behavioral,https://en.wikipedia.org/wiki/Null_object_pattern,Wikipedia
+Object Mother Pattern,,https://java-design-patterns.com/patterns/object-mother/,Markusmo3
+Object Pool Pattern,Gof - Creational,https://en.wikipedia.org/wiki/Object_pool_pattern,Wikipedia
+Object Request Broker Pattern,Architectural,https://en.wikipedia.org/wiki/Object_request_broker,Wikipedia
+Object-Mother Pattern,,https://martinfowler.com/bliki/ObjectMother.html,Martin Fowler
+Observer Pattern,GoF - Behavioral,https://en.wikipedia.org/wiki/Observer_pattern,Wikipedia
+Page Object Pattern,,https://java-design-patterns.com/patterns/page-object/,Markusmo3
+Partial Response Pattern,,https://java-design-patterns.com/patterns/partial-response/,Markusmo3
+Peer-to-Peer Pattern,Architectural,https://en.wikipedia.org/wiki/Peer-to-peer,Wikipedia
+Performance and Scalability Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/category/performance-scalability,Microsoft Azure
+Pipes and Filters Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/pipes-and-filters,Microsoft Azure
+Poison Pill Pattern,,https://java-design-patterns.com/patterns/poison-pill/,Markusmo3
+Presentation Abstraction Control Pattern,Architectural,https://en.wikipedia.org/wiki/Presentation-abstraction-control,Wikipedia
+Priority Queue Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/priority-queue,Microsoft Azure
+Private Class Data Pattern,,https://java-design-patterns.com/patterns/private-class-data/,Markusmo3
+Proactor Pattern,Concurrency,https://en.wikipedia.org/wiki/Proactor_pattern,Wikipedia
+Producer Consumer Pattern,,https://java-design-patterns.com/patterns/producer-consumer/,Markusmo3
+Promise Pattern,,https://java-design-patterns.com/patterns/promise/,Markusmo3
+Property Pattern,,https://java-design-patterns.com/patterns/property/,Markusmo3
+Prototype Pattern,Gof - Creational,https://en.wikipedia.org/wiki/Prototype_pattern,Wikipedia
+Proxy Microservice Design Pattern,,http://blog.arungupta.me/microservice-design-patterns/,Arungupta
+Proxy Pattern a.k.a Surrogate Pattern,Gof - Structural,https://en.wikipedia.org/wiki/Proxy_pattern,Wikipedia
+Publish–Subscribe Pattern,Architectural,https://en.wikipedia.org/wiki/Publish-subscribe_pattern,Wikipedia
+Publisher/Subscriber Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/publisher-subscriber,Microsoft Azure
+Queue-Based Load Leveling Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/queue-based-load-leveling,Microsoft Azure
+Resource Acquisition Is Initialization Pattern,Creational,https://en.wikipedia.org/wiki/Resource_acquisition_is_initialization,Wikipedia
+REST Pattern,Architectural,https://en.wikipedia.org/wiki/Representational_state_transfer,Wikipedia
+Reactor Pattern,Concurrency,https://en.wikipedia.org/wiki/Reactor_pattern,Wikipedia
+Read Write Lock Pattern,Concurrency,https://en.wikipedia.org/wiki/Readers–writer_lock,Wikipedia
+Reader Writer Lock Pattern,,https://java-design-patterns.com/patterns/reader-writer-lock/,Markusmo3
+Registry Pattern,,https://www.martinfowler.com/eaaCatalog/registry.html,Martin Fowler
+Repository Pattern,,https://java-design-patterns.com/patterns/repository/,Markusmo3
+Resiliency Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/category/resiliency,Microsoft Azure
+Resource Acquisition Is Initialization Pattern,,https://java-design-patterns.com/patterns/resource-acquisition-is-initialization/,Markusmo3
+Retry Pattern,,https://java-design-patterns.com/patterns/retry/,Markusmo3
+Scheduler Agent Supervisor Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/scheduler-agent-supervisor,Microsoft Azure
+Scheduler Pattern,Concurrency,https://en.wikipedia.org/wiki/Scheduler_pattern,Wikipedia
+Security Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/category/security,Microsoft Azure
+Semaphore Pattern,,https://java-design-patterns.com/patterns/semaphore/,Markusmo3
+Servant Pattern,Behavioral,https://en.wikipedia.org/wiki/Servant_(design_pattern),Wikipedia
+Serverless Pattern,,https://java-design-patterns.com/patterns/serverless/,Markusmo3
+Service Layer Pattern,,https://java-design-patterns.com/patterns/service-layer/,Markusmo3
+Service Locator Pattern,Architectural,https://en.wikipedia.org/wiki/Service_locator_pattern,Wikipedia
+Service-Oriented Architecture Pattern,Architectural,https://en.wikipedia.org/wiki/Service-oriented_architecture,Wikipedia
+Session Facade Pattern,J2EE - Business Layer Design,https://www.oracle.com/technetwork/java/sessionfacade-141285.html,Oracle
+Sharding Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/sharding,Microsoft Azure
+Shared Data Microservice Design Pattern,,http://blog.arungupta.me/microservice-design-patterns/,Arungupta
+Shared-Nothing Architecture Pattern,Architectural,https://en.wikipedia.org/wiki/Shared-nothing_architecture,Wikipedia
+Sidecar Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/sidecar,Microsoft Azure
+Singleton Pattern,Gof - Creational,https://en.wikipedia.org/wiki/Singleton_pattern,Wikipedia
+Space-Based Architecture Pattern,Architectural,https://en.wikipedia.org/wiki/Space-based_architecture,Wikipedia
+Spatial Partition Pattern,,https://java-design-patterns.com/patterns/spatial-partition/,Markusmo3
+Specification Pattern,Behavioral,https://en.wikipedia.org/wiki/Specification_pattern,Wikipedia
+State Pattern,GoF - Behavioral,https://en.wikipedia.org/wiki/State_pattern,Wikipedia
+Static Content Hosting Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/static-content-hosting,Microsoft Azure
+Step Builder Pattern,,https://java-design-patterns.com/patterns/step-builder/,Markusmo3
+Strangler Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/strangler,Microsoft Azure
+Strategy Pattern,GoF - Behavioral,https://en.wikipedia.org/wiki/Strategy_pattern,Wikipedia
+Template Method Pattern,Behavioral,https://en.wikipedia.org/wiki/Template_method_pattern,Wikipedia
+Template Pattern,GoF - Behavioral,https://www.tutorialspoint.com/design_pattern/template_pattern.htm,Tutorialspoint
+Template method Pattern,,https://java-design-patterns.com/patterns/template-method/,Markusmo3
+Thread Local Storage Pattern,,https://java-design-patterns.com/patterns/tls/,Markusmo3
+Thread Pool Pattern,Concurrency,https://en.wikipedia.org/wiki/Thread_pool_pattern,Wikipedia
+Thread-Local Storage Pattern,Concurrency,https://en.wikipedia.org/wiki/Thread-local_storage,Wikipedia
+Throttling Pattern,Cloud - Distributed Systems,https://java-design-patterns.com/patterns/throttling/,Markusmo3
+Tolerant Reader Pattern,,https://java-design-patterns.com/patterns/tolerant-reader/,Markusmo3
+Trampoline Pattern,,https://java-design-patterns.com/patterns/trampoline/,Markusmo3
+Transaction Pattern,,https://www.tonymarston.net/php-mysql/transaction-patterns.html,Tony Marston
+Transfer Object Pattern,J2EE - Business Layer Design,https://www.tutorialspoint.com/design_pattern/transfer_object_pattern.htm,Tutorialspoint
+Twin Pattern,Structural,https://en.wikipedia.org/wiki/Twin_pattern,Wikipedia
+Type Tunnel Pattern,,https://en.wikipedia.org/wiki/Type_Tunnel_pattern,Wikipedia
+Type-object Pattern,,https://java-design-patterns.com/patterns/typeobjectpattern/,Markusmo3
+Unit Of Work Pattern,,https://java-design-patterns.com/patterns/unit-of-work/,Markusmo3
+Valet Key Pattern,Cloud - Distributed Systems,https://docs.microsoft.com/en-us/azure/architecture/patterns/valet-key,Microsoft Azure
+Value Object Pattern,,https://java-design-patterns.com/patterns/value-object/,Markusmo3
+View Helper Pattern,J2EE - Presentation Layer Design,https://www.oracle.com/technetwork/java/viewhelper-139885.html,Oracle
+Virtual Constructor Pattern,,https://cpppatterns.com/patterns/virtual-constructor.html,CPP Patterns
+Visitor Pattern,GoF - Behavioral,https://en.wikipedia.org/wiki/Visitor_pattern,Wikipedia
+Web Service Broker Pattern,J2EE - Integration Layer Design,https://www.dineshonjava.com/web-service-broker/,Dinesh

@@ -1,0 +1,223 @@
+<html>
+<head>
+
+</head>
+<body>
+
+  <div style="text-align: center;">
+    <h1><b>NVIDIA Jetson TX2 Dev Kits Setup (TensorRT)</b></h1>
+    <p>
+      A brief overview (installation and performance benchmark provided by NVIDIA) of TensorRT, an execution plug-in for TensorFlow to improve the performance of deep learning models.
+    </p>
+    <p>2018/05/31</p>
+  </div>
+
+  <h2>0. Introduction</h2>
+
+  <h3>0.1. Edge Computing</h3>
+
+  <p>
+    NVIDIA advertises Jetson TX2 is the fastest, most power-efficient embedded AI computing device. Basically, it is a mobile, ubiquitous supercomputer! However, what is the purpose of having a small, embedded supercomputer on a device? The answer is to perform edge computing. Let's see what the edge computing is:
+  </p>
+
+  <blockquote>
+    Edge computing is a method of optimizing cloud computing systems "by taking the control of computing applications, data, and services away from some central nodes (the "core") to the other logical extreme (the "edge") of the Internet" which makes contact with the physical world. - Wikipedia
+  </blockquote>
+
+  <p>
+    To make a long story short, the edge computing is for AI applications. Some AI applications may be able to use normal embedded systems like RasberryPI if the applications don't require much data processing. However, recent machine learning technologies (i.e., deep neural network learning) demand a huge amount of data and computing power.
+  </p>
+
+  <p>
+    Usually, this has been done in the data center a.k.a cloud, however, edge computing can open a whole new domain when it is not possible to use the cloud for AI applications. The most important concern would be the privacy issue, but there are technical issues like no online connection. For example, how can we make an autonomous robot navigating and learning about the deep sea without using the cloud (according to my knowledge there is no internet connection in the deep sea, but you may replace it with far space from the earth)? The answer is edge computing.
+  </p>
+
+  <h3>0.2. Jetson TensorRT</h3>
+
+  <p>
+    For the edge computing, competitive specifications are important to make a device like Jetson TX2, but there should be software optimizations to utilize the resources efficiently. The most famous machine learning framework <a href="https://www.tensorflow.org/" target="_blank">Google TensorFlow</a> happens to (?) use cuDNN functions under the hood, which is one of the core deep learning technologies of NVIDIA. The company applied more optimizations for Jetson TX2 to create TensorRT with even better performance.
+  </p>
+
+  <p>
+    TensorRT is a execution platform for a pretrained TensorFlow model. Therefore, it should be used at the deployment stage, rather than the development stage. TensorRT restructurizes the model to optimize it for the specific hardware, in this case, Jetson TX2. The performance enhancement of TensorRT is 5-8x according to the NVIDIA performance benchmark.
+  </p>
+
+  <figure>
+    <img src="img00.jpg" alt="TensorRT Performance Comparison" width="100%">
+    <figcaption>TensorRT Performance Comparison (from NVIDIA TensorRT Webinar)</figcaption>
+  </figure>
+
+  <h3>0.3. Objective</h3>
+
+  <p>
+    The objective of this article is to provide a fast and efficient minimum overview of TensorRT experience from installation to execution of a sample program. I took a webinar from the <a href="https://developer.nvidia.com/embedded/learn/tutorials" target="_blank">NVIDIA Jetson TX2 Tutorial</a> to write this technical review, so if you want to see the original webinar, please visit the reference. The webinar is more about the theoretical introduction for TensorRT, but this technical review will be focusing on hands-on experiences. I won't talk about any outside subjects like Deep Learning, Neural Network, or TensorFlow for the sake of brevity.
+  </p>
+
+  <p>
+    The structure of the installation steps are borrowed from the project's GitHub page, but there are some differences since I found there might need some more steps for the users who start from the scratch. I will include these steps seamlessly but explain if more attention is needed. I omitted some advanced customized steps, so if you are curious, please visit the original document.
+  </p>
+
+  <h2>1. Installation</h2>
+
+  <h3>1.1. Flash the Jetson TX2 using JetPack 3.2. Be sure to install the following components:</h3>
+
+  <ul>
+    <li>CUDA 9.0</li>
+    <li>OpenCV4Tegra</li>
+    <li>cuDNN</li>
+    <li>TensorRT 3.0</li>
+  </ul>
+
+  <h3>1.2. Install pip on Jetson TX2.</h3>
+
+  <pre><code class="language-bash">[user@host] $ sudo apt-get install python-pip</code></pre>
+
+  <h3>1.3. Download the TensorFlow 1.5.0 pip wheel from the following link.</h3>
+
+  <a href="https://drive.google.com/file/d/1ZYUJqcFdJytdMCQ5bVDtb3KoTqc_cugG/view" target="_blank">Click Here and Click the Download Button on the Upper Right of the Screen</a>
+
+  <h3>1.4. Install TensorFlow using pip.</h3>
+
+  <pre><code class="language-bash">[user@host] $ sudo pip install tensorflow-1.5.0rc0-cp27-cp27mu-linux_aarch64.whl</code></pre>
+
+  <h3>1.5. Download TensorRT 3.0.4 for Ubuntu 16.04 and CUDA 9.0 tar package from the link below.</h3>
+
+  <a href="https://developer.nvidia.com/nvidia-tensorrt-download" target="_blank">Click Here, You Will Need to Make a NVIDIA Membership If You Do Not Have One</a>
+
+  <h3>1.6. Extract archive.</h3>
+
+  <pre><code class="language-bash">[user@host] $ tar -xzf TensorRT-3.0.4.Ubuntu-16.04.3.x86_64.cuda-9.0.cudnn7.0.tar.gz</code></pre>
+
+  <h3>1.7. Install uff python package using pip.</h3>
+
+  <pre><code class="language-bash">[user@host] $ sudo pip install TensorRT-3.0.4/uff/uff-0.2.0-py2.py3-none-any.whl</code></pre>
+
+  <h3>1.8. Clone and build the NVIDIA-Jetson tf_to_trt_image_classification project from GibHub.</h3>
+
+  <pre><code class="language-bash">[user@host] $ cd
+[user@host] $ git clone --recursive https://github.com/NVIDIA-Jetson/tf_to_trt_image_classification.git
+[user@host] $ cd tf_to_trt_image_classification
+[user@host] $ mkdir build
+[user@host] $ cd build
+[user@host] $ sudo apt-get install -f
+[user@host] $ sudo apt-get install cmake
+[user@host] $ cmake ..
+[user@host] $ make
+[user@host] $ cd ..</code></pre>
+
+  <h2>2. Download Models and Create Frozen Graphs</h2>
+
+  <h3>2.1. Download all models by executing the following command.</h3>
+
+  <pre><code class="language-bash">[user@host] $ source scripts/download_models.sh</code></pre>
+
+  <h3>2.2. Run the scripts/models_to_frozen_graphs.py script to convert models to frozen graphs for optimization with TensorRT.</h3>
+
+  <pre><code class="language-bash">[user@host] $ python scripts/models_to_frozen_graphs.py</code></pre>
+
+  <h3>2.3. Download images from ImageNet for the sample programs.</h3>
+
+  <pre><code class="language-bash">[user@host] $ source scripts/download_images.sh</code></pre>
+
+  <h2>3. Convert Frozen Graph to TensorRT Engine</h2>
+
+  <h3>3.1. Run the scripts/convert_plan.py script from the root directory of the project.</h3>
+
+  <p>
+    The inputs to the convert_plan.py script are:
+  </p>
+
+  <ol>
+    <li>frozen graph path</li>
+    <li>output plan path</li>
+    <li>input node name</li>
+    <li>input height</li>
+    <li>input width</li>
+    <li>output node name</li>
+    <li>max batch size</li>
+    <li>max workspace size</li>
+    <li>data type (float or half)</li>
+  </ol>
+
+  <p>
+    The following table describes possible parameters for each model.
+  </p>
+
+  <figure>
+    <img src="img01.jpg" alt="Parameters for convert_plan.py" width="100%">
+    <figcaption>Parameters for convert_plan.py (from NVIDIA TensorRT GitHub Repository)</figcaption>
+  </figure>
+
+  <h3>3.2. For example, to convert the Inception V1 model run the following: </h3>
+
+  <pre><code class="language-bash">[user@host] $ python scripts/convert_plan.py data/frozen_graphs/inception_v1.pb data/plans/inception_v1.plan input 224 224 InceptionV1/Logits/SpatialSqueeze 1 0 float</code></pre>
+
+  <h2>4. Execute TensorRT Engine</h2>
+
+  <h3>4.1. Call the examples/classify_image program from the root directory of the project.</h3>
+
+  <p>
+    For reference, the inputs to the example program are:
+  </p>
+
+  <ol>
+    <li>input image path</li>
+    <li>plan file path</li>
+    <li>labels file (one label per line, line number corresponds to index in output)</li>
+    <li>input node name</li>
+    <li>output node name</li>
+    <li>preprocessing function (either vgg or inception)</li>
+  </ol>
+
+  <h3>4.2. For example, to run the Inception V1 model converted as above: </h3>
+
+  <pre><code class="language-bash">[user@host] $ ./build/examples/classify_image/classify_image data/images/gordon_setter.jpg data/plans/inception_v1.plan data/imagenet_labels_1001.txt input InceptionV1/Logits/SpatialSqueeze inception</code></pre>
+
+  <h2>5. Benchmark all Models</h2>
+
+  <h3>5.1. To benchmark all of the models, first convert all of the models that you downloaded above into TensorRT engines. Run the following script to convert all models.</h3>
+
+  <pre><code class="language-bash">[user@host] $ python scripts/frozen_graphs_to_plans.py</code></pre>
+
+  <h3>5.2. If you want to change parameters related to TensorRT optimization, just edit the scripts/frozen_graphs_to_plans.py file. Next, to benchmark all of the models run the scripts/test_trt.py script.</h3>
+
+  <pre><code class="language-bash">[user@host] $ python scripts/test_trt.py</code></pre>
+
+  <h3>5.3. Once finished, the timing results will be stored at data/test_output_trt.txt. If you want to also benchmark the TensorFlow models, simply run, then the results will be stored at data/test_output_tf.txt.</h3>
+
+  <pre><code class="language-bash">[user@host] $ python scripts/test_tf.py</code></pre>
+
+  <h2>0. Conclusion</h2>
+
+  <p>
+    The installation process was unstable and buggy but understandable because even the TensorFlow is being developed and improved. As of May 2018, the edge computing is still in the experimental stages, many companies are trying to preempt the market by proposing their own solutions. NVIDIA Jetson TX2 is one of those attempts.
+  </p>
+
+  <p>
+    In my opinion, it is desirable to make the edge computing environment on the top of a Linux system, which can be modified to create a specialized platform like Android. It is a great benefit to use an open source software to extend the project that is experimental and futuristic. There are problems like dependency management and versioning control for the necessary software, which most of Linux users are experiencing, however, I expect the system gets better as more developers are involved with the project.
+  </p>
+
+  <p>
+    Considering the result of the performance benchmark, it looks promising to use TensorRT for running AI applications on the device. As you know, Jetson TX2 is as big as a credit card and it's literally a supercomputer. I roughly estimate its processing power would far exceed the power of a brain of a bug, which could mean we can build an autonomous robot that can perceive and react in a competitive way compared to the creatures in nature. It is very exciting to imagine possible applications with this powerful device. If you are interested, join and explore!
+  </p>
+
+  <h2>Appendix A. References</h2>
+
+  <p>
+    NVIDIA, "Jetson TX2 Module" 2018. [Online]. Available:https://developer.nvidia.com/embedded/buy/jetson-tx2. [Accessed May 31, 2018].
+  </p>
+
+  <p>
+    NVIDIA, "NVISIA Jetpack TensorRT Tutorial Webinar" 2018. [Online]. Available:http://info.nvidia.com/tensorflow-for-jetson-mar-2018-reg-page.html. [Accessed May 31, 2018].
+  </p>
+
+  <p>
+    NVIDIA, "NVIDIA Deep Learning SDK Documentation" 2018. [Online]. Available:https://docs.nvidia.com/deeplearning/sdk/tensorrt-developer-guide. [Accessed May 31, 2018].
+  </p>
+
+  <p>
+    NVIDIA "NVIDIA tf_to_trt_image_classification GitHub Repository" 2018. [Online]. Available:https://github.com/NVIDIA-Jetson/tf_to_trt_image_classification. [Accessed May 31, 2018].
+  </p>
+
+</body>
+</html>

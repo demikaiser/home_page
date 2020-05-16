@@ -1,0 +1,255 @@
+<html>
+<head>
+
+</head>
+<body>
+
+  <div style="text-align: center;">
+    <h1><b>NVIDIA Jetson TX2 Dev Kits Setup (Jetpack)</b></h1>
+    <p>
+      A brief overview (installation and performance benchmark provided by NVIDIA) of TensorRT, an execution plug-in for TensorFlow to improve the performance of deep learning models.
+    </p>
+    <p>2018/05/21</p>
+  </div>
+
+  <h2>0. Introduction</h2>
+
+  <h3>0.1. NVIDIA Jetson TX2 Dev Kits</h3>
+
+  <p>
+    The NVIDIA Jetson TX2 Developer Kits provides a full-featured development platform for AI and visual computing that is ideal for applications requiring high computational performance in a low power envelope (says NVIDIA).
+  </p>
+
+  <p>
+    I happened to get an opportunity to work with the Jetson TX2. I am interested in edge computing for autonomous engineering, digital democratization, or privacy. The simplest solution would be using a Raspberry PI, but the limitation is obvious.
+  </p>
+
+  <p>
+    The followings are NVIDIA Jetson TX2's specs:
+  </p>
+
+  <ul>
+    <li>GPU: NVIDIA Pascal™, 256 CUDA cores</li>
+    <li>CPU: HMP Dual Denver 2/2 MB L2 + Quad ARM® A57/2 MB L2</li>
+    <li>Video: 4K x 2K 60 Hz Encode (HEVC) 4K x 2K 60 Hz Decode (12-Bit Support)</li>
+    <li>Memory: 8 GB 128 bit LPDDR4 59.7 GB/s</li>
+  </ul>
+
+  <p>
+    Which seems like a good solution for edge computing. I am very excited at the product and want to share my experience with hoping more developers get involved in the field. Let's start the exploration!
+  </p>
+
+  <h3>0.2. Jetpack Framework</h3>
+
+  <p>
+    NVIDIA JetPack is a comprehensive SDK for AI and visual computing and automates the installation of a development environment for the NVIDIA Jetson Platform. It makes it easy to flash your Jetson system with the latest OS images. JetPack includes:
+  </p>
+
+  <ul>
+    <li>Host and target tools.</li>
+    <li>Libraries and APIs.</li>
+    <li>Packages such as middleware, samples, and documentation including help for compiling samples.</li>
+  </ul>
+  Using JetPack enables you to jumpstart your environment and begin developing. JetPack, the Jetson SDK, includes OS images, Libraries and APIs, developer tools, middleware, samples, and documentation.
+
+  <p>
+    The installation consists of two processes. First, you download the Jetpack at the host computer and prepare the installation packages. Second, the host computer instructs the target computer (Jetson TX2) to flash and install Jetpack.
+  </p>
+
+  <h3>0.3. Objective</h3>
+
+  <p>
+    The objective of this document is to provide the fastest, reliable, and user-friendly way to set up the basics for the Jetson TX2. I have compiled several documents on the Internet, trying to collect all information needed for the process. I intentionally omitted all details which don't relate to the installation process for the sake of brevity. But you can see all documents I used in Appendix A, and you might need original documents during the process.
+  </p>
+
+  <h2>1. Prerequisites</h2>
+
+  <h3>1.1. Ubuntu 14.04 LTS</h3>
+
+  <p>
+    You need a host linux machine to do an installation, flashing, and other operations for Jetson TX2. Download Ubuntu 14.04 LTS 64-bit <a href="http://releases.ubuntu.com/14.04/">ubuntu-14.04.5-desktop-amd64.iso </a> and install it. If you are not sure how to install Ubuntu linux, there are many tutorials online. Here is my Ubuntu desktop, I use a Mac theme for a personal preference, so don't get confused.
+  </p>
+
+  <figure>
+    <img src="img00.jpg" alt="Ubuntu Desktop" width="80%">
+    <figcaption>Ubuntu 14.04 LTS 64-bit Desktop</figcaption>
+  </figure>
+
+  <h3>1.2. Connection to the Host Computer</h3>
+
+  <p>
+    There should be several connections as the following:
+  </p>
+
+    <ul>
+      <li>Micro USB to USB between the target Jetson TX2 and the host computer Ubuntu 14.04 LTS 64-bit Desktop.</li>
+      <li>Ethernet cable should be connected to the switch (or a router) and in the same network, there should be the host computer.</li>
+      <li>HDMI cable should be connected from the Jetson TX2 to the monitor that can be used for monitoring purposes.</li>
+      <li>AC adapter from the Jetson TX2 to any electrical outlets.</li>
+    </ul>
+
+  <h2>2. Jetpack Installation</h2>
+
+  <h3>2.1. Put Jetson in Force USB Recovery Mode</h3>
+
+  <p>
+    Step 1: Power off the device and remove the AC adapter from the device.
+  </p>
+
+  <p>
+    Step 2: Connect the Micro-B plug on the USB cable to the Recovery Port on the device and the other end to an available USB port on the host PC.
+  </p>
+
+  <p>
+    Step 3: Connect the power adapter to the device (Red LED will turn on).
+  </p>
+
+  <figure>
+    <img src="img01.jpg" alt="Buttons on Jetson TX2 Dev Kit" width="80%">
+    <figcaption>Buttons on Jetson TX2 Dev Kit</figcaption>
+  </figure>
+
+  <p>
+    Step 4: See the picture above, and do the following:
+  </p>
+
+    <ul>
+      <li>Press the POWER button (Green LED will turn on).</li>
+      <li>Press and hold the RECOVERY FORCE button.</li>
+      <li>While pressing the RECOVERY FORCE button, press and release the RESET button.</li>
+      <li>Wait 2 seconds and release the RECOVERY FORCE button.</li>
+    </ul>
+
+  <p>
+    Step 5: Go to your host computer, open a terminal, type "lsusb". You should see that there is a device recognized by the host computer. For example, I see "Bus 002 Device 004: ID 0955:7c18 NVidia Corp.".
+  </p>
+
+  <h3>2.2. Download the Recent Jetpack for TX2</h3>
+
+  <p>
+    Step 1: Go to the host computer, then download the Jetpack by clicking this <a href="https://developer.nvidia.com/embedded/jetpack">link</a>.
+  </p>
+
+  <p>
+    Step 2: The downloaded file should be executable. Open a terminal, and go into the folder where the downloaded file is located, then type "chmod +x [Jetpack Filename Here]".
+  </p>
+
+  <p>
+    Step 3: Execute the file by typing "./[Jetpack Filename Here]".
+  </p>
+
+  <p>
+    Note: If you are not familiar with linux commands, I recommend you to take a brief tutorial on the linux commands. For developers and software engineers, GNU/Linux platforms are inevitable unless you want to spend the rest of life within other proprietary OSs (can't say names).
+  </p>
+
+  <h3>2.3. Installation from the Host</h3>
+
+  Just follow the installer unless you want to customize things as needed. There are just several things I want to point out:
+
+  <ul>
+    <li>In "JetPack L4T 3.x Components Manager", select "Automatically resolve dependency conflicts".</li>
+    <li>You will have to enter the password for your host machine.</li>
+    <li>The download takes about an hour or two depending on the speed of your internet connection.</li>
+  </ul>
+
+  At the end of this process, you should see the following to proceed to the next step.
+
+  <figure>
+    <img src="img02.jpg" alt="Installation Completed from the Host" width="80%">
+    <figcaption>Installation Completed from the Host</figcaption>
+  </figure>
+
+  <h3>2.4. Installation to the Target</h3>
+
+  <p>
+    Step 1: Select the network layout then click "Next".
+  </p>
+
+  <p>
+    Step 2: Select the network interface then click "Next".
+  </p>
+
+  <p>
+    Step 3: Confirm "Post Installation Jetson TX2/TX2i", then click "Next".
+  </p>
+
+  <p>
+    Step 4: A terminal will pop up and ask putting the device in Force USB Recovery Mode, but we already did it. If you didn't do it, do it now, then press "Enter".
+  </p>
+
+  <p>
+    Step 5: Wait and wait. It will take up to an hour. Do NOT touch anything during the process no matter what your host computer does. I messed up something and had to start it over (.. )( ..). Be patient!
+  </p>
+
+  <p>
+    Step 6: Finally, if you see the following message, it's time to finish the installation! Close the window as instructed, then click "Finish".
+  </p>
+
+  <figure>
+    <img src="img03.jpg" alt="Installation Completed to the Target" width="80%">
+    <figcaption>Installation Completed to the Target</figcaption>
+  </figure>
+
+  <h2>3. Confirm the Installation</h2>
+
+  <h3>3.1. Boot up your Jetson TX2</h3>
+
+  <p>
+    By the time you finish the previous stage of the installation. Jetson is already up and running (should be). It is a good exercise to shut it down and boot it up. After shutting down, press the POWER BUTTON to start the system. The initial username is "nvidia" and the password is also "nvidia". Open a terminal and type "uname -a" to see the information about the system. You should see the following.
+  </p>
+
+  <figure>
+    <img src="img04.jpg" alt="Jetson TX2 Tegra-Ubuntu Desktop" width="80%">
+    <figcaption>Jetson TX2 Tegra-Ubuntu Desktop</figcaption>
+  </figure>
+
+  <p>
+    Congratulations! You install the Jetpack successfully! Now it is time to run some examples to see all functionalities NVIDIA promised to us are working fine.
+  </p>
+
+  <h3>3.2. Run JetPack Samples</h3>
+
+  <p>
+    I found NVIDIA documentations are not consistent as things are being developed and updated. There are some samples but location can be different. In my case, the path is "~/NVIDIA_CUDA-9.0_Samples/bin/aarch64/linux/release". I ran "./oceanFFT" like the following. It is working! YAY!
+  </p>
+
+  <figure>
+    <img src="img05.jpg" alt="CUDA Sample - oceanFFT" width="80%">
+    <figcaption>CUDA Sample - oceanFFT</figcaption>
+  </figure>
+
+  <p>
+    I found an awesome particle simulation! I had worked on some particle simulations with 3D Max, Maya, and Houdini, and remember how much resources and time it would take. It seems Jetson's performance is quite impressing. Of course, this is just a first impression, I will do a performance test in the future!
+  </p>
+
+  <figure>
+    <img src="img06.jpg" alt="CUDA Sample - Smoke Particle Sim" width="80%">
+    <figcaption>CUDA Sample - Smoke Particle Sim</figcaption>
+  </figure>
+
+  <h2>0. Conclusion</h2>
+
+  <p>
+    The installation process has been quite nice and smooth. The entire process took only 3-4 hours, which I think it's reasonable. I could see the user manual tries to be nice, but there is some knowledge required to complete the installation process without problems.
+  </p>
+
+  <p>
+    I think including all libraries/graphics/drivers in a single package is a fantastic idea, because it is a cumbersome process to install all of them one by one, especially in Ubuntu desktop. I found some NVIDIA pages say they support Ubuntu 16.04 64-bit too, but I didn't try it and not sure if that's true.
+  </p>
+
+  <p>
+    The possibilities are infinite. The only problem is if I can come up with any of them! :) In the next tutorials, the plan is introducing installing necessary frameworks for artificial intelligence and machine learning for edge computing. Stay tuned!
+  </p>
+
+  <h2>Appendix A. References</h2>
+
+  <p>
+    NVIDIA, "Jetson TX2 Module" 2018. [Online]. Available:https://developer.nvidia.com/embedded/buy/jetson-tx2. [Accessed May 21, 2018].
+  </p>
+
+  <p>
+    JetsonHacks, "JetsonHacks" 2014. [Online]. Available:https://www.jetsonhacks.com. [Accessed May 21, 2018].
+  </p>
+
+</body>
+</html>

@@ -1,0 +1,506 @@
+<html>
+<head>
+
+</head>
+<body>
+
+  <div style="text-align: center;">
+    <h1><b>Monitoring System Health with Prometheus and Grafana</b></h1>
+    <p>
+        Explore the basic concepts and functionalities of popular monitoring solutions like Prometheus and Grafana, and probe the way to construct the health monitoring system.
+    </p>
+    <p>2019/04/25</p>
+  </div>
+
+  <h2>0. Introduction</h2>
+
+  <blockquote cite="https://en.wikipedia.org/wiki/Prometheus_(software)">
+    Prometheus is an open-source software application used for event monitoring and alerting. It records real-time metrics in a time series database (allowing for high dimensionality) built using a HTTP pull model, with flexible queries and real-time alerting.
+  </blockquote>
+
+  <p>
+    Modern computing environments get complex every day. Constructing the infrastructure and deploying services are crucial components of the operation departments, but maintenance and troubleshooting would be the other side of the coin. Especially, monitoring the traffic to make services scalable is the most valuable part of the whole process because that's all about the virtualization/containers technologies and *-as-services. The following diagram represents the architecture of the Prometheus monitoring solution.
+  </p>
+
+  <figure>
+    <img src="img00.jpg" alt="Prometheus Conceptual Architecture" width="70%">
+    <figcaption>Prometheus Conceptual Architecture</figcaption>
+  </figure>
+
+  <p>
+    In this article, we are going to explore various aspects of Prometheus and Grafana and make a little demo environment to show the use of it. Let's begin with the concept behind it.
+  </p>
+
+  <h2>1. Concept</h2>
+
+  <h3>1.1. Features</h3>
+
+  <p>
+    There are various monitoring solutions other than Prometheus. Analyzing and comparing those solutions are not the scope of this article, but the main features of Prometheus are what differentiates Prometheus from other solutions. The followings are the features of Prometheus:
+  </p>
+
+  <ul>
+    <li>A multi-dimensional data model with time series data identified by metric name and key/value pairs.</li>
+    <li>PromQL, a flexible query language to leverage this dimensionality.</li>
+    <li>No reliance on distributed storage; single server nodes are autonomous.</li>
+    <li>Time series collection happens via a pull model over HTTP.</li>
+    <li>Pushing time series is supported via an intermediary gateway.</li>
+    <li>Targets are discovered via service discovery or static configuration.</li>
+    <li>Multiple modes of graphing and dashboarding support.</li>
+  </ul>
+
+  <p>
+    Also, keep in mind that this solution was made by the company which made the famous Kubernetes, which means all related functionalities will be working very well in the containerized environment. This is a great advantage in a scalable environment where the services have to be expanded automatically or manually according to the actual usage. The monitoring solution can support these objectives seamlessly with other virtualization/containerization technologies.
+  </p>
+
+  <h3>1.2. Data Model</h3>
+
+  <p>
+    Prometheus fundamentally stores all data as time series: streams of timestamped values belonging to the same metric and the same set of labeled dimensions. Besides stored time series, Prometheus may generate temporary derived time series as the result of queries. Data consists of samples and samples form the actual time series data. Each sample consists of:
+  </p>
+
+  <ul>
+    <li>A float64 value.</li>
+    <li>A millisecond-precision timestamp.</li>
+  </ul>
+
+  <p>
+    Given a metric name and a set of labels, time series are frequently identified using this notation:
+  </p>
+  
+  <pre><code class="language-xml">
+[metric name]{[label name]=[label value], ...}
+  </code></pre>
+
+  <p>
+    For example, a time series with the metric name api_http_requests_total and the labels method="POST" and handler="/messages" could be written like this:
+  </p>
+
+  <pre><code class="language-xml">
+api_http_requests_total{method="POST", handler="/messages"}
+  </code></pre>
+
+  <h3>1.3. Query Language</h3>
+
+  <p>
+    Prometheus uses its own query language to enable users to find data for them. Please refer to the following link for details:
+  </p>
+
+  <p>
+    <a target="_blank" href="https://prometheus.io/docs/prometheus/latest/querying/basics/">Prometheus Query Langauge Documentation</a>
+  </p>
+
+  <h2>2. Installation</h2>
+
+  <h3>2.1. Prometheus</h3>
+
+  <h4>2.1.1. Prometheus Server</h4>
+
+  <p>
+    The installation step is very simple and straight forward. Follow the link below, and download the binary file for your operating system. Unzip the downloaded file. You can run the execution file; however, it's a good idea to configure it first to finetune for your use case.
+  </p>
+  
+  <p>
+    <a target="_blank" href="https://prometheus.io/download/">Prometheus Download Page</a>
+  </p>
+
+  <h4>2.1.2. Configuration</h4>
+
+  <p>
+    The following yaml file is the simplest configuration provided by default. Basically, it describes where are the data sources, and how you want to fetch (pull) it. See the comments to understand each line.
+  </p>
+
+  <pre><code class="language-yaml"># Sample Prometheus Configuration File
+# my global config
+global:
+  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      # - alertmanager:9093
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=job_name` to any timeseries scraped from this config.
+  - job_name: 'prometheus'
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+    - targets: ['localhost:9090']
+  </code></pre>
+
+  <p>
+    The Prometheus configuration could be quite complex if you run a big system. If it is not a simple configuration that describes tens of different data source and customized scraping strategies, it might be a good idea to make them more readable by categorizing it with some criteria.
+  </p>
+
+  <p>
+    Personally, I found that it would be best to have a visual representation (e.g., a server diagram) on what I have to manage, but it would be fine as far as all the resources you are managing are in your mind and you can retrieve it as needed. The worst case of being confused by a poorly managed configuration file(s) would be not being able to predict the consequences when you deploy or modify the production environment. If your system is complex, it is very hard to replicate the environment (staging) and test your configuration doesn't break anything, or have unexpected outcomes.
+  </p>
+
+  <p>
+    Having a well-organized configuration file would help to prevent these situations. The following aspects are what you can consider when you make the criteria for categorization:
+  </p>
+
+  <ul>
+    <li>Geography</li>
+    <li>Conceptual Location (When it's different to the actual geography)</li>
+    <li>Functionality</li>
+    <li>Critical Conditions</li>
+    <li>Recording/Alerting Rules</li>
+    <li>Other Business Rules or Custom Use Cases</li>
+  </ul>
+  
+  <p>
+    Follow the link below to see all domain-specific configurations and more details:
+  </p>
+
+  <p>
+    <a target="_blank" href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/">Prometheus Configuration Details</a>
+  </p>
+
+  <p>
+    After completing the configuration, execute it and you should be able to use the web interface like the following.
+  </p>
+
+  <figure>
+    <img src="img01.jpg" alt="Prometheus Dashboard" width="90%">
+    <figcaption>Prometheus Dashboard</figcaption>
+  </figure>
+
+  <h4>2.1.3. Exporters</h4>
+
+  <p>
+    Exporters are ready-to-use programs (or services) that report the health information of targets. Exporters are installed on the machine where the targetted resources and services are located. The most frequently used exporter would be the node-exporter, which reports the health of a node (server). The following is a list of exporters currently available:
+  </p>
+
+  <ul>
+    <li><a target="_blank" href="https://github.com/prometheus/blackbox_exporter">blackbox_exporter</a>: The blackbox exporter allows blackbox probing of endpoints over HTTP, HTTPS, DNS, TCP and ICMP.</li>
+    <li><a target="_blank" href="https://github.com/prometheus/consul_exporter">consul_exporter</a>: Export Consul service health to Prometheus.</li>
+    <li><a target="_blank" href="https://github.com/prometheus/graphite_exporter">graphite_exporter</a>: An exporter for metrics exported in the Graphite plaintext protocol.</li>
+    <li><a target="_blank" href="https://github.com/prometheus/haproxy_exporter">haproxy_exporter</a>: This is a simple server that scrapes HAProxy stats and exports them via HTTP for Prometheus consumption.</li>
+    <li><a target="_blank" href="https://github.com/prometheus/memcached_exporter">memcached_exporter</a>: A memcached exporter for prometheus.</li>
+    <li><a target="_blank" href="https://github.com/prometheus/mysqld_exporter">mysqld_exporter</a>: Prometheus exporter for MySQL server metrics.</li>
+    <li><a target="_blank" href="https://github.com/prometheus/node_exporter">node_exporter</a>: Prometheus exporter for hardware and OS metrics exposed by *NIX kernels, written in Go with pluggable metric collectors.</li>
+    <li><a target="_blank" href="https://github.com/prometheus/pushgateway">pushgateway</a>: The Prometheus Pushgateway exists to allow ephemeral and batch jobs to expose their metrics to Prometheus.</li>
+    <li><a target="_blank" href="https://github.com/prometheus/statsd_exporter">statsd_exporter</a>: statsd_exporter receives StatsD-style metrics and exports them as Prometheus metrics.</li>
+  </ul>
+ 
+  <p>
+    Visit the download page for exporters. Download the exporters, install it to your system, then add the address to the configuration file. It should start collecting data from newly added target(s). Also, you can write a custom exporter if the exporters above don't satisfy your needs. Try to search 3rd party exporters before writing your own.
+  </p>
+
+  <p>
+    <a target="_blank" href="https://prometheus.io/docs/instrumenting/exporters/">Known Exporters and Integrations</a>
+  </p>
+
+  <p>
+    <a target="_blank" href="https://prometheus.io/docs/instrumenting/writing_exporters/">How to Write Prometheus Exporters</a>
+  </p>
+
+  <h3>2.2. Grafana</h3>
+
+  <h4>2.2.1. Grafana Server</h4>
+
+  <p>
+    Follow the link below to download Grafana for your system. Ideally, the monitoring dashboard can be installed in a centralized screen to overview all the resources under management. However, there could be use cases or business requirements where there should be multiple control towers instead of one. 
+  </p>
+
+  <p>
+    <a target="_blank" href="https://grafana.com/grafana/download">Download Grafana</a>
+  </p>
+
+  <p>
+    After the installation, the data source should be specified, and the data source should be Prometheus in our case. Grafana supports various data source like the following:
+  </p>
+
+  <figure>
+    <img src="img02.jpg" alt="Data Source for Grafana" width="70%">
+    <figcaption>Data Source for Grafana</figcaption>
+  </figure>
+
+  <h4>2.2.2. Instant Dashboards</h4>
+
+  <p>
+    Now Grafana is ready to be used, but there should be dashboard definitions to be connected to the data course to display. Making it could be daunting since there are tons of information to process. Fortunately, there is a friendly community to share their dashboards with others. This is also good for understanding how you can make certain display items by looking at dashboards made by others. Browse the pages until you find what you like, then simply copy the ID over your Grafana dashboard configuration to make one.
+  </p>
+
+  <a target="_blank" href="https://grafana.com/dashboards">Grafana Dashboard Collection</a>
+
+  <p>
+    The following image is the Grafana dashboard I set up for a node (server). It reports the fundamental information about CPU, memory, file system, or disk IO. You can adjust various options such as duration, variables, annotation, or view modes. In the multi-user environment, different users can have different permissions to view certain parts of the dashboard, which is useful to manage permission hierarchy. 
+  </p>
+
+  <figure>
+    <img src="img03.jpg" alt="Grafana Dashboard" width="90%">
+    <figcaption>Grafana Dashboard</figcaption>
+  </figure>
+
+  <h2>3. Monitoring Systems</h2>
+
+  <h3>3.1. System Architecture</h3>
+
+  <p>
+    If you are a DevOps person or a system administrator, you would know the importance of the system architecture which can be modular, explainable, and changeable. I am not sure DevOps people use the term Agile in the domain of infrastructure, the concept must be applied to accommodate the Agile development cycle in the server level. 
+  </p>
+
+  <p>
+    The most recent trend is the <a target="_blank" href="https://en.wikipedia.org/wiki/Infrastructure_as_code">infrastructure as code</a>. This trend is supported by numerous infrastructure/cloud computing/networking companies and replacing the old legacy systems. Network engineers and system administrators have been discussing learning programming (usually Python) to make computing resources into programmable units for deployment/management automation.
+  </p>
+
+  <p>
+    The problem is the more it gets complex, the harder to understand and manage. This problem can be solved by managing a good mental (or physical) image of what's going on in the infrastructure. In the old days, we used pen and papers, or a big board where we can update information with diagrams and descriptions. However, as the infrastructure becomes complex, manual visualization would have scalability problems. There could be dozens of people on the same page simultaneously, there should be multiple partial perspectives or views each team or a group of people want to describe. These requirements can't be satisfied with a big board in the center of the office. The monitoring system to the rescue!
+  </p>
+
+  <p>
+    For this demo, it's good to amp up the complexity to the point where the readers can see major components of the enterprise information system environment without being confused by individual specificities caused by unique use cases of the businesses. Therefore, There are going to be a web server, a database server, and finally, the monitoring server itself. I was also thinking about to put a backend micro-services but decided to exclude it to limit the complexity. Managing and monitoring the micro-services will be another chapter with automatic deployment solutions as these subjects are closed correlated. See the following environment architecture diagram to understand the computing structure of the demo.
+  </p>
+  
+  <figure>
+    <img src="img04.jpg" alt="System Architecture for the Demo" width="50%">
+    <figcaption>System Architecture for the Demo</figcaption>
+  </figure>
+
+  <h3>3.2. Setup & Configuration</h3>
+
+  <h4>3.2.1. Node Exporters</h4>
+
+  <p>
+    Node exporters are a piece of program that reports the status of the machine itself. We are going to install the node exporter for every machine we are operating to monitor the health of the machines because it doesn't matter the machine doesn't run properly even though the services on the machine can run. You could install the exporter as binary files, or a service; however, it's very convenient to run the exporter as a Docker container since you don't have to manage all the dependencies for now and for the future. Let's run a Docker container for the node exporter.
+  </p>
+
+  <pre><code class="language-bash">
+[user@host] $ sudo docker run -d \
+  --net="host" \
+  --pid="host" \
+  -v "/:/host:ro,rslave" \
+  quay.io/prometheus/node-exporter \
+  --path.rootfs /host
+  </code></pre>
+
+  <h4>3.2.2. NginX Exporters</h4>
+
+  <p>
+    NginX is a web server providing HTTP responses. NginX generates logs and there is an exporter to parse these logs to detect monitoring metrics. The following link is the exporter for NginX:
+  </p>
+
+  <a target="_blank" href="https://github.com/martin-helmich/prometheus-nginxlog-exporter">Prometheus NginxLog Exporter</a>
+
+  <p>
+    We need to install NginX first to setup the web server.
+  </p>
+
+  <pre><code class="language-bash">
+[user@host] $ sudo apt install nginx
+  </code></pre>
+
+  <p>
+    The NginX exporter also provides a Docker container. By running the following command, the exporter is ready to provide metrics. Before running the following command don't forget the NginX server is running correctly as a service.
+  </p>
+
+  <pre><code class="language-bash">
+[user@host] $ sudo docker docker run --name nginx-exporter -v logs:/mnt/nginxlogs -p 4040:4040 quay.io/martinhelmich/prometheus-nginxlog-exporter /var/log/nginx/access.log
+  </code></pre>
+
+  <h4>3.2.3. MongoDB Exporters</h4>
+
+  <p>
+    MongoDB is a document-oriented database system widely used in the industry. MongoDB has several advantages over traditional relational databases such as being able to be run in a distributed environment, flexible schema, friendly to modern OOP design. First, we need to install MongoDB and run it as a service.
+  </p>
+
+  <pre><code class="language-bash">
+[user@host] $ sudo apt install mongodb
+  </code></pre>
+
+  <p>
+    Unfortunately, we can't use the convenient Docker container this time since there is no ready-made one yet. You can build your own Docker container for the MongoDB Prometheus exporter but for now, let's install the exporter as binary files from the following link.
+  </p>
+
+  <a target="_blank" href="https://github.com/dcu/mongodb_exporter/releases">Prometheus MongoDB Exporter</a>
+
+  <h4>3.2.4. Targets Configuration</h4>
+
+  <p>
+    After installing all the exporters for the services and machines, this information should be added to the Prometheus to make it fetch the exported metrics periodically. See the following configuration file and comments to add the exporter entries:
+  </p>
+
+  <pre><code class="language-yaml"># Completed Prometheus Configuration File
+# my global config
+global:
+  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      # - alertmanager:9093
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+    - targets: ['192.168.0.100:9090']
+
+  - job_name: 'node_on_100'
+    static_configs:
+    - targets: ['192.168.0.100:9100']
+
+  - job_name: 'node_on_101'
+    static_configs:
+    - targets: ['192.168.0.101:9100']
+
+  - job_name: 'node_on_102'
+    static_configs:
+    - targets: ['192.168.0.102:9100']
+
+  - job_name: 'nginx_on_101'
+    static_configs:
+    - targets: ['192.168.0.101:4040']
+
+  - job_name: 'mongodb_on_102'
+    static_configs:
+    - targets: ['192.168.0.102:9001']
+  </code></pre>
+
+  <p>
+    You can see the target entries and their status on the Prometheus control panel like the following:
+  </p>
+
+  <figure>
+    <img src="img05.jpg" alt="Prometheus Targets" width="90%">
+    <figcaption>Prometheus Targets</figcaption>
+  </figure>
+
+  <h3>3.3. Monitoring Strategies</h3>
+
+  <p>
+    There are many metrics Prometheus can pull from the individual exporters, but they are usually too many since Prometheus doesn't pick and choose what you need automatically instead it pulls all metrics it can. Monitoring strategies mean that particular views/perspectives you want to see the resources. For example, your service might use too much RAM and you are interested in monitoring the memory of each node and getting alerts when it hits the limit. In this case, other irrelevant information shouldn't be monitored because it doesn't support the object of the monitoring requirement.
+  </p>
+
+  <p>
+    In this chapter, we are going to see an example of how we can set the monitoring requirement and achieve it by utilizing the metrics Prometheus can get from the exporters.
+  </p>
+
+  <h4>3.3.1. Metrics</h4>
+
+  <p>
+    The following Grafana dashboard displays general metrics that can be pulled from a node exporter. In many monitoring requirements, generating alerts could be expensive for many reasons. It would be enough to show a comprehensive dashboard to grasp the overall status of a machine or machines. Grafana dashboards are entirely customizable, so you can always bring up the most important metrics to the top.
+  </p>
+
+  <figure>
+    <img src="img06.jpg" alt="Node Metrics" width="90%">
+    <figcaption>Node Metrics</figcaption>
+  </figure>
+
+  <p>
+    The next dashboard shows the status of MongoDB, uptime, numbers of operations and documents, or a number of concurrent connections. If you don't like the metrics or the way it pulls the information, you can write your own exporters with the languages like Go. This subject exceeds the scope of this article but would be a very fun subject to investigate!
+  </p>
+
+  <figure>
+    <img src="img07.jpg" alt="MongoDB Metrics" width="90%">
+    <figcaption>MongoDB Metrics</figcaption>
+  </figure>
+
+  <h4>3.3.2. Detection</h4>
+
+  <p>
+    Let's say we want to detect the abnormality in the number of connections for the scenario like DDOS attacks. From NginX metrics, there is a metric called net_conntrack_listener_conn_accepted_total. Usually, the meaningful metric would be the velocity of it, not the absolute number of connections at the given moment. Therefore, we want to use the rate function to measure how many connections are established in a given period:
+  </p>
+
+  <figure>
+    <img src="img08.jpg" alt="rate(net_conntrack_listener_conn_accepted_total[1m]) Before" width="50%">
+    <figcaption>rate(net_conntrack_listener_conn_accepted_total[1m]) Before</figcaption>
+  </figure>
+
+  <p>
+    Then we write a Python script to simulate a massive GET request.
+  </p>
+
+  <pre><code class="language-python"> # send_repeated_http_get_request.py
+import urllib.request
+
+for i in range(0, 1000):
+    contents = urllib.request.urlopen("http://192.168.0.101").read()
+
+print("Finished!")
+  </code></pre>
+
+  <p>
+    Execute the script, then you can see the graph hikes in the Grafana dashboard. You can also set an alarm or an alert when the number exceeds a certain limitation defined by users.
+  </p>
+  
+  <figure>
+    <img src="img09.jpg" alt="rate(net_conntrack_listener_conn_accepted_total[1m]) After" width="50%">
+    <figcaption>rate(net_conntrack_listener_conn_accepted_total[1m]) After</figcaption>
+  </figure>
+
+  <h2>0. Conclusion</h2>
+
+  <p>
+    Prometheus and Grafana provide a centralized monitoring solution for various operatable sources. The monitoring system also can be modulized by making a Prometheus server getting data from other Prometheus servers. Grafana can pull the metrics data from various sources, which isn't limited to Prometheus. These monitoring solutions are designed to cover most of the use cases in the modern computing environment.
+  </p>
+
+  <p>
+    The limitation is that it has to pull the scoped information exposed by the individual resource API itself. There should be existing exporters to be utilized without writing their own exporters. There are many versions to be covered so there are plenty of cases that haven't been covered yet. For example, major web servers on Windows Server environment don't have exporters yet, and probably not going to be covered since Linux servers are dominant in the enterprise environment.
+  </p>
+
+  <p>
+    Considering the purpose of the monitoring would be preventing problems for the managed resources, it is easy to guess where this would go in the future. Prometheus or Grafana can be smarter tools that analyze and predict possible problems from the data collected in the past. Artificial intelligence and machine learning are changing the IT industry now, I expect to see the intelligent monitoring system to be made soon.
+  </p>
+
+  <h2>Appendix A. References</h2>
+
+  <div class="csl-bib-body" style="line-height: 1.35; ">
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 1em;">[1]</div><div class="csl-right-inline" style="margin: 0 .4em 0 1.5em;">“Grafana - The open platform for analytics and monitoring,” <i>Grafana Labs</i>. [Online]. Available: <a href="https://grafana.com/">https://grafana.com/</a>. [Accessed: 08-Jun-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Grafana%20-%20The%20open%20platform%20for%20analytics%20and%20monitoring&amp;rft.description=Data%20visualization%20%26%20Monitoring%20with%20support%20for%20Graphite%2C%20InfluxDB%2C%20Prometheus%2C%20Elasticsearch%20and%20many%20more%20databases&amp;rft.identifier=https%3A%2F%2Fgrafana.com%2F&amp;rft.language=en-US"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 1em;">[2]</div><div class="csl-right-inline" style="margin: 0 .4em 0 1.5em;">CNCF [Cloud Native Computing Foundation], <i>How to Export Prometheus Metrics from Just About Anything - Matt Layher, DigitalOcean</i>. .</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=videoRecording&amp;rft.title=How%20to%20Export%20Prometheus%20Metrics%20from%20Just%20About%20Anything%20-%20Matt%20Layher%2C%20DigitalOcean&amp;rft.identifier=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DZk09Mbu0YQk&amp;rft.au=undefined"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 1em;">[3]</div><div class="csl-right-inline" style="margin: 0 .4em 0 1.5em;">Devoxx, <i>Infrastructure and application monitoring using Prometheus by Marco Pas</i>. .</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=videoRecording&amp;rft.title=Infrastructure%20and%20application%20monitoring%20using%20Prometheus%20by%20Marco%20Pas&amp;rft.identifier=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D5GYe_-qqP30&amp;rft.au=undefined"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 1em;">[4]</div><div class="csl-right-inline" style="margin: 0 .4em 0 1.5em;">Docker, <i>Monitoring, the Prometheus Way</i>. .</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=videoRecording&amp;rft.title=Monitoring%2C%20the%20Prometheus%20Way&amp;rft.identifier=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DPDxcEzu62jk&amp;rft.au=undefined"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 1em;">[5]</div><div class="csl-right-inline" style="margin: 0 .4em 0 1.5em;">“Overview | Prometheus.” [Online]. Available: <a href="https://prometheus.io/docs/introduction/overview/">https://prometheus.io/docs/introduction/overview/</a>. [Accessed: 01-Jul-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Overview%20%7C%20Prometheus&amp;rft.identifier=https%3A%2F%2Fprometheus.io%2Fdocs%2Fintroduction%2Foverview%2F"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 1em;">[6]</div><div class="csl-right-inline" style="margin: 0 .4em 0 1.5em;">“Prometheus - Monitoring system &amp; time series database.” [Online]. Available: <a href="https://prometheus.io/">https://prometheus.io/</a>. [Accessed: 08-Jun-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Prometheus%20-%20Monitoring%20system%20%26%20time%20series%20database&amp;rft.identifier=https%3A%2F%2Fprometheus.io%2F"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 1em;">[7]</div><div class="csl-right-inline" style="margin: 0 .4em 0 1.5em;">Eddie Zaneski, <i>Setting up Prometheus and Grafana for monitoring your servers</i>. .</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=videoRecording&amp;rft.title=Setting%20up%20Prometheus%20and%20Grafana%20for%20monitoring%20your%20servers&amp;rft.identifier=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D4WWW2ZLEg74&amp;rft.au=undefined"></span>
+  </div>
+
+</body>
+</html>

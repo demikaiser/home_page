@@ -1,0 +1,437 @@
+<html>
+<head>
+
+</head>
+<body>
+
+  <div style="text-align: center;">
+    <h1><b>Instant Machine Learning Development Environment with Google Deep Learning Containers</b></h1>
+    <p>
+      Introduce the newly launched all-in-one machine learning toolkit containers made by Google for the Cloud environment.
+    </p>
+    <p>2019/07/11</p>
+  </div>
+
+  <h2>0. Introduction</h2>
+
+  <p>
+    Do you want to learn star-rising artificial intelligence and machine learning technics but struggle to set up a proper environment? Are you having trouble with managing each set of dependencies for machine learning libraries used for your project? Do you want to deploy your machine learning projects to the Cloud so it can handle ever-growing requests in a scalable way? Here's a perfect (nearly) ready-made solution for you, meet Google Deep Learning Containers!
+  </p>
+
+  <p>
+    Newton said, "If I have seen further it is only by standing on the shoulders of giants." In today's software development environments, it is inevitable to use tens of or hundreds of libraries in a project, and for a machine learning project, the situation could be worse because it would be at the highest application level in terms of technology pyramid.
+  </p>
+
+  <p>
+    This article aims to show the brevity of setting an artificial intelligence/machine learning application development environment by using Google's latest container release, Google Deep Learning Containers. To be fair, there is going to be the same installation steps to set up the equivalent to Google DLC manually on your local environment; however, the libraries we are going to install would depend on other libraries on your local machine so there is no guarantee it would work correctly. And this is exactly the reason why we are in love with containerization technologies. 
+  </p>
+
+  <h2>1. Specification</h2>
+
+  <p>I am not going to say Google DLC contains everything you need, but the libraries included will cover at least 90% and there are more coming. Currently, Deep Learning Containers images include the following:</p>
+
+  <ul>
+    <li>Frameworks:
+      <ul>
+        <li>TensorFlow</li>
+        <li>TensorFlow 2.0</li>
+        <li>PyTorch</li>
+        <li>scikit-learn</li>
+        <li>R</li>
+      </ul>
+    </li>
+    <li>Python, including these packages:
+      <ul>
+        <li>numpy</li>
+        <li>sklearn</li>
+        <li>scipy</li>
+        <li>pandas</li>
+        <li>nltk</li>
+        <li>pillow</li>
+        <li>many others</li>
+      </ul>
+    </li>
+    <li>Nvidia packages with the latest Nvidia driver for GPU-enabled instances:
+      <ul>
+        <li>CUDA 10.0</li>
+        <li>CuDNN 7.*</li>
+        <li>NCCL 2.*</li>
+      </ul>
+    </li>
+    <li>JupyterLab
+    </li>
+  </ul>
+  
+  <p>
+    To see the official documentation, please follow the link below:
+  </p> 
+ 
+  <p>
+    <a target="_blank" href="https://cloud.google.com/ai-platform/deep-learning-containers/docs/overview">Google Deep Learning Containers Overview</a>
+  </p>
+
+  <p>
+    You can build a derivative container if you want to add on something for your project and utilize the convenience of the containerization. There is a very detailed tutorial-like extensive guide, so please see the following web page:
+  </p>
+  
+  <p>
+    <a target="_blank" href="https://cloud.google.com/ai-platform/deep-learning-containers/docs/derivative-container">Creating a Derivative Container</a>
+  </p>
+
+  <h2>2. Installation</h2>
+
+  <p>
+    The basic installation step is just one-liner (for the CPU version). For using GPU, it would take a little more steps because you need a GPU driver, but we are going to also use a container that has GPU drivers and the development kit.
+  </p>
+
+  <h3>2.1. For CPU (Intel)</h3>
+
+  <p>
+    To have all the benefits such as optimization, the specification says you need to have an Intel CPU. I usually prefer Intel because of the familiarity of the instruction sets, but nowadays AMD makes awesomeness! Anyways, the installation step is one-line as the following:
+  </p>
+
+  <pre><code class="language-bash">
+docker run -d -p 8080:8080 -v /path/to/local/dir:/home \
+  gcr.io/deeplearning-platform-release/tf-cpu.1-13
+  </code></pre>
+
+  <p>
+    If you are not familiar with the containerization technology, I have another blog that goes through the basics of it, so please refer to it. After the installation, click the following link to verify the installation is successful.
+  </p>
+
+  <p>
+    <a target="_blank" href="http://localhost:8080">Google DLC Web Interface (JupyterLab)</a>
+  </p>
+
+  <figure>
+    <img src="img00.jpg" alt="Google DLC Web Interface (JupyterLab)" width="100%">
+    <figcaption>Google DLC Web Interface (JupyterLab)</figcaption>
+  </figure>
+
+  <h3>2.2. For GPU (NVidia)</h3>
+
+  <p>
+    Currently, it only supports NVidia graphics cards; however, the complex deep learning tasks are tens of times faster than just using CPUs. There are several steps to install the NVidia Docker drivers, which is far better and simpler than installing native drivers. 
+  </p>
+
+  <h4>2.2.1. NVidia Docker Driver</h4>
+
+  <p>
+    The following steps are for Ubuntu/Debian, so go to the link below if you use other operating systems.
+  </p>
+
+  <pre><code class="language-bash">
+# Ubuntu 14.04/16.04/18.04, Debian Jessie/Stretch
+# If you have nvidia-docker 1.0 installed: we need to remove it and all existing GPU containers
+docker volume ls -q -f driver=nvidia-docker | xargs -r -I{} -n1 docker ps -q -a -f volume={} | xargs -r docker rm -f
+sudo apt-get purge -y nvidia-docker
+
+# Add the package repositories
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | \
+  sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+sudo apt-get update
+
+# Install nvidia-docker2 and reload the Docker daemon configuration
+sudo apt-get install -y nvidia-docker2
+sudo pkill -SIGHUP dockerd
+
+# Test nvidia-smi with the latest official CUDA image
+docker run --runtime=nvidia --rm nvidia/cuda:9.0-base nvidia-smi
+  </code></pre>
+
+  <p>
+    <a target="_blank" href="https://github.com/NVIDIA/nvidia-docker">NVidia Docker Driver</a>
+  </p>
+
+  <h4>2.2.2. Google DLC</h4>
+
+  <p>
+    Finally, install the Google DLC with the following command:
+  </p>
+
+  <pre><code class="language-bash">
+docker run --runtime=nvidia -d -p 8080:8080 -v /path/to/local/dir:/home \
+  gcr.io/deeplearning-platform-release/tf-gpu.1-13
+  </code></pre>
+
+  <h3>2.3. Use the GLC from Local</h3>
+
+  <p>
+    In this chapter, we are going to see how to effectively use the libraries in our normal workflow. There are more than two options but the followings will probably cover most of the use cases.
+  </p>
+
+  <h4>2.3.1. With Visual Studio Code</h4>
+
+  <p>
+    It has been several years that VSCode has been rising a top IDE of all, starting from the web development, but recently it aggressively adds more functionalities on the AIML development in Python. I was going to use Python CE, but unfortunately, Python CE doesn't support the remote interpreter environment with Docker containers, which will drive the potential customers away from it including myself because I have been using it for years, and now I am moving to VSCode.
+  </p>
+
+  <p>
+    To start the remote development, install the following two extensions (Docker Extension, Remote-Containers Extension):
+  </p>
+
+  <figure>
+    <img src="img01.jpg" alt="VSCode Docker Extension" width="70%">
+    <figcaption>VSCode Docker Extension</figcaption>
+  </figure>
+
+  <figure>
+    <img src="img02.jpg" alt="VSCode Remote-Containers Extension" width="70%">
+    <figcaption>VSCode Remote-Containers Extension</figcaption>
+  </figure>
+
+  <p>
+    Then simply attach VSCode to the docker container, a new window will open like the following image:
+  </p>
+
+  <figure>
+    <img src="img03.jpg" alt="Attach VSCode to Docker" width="80%">
+    <figcaption>Attach VSCode to Docker</figcaption>
+  </figure>
+   
+  <p>
+    You can open a shell to execute the python scripts like the following:
+  </p>
+
+  <figure>
+    <img src="img04.jpg" alt="Run VSCode inside a Container" width="100%">
+    <figcaption>Run VSCode inside a Container</figcaption>
+  </figure> 
+
+  <p>
+    For more information, visit the MSDN blog like the following. This extension is relatively new and in a preview state, so there could be some unexpected bugs or limitations of functionalities.
+  </p>
+
+  <p>
+    <a target="_blank" href="https://devblogs.microsoft.com/python/remote-python-development-in-visual-studio-code/">Remote Python Development in VSCode</a>
+  </p>
+
+  <h4>2.3.2. With a Remote Docker Shell</h4>
+
+  <p>
+    If you are more like an old-school CLI-type person, you can simply open a shell from a Docker container and start developing with your favorite text editors like Vim or Emacs:
+  </p>
+
+  <figure>
+    <img src="img05.jpg" alt="Run a Shell in a Container" width="90%">
+    <figcaption>Run a Shell in a Container</figcaption>
+  </figure>
+
+  <h2>3. The Journey of Pain</h2>
+
+  <p>
+    If you haven't been utilizing the power and the elegance of the containerization technologies, you may wonder why all fuss. In that case, I prepared the following links for the people who want to feel the pain of installing all the libraries in an old fashion. I thought about enumerating steps, but I had done it so many times, therefore decided not to torture myself. The following libraries are included in the Google DLC by default, so follow the links to install for your OS. Have fun! Or, simply run away from it when possible.
+  </p>
+
+  <h3>3.1. Frameworks:</h3>
+
+  <h4>3.1.1. TensorFlow CPU</h4>
+
+  <p>
+    <a target="_blank" href="https://www.tensorflow.org/install/pip">TensorFlow CPU Installation</a>
+  </p>
+
+  <h4>3.1.2. TensorFlow GPU</h4>
+  
+  <p>
+    <a target="_blank" href="https://www.tensorflow.org/install/gpu">TensorFlow GPU Installation</a>
+  </p>
+
+  <h4>3.1.3. PyTorch</h4>
+
+  <p>
+    <a target="_blank" href="https://pytorch.org/get-started/locally/">PyTorch Get Started Locally</a>
+  </p>
+
+  <h4>3.1.4. scikit-learn</h4>
+
+  <p>
+    <a target="_blank" href="https://scikit-learn.org/stable/install.html">scikit-learn Installation</a>
+  </p>
+
+  <h4>3.1.5. R</h4>
+
+  <p>
+    <a target="_blank" href="https://www.r-project.org/">R Project Download</a>
+  </p>
+
+  <h3>3.2. Python, including these packages:</h3>
+  
+  <h4>3.2.1. numpy</h4>
+
+  <p>
+    <a target="_blank" href="https://scipy.org/install.html">scipy Installation</a>
+  </p>
+
+  <h4>3.2.2. sklearn</h4>
+
+  <p>
+    <a target="_blank" href="https://scikit-learn.org/stable/install.html">scikit-learn Installation</a>
+  </p>
+
+  <h4>3.2.3. scipy</h4>
+
+  <p>
+    <a target="_blank" href="https://scipy.org/install.html">scipy Installation</a>
+  </p>
+
+  <h4>3.2.4. pandas</h4>
+
+  <p>
+    <a target="_blank" href="https://pandas.pydata.org/pandas-docs/stable/install.html">Pandas Installation</a>
+  </p>
+
+  <h4>3.2.5. nltk</h4>
+
+  <p>
+    <a target="_blank" href="https://www.nltk.org/install.html">nltk Installation</a>
+  </p>
+
+  <h4>3.2.6. pillow</h4>
+
+  <p>
+    <a target="_blank" href="https://pillow.readthedocs.io/en/stable/installation.html">pillow Installation</a>
+  </p>
+
+  <h3>3.3. Nvidia packages with the latest Nvidia driver for GPU-enabled instances:</h3>
+  
+  <h4>3.3.1. CUDA 10.0</h4>
+
+  <p>
+    <a target="_blank" href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html">NVidia CUDA Installation Guild Linux</a>
+  </p>
+
+
+  <h4>3.3.2. CuDNN 7.*</h4>
+
+  <p>
+    <a target="_blank" href="https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html">NVidia cuDNN Installation Guild Linux</a>
+  </p>
+
+  <h4>3.3.3. NCCL 2.*</h4>
+
+  <p>
+    <a target="_blank" href="https://docs.nvidia.com/deeplearning/sdk/nccl-install-guide/index.html">NVidia NCCL Installtion Guide</a>
+  </p>
+
+  <h3>3.4. JupyterLab</h3>
+
+  <p>
+    <a target="_blank" href="https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html">JupyterLab Installation</a>
+  </p>
+
+  <h2>0. Conclusion</h2>
+
+  <p>
+    Ah, the old good days you could live off only with the legendary C compiler. You didn't really have to follow all the ever-changing technologies, putting your entire life in learning. But is it? Maybe or depends. Should we stop improving then? Probably not.
+  </p>
+
+  <p>
+    The problem of managing complexity -- in general, not for the computer science area -- lies in how to manage it, not in how much to manage it. That's my belief. Furthermore, many cases the real problems are not the technologies itself, but bigotry, arrogance, and politics.
+  </p>
+  
+  <p>
+    Actually, I do hope technologies growing exponentially faster so we don't even have to write code. Until then, we have to run as fast as we can. 
+  </p>
+  
+  <p>
+    I think containerization technologies can be the ultimate form of managing complexity as Nature handles in the same way -- objects, molecules, atoms, quarks are containers grabbing a small system each. However, these containers could be smarter with a sort of embedded intelligence. Currently, we have to manage containers in a descriptive, decisive way; however, if containers can have intelligence, it could behave to be beneficial to the system without any higher orders or detailed instructions. I expect to see this would happen soon.
+  </p>
+
+  <h2>Appendix A. References</h2>
+
+  <div class="csl-bib-body" style="line-height: 1.35; ">
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[1]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Abstract.” [Online]. Available: <a href="http://docs.nvidia.com/deeplearning/sdk/nccl-install-guide/index.html">http://docs.nvidia.com/deeplearning/sdk/nccl-install-guide/index.html</a>. [Accessed: 13-Jul-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Abstract&amp;rft.description=This%20NVIDIA%20Collective%20Communication%20Library%20(NCCL)%20Installation%20Guide%20provides%20a%20step-by-step%20instructions%20for%20downloading%20and%20installing%20NCCL%202.4.7.&amp;rft.identifier=http%3A%2F%2Fdocs.nvidia.com%2Fdeeplearning%2Fsdk%2Fnccl-install-guide%2Findex.html&amp;rft.language=en-us"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[2]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Abstract.” [Online]. Available: <a href="http://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html">http://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html</a>. [Accessed: 13-Jul-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Abstract&amp;rft.description=This%20guide%20provides%20step-by-step%20instructions%20on%20how%20to%20install%20and%20check%20for%20correct%20operation%20of%20NVIDIA%20cuDNN%20v7.6.1%20on%20Linux%2C%20Mac%20OS%20X%2C%20and%20Microsoft%20Windows%20systems.&amp;rft.identifier=http%3A%2F%2Fdocs.nvidia.com%2Fdeeplearning%2Fsdk%2Fcudnn-install%2Findex.html&amp;rft.language=en-us"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[3]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;"><i>Build and run Docker containers leveraging NVIDIA GPUs: NVIDIA/nvidia-docker</i>. NVIDIA Corporation, 2019.</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=computerProgram&amp;rft.title=Build%20and%20run%20Docker%20containers%20leveraging%20NVIDIA%20GPUs%3A%20NVIDIA%2Fnvidia-docker&amp;rft.rights=View%20license&amp;rft.identifier=https%3A%2F%2Fgithub.com%2FNVIDIA%2Fnvidia-docker&amp;rft.date=2019-07-12"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[4]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Creating a derivative container | Deep Learning Containers,” <i>Google Cloud</i>. [Online]. Available: <a href="https://cloud.google.com/ai-platform/deep-learning-containers/docs/derivative-container">https://cloud.google.com/ai-platform/deep-learning-containers/docs/derivative-container</a>. [Accessed: 13-Jul-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Creating%20a%20derivative%20container%20%7C%20Deep%20Learning%20Containers&amp;rft.identifier=https%3A%2F%2Fcloud.google.com%2Fai-platform%2Fdeep-learning-containers%2Fdocs%2Fderivative-container&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[5]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Deep Learning Containers overview | Deep Learning Containers,” <i>Google Cloud</i>. [Online]. Available: <a href="https://cloud.google.com/ai-platform/deep-learning-containers/docs/overview">https://cloud.google.com/ai-platform/deep-learning-containers/docs/overview</a>. [Accessed: 12-Jul-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Deep%20Learning%20Containers%20overview%20%7C%20Deep%20Learning%20Containers&amp;rft.identifier=https%3A%2F%2Fcloud.google.com%2Fai-platform%2Fdeep-learning-containers%2Fdocs%2Foverview&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[6]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Dockerized development environment on steroids (part 2/2).” [Online]. Available: <a href="https://hackernoon.com/dockerized-development-environment-on-steroids-part-2-2-b800a65d0462#.235fodt6h">https://hackernoon.com/dockerized-development-environment-on-steroids-part-2-2-b800a65d0462#.235fodt6h</a>. [Accessed: 13-Jul-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Dockerized%20development%20environment%20on%20steroids%20(part%202%2F2)&amp;rft.identifier=https%3A%2F%2Fhackernoon.com%2Fdockerized-development-environment-on-steroids-part-2-2-b800a65d0462%23.235fodt6h"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[7]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“GPU support,” <i>TensorFlow</i>. [Online]. Available: <a href="https://www.tensorflow.org/install/gpu">https://www.tensorflow.org/install/gpu</a>. [Accessed: 13-Jul-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=GPU%20support&amp;rft.identifier=https%3A%2F%2Fwww.tensorflow.org%2Finstall%2Fgpu&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[8]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">A. Hervé, “How we happily dockerized our development environment (part 1/2),” <i>Medium</i>, 25-Apr-2019. [Online]. Available: <a href="https://hackernoon.com/how-we-happily-dockerized-our-development-environment-part-1-2-b05fd6927a53">https://hackernoon.com/how-we-happily-dockerized-our-development-environment-part-1-2-b05fd6927a53</a>. [Accessed: 13-Jul-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=How%20we%20happily%20dockerized%20our%20development%20environment%20(part%201%2F2)&amp;rft.description=In%20this%20post%20I'll%20show%20some%20tips%20we%20used%20at%20Hunteed%20to%20boost%20our%20productivity%20thanks%20to%20a%20fully%20dockerized%20development%20environment.&amp;rft.identifier=https%3A%2F%2Fhackernoon.com%2Fhow-we-happily-dockerized-our-development-environment-part-1-2-b05fd6927a53&amp;rft.aufirst=Aur%C3%A9lien&amp;rft.aulast=Herv%C3%A9&amp;rft.au=Aur%C3%A9lien%20Herv%C3%A9&amp;rft.date=2019-04-25&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[9]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Install TensorFlow with pip,” <i>TensorFlow</i>. [Online]. Available: <a href="https://www.tensorflow.org/install/pip">https://www.tensorflow.org/install/pip</a>. [Accessed: 13-Jul-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Install%20TensorFlow%20with%20pip&amp;rft.identifier=https%3A%2F%2Fwww.tensorflow.org%2Finstall%2Fpip&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[10]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Installation — JupyterLab 1.0.2 documentation.” [Online]. Available: <a href="https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html">https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html</a>. [Accessed: 13-Jul-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Installation%20%E2%80%94%20JupyterLab%201.0.2%20documentation&amp;rft.identifier=https%3A%2F%2Fjupyterlab.readthedocs.io%2Fen%2Fstable%2Fgetting_started%2Finstallation.html"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[11]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Installation — pandas 0.24.2 documentation.” [Online]. Available: <a href="https://pandas.pydata.org/pandas-docs/stable/install.html">https://pandas.pydata.org/pandas-docs/stable/install.html</a>. [Accessed: 13-Jul-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Installation%20%E2%80%94%20pandas%200.24.2%20documentation&amp;rft.identifier=https%3A%2F%2Fpandas.pydata.org%2Fpandas-docs%2Fstable%2Finstall.html"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[12]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Installation — Pillow (PIL Fork) 6.1.0 documentation.” [Online]. Available: <a href="https://pillow.readthedocs.io/en/stable/installation.html">https://pillow.readthedocs.io/en/stable/installation.html</a>. [Accessed: 13-Jul-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Installation%20%E2%80%94%20Pillow%20(PIL%20Fork)%206.1.0%20documentation&amp;rft.identifier=https%3A%2F%2Fpillow.readthedocs.io%2Fen%2Fstable%2Finstallation.html"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[13]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Installing NLTK — NLTK 3.4.4 documentation.” [Online]. Available: <a href="https://www.nltk.org/install.html">https://www.nltk.org/install.html</a>. [Accessed: 13-Jul-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Installing%20NLTK%20%E2%80%94%20NLTK%203.4.4%20documentation&amp;rft.identifier=https%3A%2F%2Fwww.nltk.org%2Finstall.html"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[14]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Installing packages — SciPy.org.” [Online]. Available: <a href="https://scipy.org/install.html">https://scipy.org/install.html</a>. [Accessed: 13-Jul-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Installing%20packages%20%E2%80%94%20SciPy.org&amp;rft.identifier=https%3A%2F%2Fscipy.org%2Finstall.html"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[15]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Installing scikit-learn — scikit-learn 0.21.2 documentation.” [Online]. Available: <a href="https://scikit-learn.org/stable/install.html">https://scikit-learn.org/stable/install.html</a>. [Accessed: 13-Jul-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Installing%20scikit-learn%20%E2%80%94%20scikit-learn%200.21.2%20documentation&amp;rft.identifier=https%3A%2F%2Fscikit-learn.org%2Fstable%2Finstall.html"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[16]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Introducing Deep Learning Containers: Consistent and portable environments,” <i>Google Cloud Blog</i>. [Online]. Available: <a href="https://cloud.google.com/blog/products/ai-machine-learning/introducing-deep-learning-containers-consistent-and-portable-environments/">https://cloud.google.com/blog/products/ai-machine-learning/introducing-deep-learning-containers-consistent-and-portable-environments/</a>. [Accessed: 12-Jul-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Introducing%20Deep%20Learning%20Containers%3A%20Consistent%20and%20portable%20environments&amp;rft.description=Deep%20Learning%20Containers%20help%20you%20manage%20the%20compatibility%20and%20complexities%20of%20your%20software%20stack%2C%20so%20you%20can%20focus%20on%20iterating%20and%20refining%20your%20machine%20learning%20model.&amp;rft.identifier=https%3A%2F%2Fcloud.google.com%2Fblog%2Fproducts%2Fai-machine-learning%2Fintroducing-deep-learning-containers-consistent-and-portable-environments%2F&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[17]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“NVIDIA CUDA Installation Guide for Linux.” [Online]. Available: <a href="http://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html">http://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html</a>. [Accessed: 13-Jul-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=NVIDIA%20CUDA%20Installation%20Guide%20for%20Linux&amp;rft.description=The%20installation%20instructions%20for%20the%20CUDA%20Toolkit%20on%20Linux.&amp;rft.identifier=http%3A%2F%2Fdocs.nvidia.com%2Fcuda%2Fcuda-installation-guide-linux%2Findex.html&amp;rft.language=en-us"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[18]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">B. D. Ramel and 05/03/2019, “Python Programmers Prompt VS Code Remote Development Tools -,” <i>Visual Studio Magazine</i>. [Online]. Available: <a href="https://visualstudiomagazine.com/articles/2019/05/03/remote-python.aspx">https://visualstudiomagazine.com/articles/2019/05/03/remote-python.aspx</a>. [Accessed: 13-Jul-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Python%20Programmers%20Prompt%20VS%20Code%20Remote%20Development%20Tools%20-&amp;rft.description=The%20well-documented%20bond%20between%20Visual%20Studio%20Code%20and%20Python%20has%20been%20further%20epitomized%20in%20new%20remote%20development%20tooling%20just%20announced%20for%20Microsoft's%20popular%2C%20open%20source%2C%20cross-platform%20code%20editor.&amp;rft.identifier=https%3A%2F%2Fvisualstudiomagazine.com%2Farticles%2F2019%2F05%2F03%2Fremote-python.aspx&amp;rft.aufirst=By%20David&amp;rft.aulast=Ramel&amp;rft.au=By%20David%20Ramel&amp;rft.au=05%2F03%2F2019"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[19]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“PyTorch.” [Online]. Available: <a href="https://www.pytorch.org">https://www.pytorch.org</a>. [Accessed: 13-Jul-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=PyTorch&amp;rft.description=An%20open%20source%20deep%20learning%20platform%20that%20provides%20a%20seamless%20path%20from%20research%20prototyping%20to%20production%20deployment.&amp;rft.identifier=https%3A%2F%2Fwww.pytorch.org&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[20]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“R: The R Project for Statistical Computing.” [Online]. Available: <a href="https://www.r-project.org/">https://www.r-project.org/</a>. [Accessed: 13-Jul-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=R%3A%20The%20R%20Project%20for%20Statistical%20Computing&amp;rft.identifier=https%3A%2F%2Fwww.r-project.org%2F"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[21]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Remote Python Development in Visual Studio Code,” <i>Python</i>, 02-May-2019. [Online]. Available: <a href="https://devblogs.microsoft.com/python/remote-python-development-in-visual-studio-code/">https://devblogs.microsoft.com/python/remote-python-development-in-visual-studio-code/</a>. [Accessed: 13-Jul-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Remote%20Python%20Development%20in%20Visual%20Studio%20Code&amp;rft.description=Today%20at%20PyCon%202019%2C%20Microsoft%E2%80%99s%20Python%20and%20Visual%20Studio%20Code%20team%20announced%20remote%20development%20in%20Visual%20Studio%20Code%2C%20enabling%20Visual%20Studio%20Code%20developers%20to%20work%20in%20development%20setups%20where%20their%20code%20and%20tools%20are%20running%20remotely%20inside%20of%20docker%20containers%2C%20remote%20SSH%20hosts%2C&amp;rft.identifier=https%3A%2F%2Fdevblogs.microsoft.com%2Fpython%2Fremote-python-development-in-visual-studio-code%2F&amp;rft.date=2019-05-02&amp;rft.language=en-US"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[22]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Remote Python Development in Visual Studio Code,” <i>Python</i>, 02-May-2019. [Online]. Available: <a href="https://devblogs.microsoft.com/python/remote-python-development-in-visual-studio-code/">https://devblogs.microsoft.com/python/remote-python-development-in-visual-studio-code/</a>. [Accessed: 13-Jul-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Remote%20Python%20Development%20in%20Visual%20Studio%20Code&amp;rft.description=Today%20at%20PyCon%202019%2C%20Microsoft%E2%80%99s%20Python%20and%20Visual%20Studio%20Code%20team%20announced%20remote%20development%20in%20Visual%20Studio%20Code%2C%20enabling%20Visual%20Studio%20Code%20developers%20to%20work%20in%20development%20setups%20where%20their%20code%20and%20tools%20are%20running%20remotely%20inside%20of%20docker%20containers%2C%20remote%20SSH%20hosts%2C&amp;rft.identifier=https%3A%2F%2Fdevblogs.microsoft.com%2Fpython%2Fremote-python-development-in-visual-studio-code%2F&amp;rft.date=2019-05-02&amp;rft.language=en-US"></span>
+  </div>
+
+</body>
+</html>

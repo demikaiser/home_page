@@ -1,0 +1,5 @@
+{
+  "title": "AIAbalone",
+  "subtitle": "An Abalone Game Playing Agent",
+  "description": "Implemented a traditional board game Abalone in Python and Pygame with an artificial intelligence game playing agent using Minimax Alpha-Beta Pruning as a search method."
+}

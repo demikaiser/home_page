@@ -1,0 +1,488 @@
+<html>
+<head>
+
+</head>
+<body>
+
+  <div style="text-align: center;">
+    <h1><b>Software Design Patterns Overview</b></h1>
+    <p>
+      Explore the variety of object-oriented design patterns used in the enterprise applications.
+    </p>
+    <p>2019/06/03</p>
+  </div>
+
+  <h2>0. Introduction</h2>
+
+  <p>
+    Design patterns are general repeatable solutions for commonly occurring problems in software projects. Since the engineers started using object-oriented principles, they have been accumulating solutions which can improve efficiency, scalability, and readability. These solutions were developed from the trials, errors, and mistakes of the past, so the community can use them to stand on the shoulder of a giant -- well, the software development community.
+  </p>
+
+  <p>
+    Design patterns have two major benefits. First, they provide a way to solve issues related to software development using a proven solution. Second, design patterns can be an effective communication mean between architects, business analysts, system administrators, and software engineers.
+  </p>
+
+  <p>
+    Usually, patterns are developed in the refactoring process because you can notice inefficient parts after finish writing code from the requirements; however, if you are knowledgeable in patterns, you can start applying patterns from the beginning. Can you imagine how efficient it will be if you can skip several refactoring processes? 
+  </p>
+
+  <p>
+    Unfortunately, it requires experiences, knowledge, and efforts to be able to start translating the requirements into the known design patterns from the beginning. This trait can be seen only from architects who spent decades in the industry, but I think this can be learned in a relatively short period of time if you approach correctly.
+  </p>
+  
+  <p>
+    In this article, we are going to discuss on the right strategy to study design patterns and the roadmap to get to the goal. Let's start with the studying strategy.
+  </p>
+
+  <h2>1. Study Strategy</h2>
+
+  <h3>1.1. Stage 1: Equip with Pattern Idioms</h3>
+
+  <p>
+    To be a fluent language user -- for both natural languages and artificial languages, you should be familiar with vocabularies and idioms of the language. It can be said the software patterns are idioms consisted of vocabularies which are elements of the programming language, for example, conditional statements or classes.
+  </p>
+
+  <p>
+    There are use cases frequently designed and implemented, these are solidified as patterns. If you look at the concept of the design patterns, it is a solution for a frequently encountered problem. By knowing the frequently used idioms, you are getting yourself to be prepared to be ready for future problems.
+  </p>
+
+  <p>
+    Therefore, in this first stage, it is important to absorb or get familiarized with the design patterns used in the current industry. This article provides the entries of these patterns in section two.
+  </p>
+
+  <h3>1.2. Stage 2: Analyze Practical Use Cases</h3>
+
+  <p>
+    The pattern idioms are mostly theoretical. When it comes to real-world projects, the patterns will be modified or combined for the specific requirements. It would be a good practice to analyze patterns of real-world projects to see how the patterns are actually applied.
+  </p>
+
+  <p>
+    There are popular frameworks that can be analyzed such as Java Spring, Typescript Angular, or Python Django. Or it could be open source projects like Krita, Redis, or Docker. It is a good exercise to draw the pattern diagrams for the entire project.
+  </p>
+
+  <h3>1.3. Stage 3: Create New Patterns</h3>
+
+  <p>
+    Finally, it is time to apply all the knowledge to your project. You can use, modify, or combine the existing pattern idioms; however, you can create a new one if you see patterns that don't exist in the existing idioms.
+  </p>
+
+  <p>
+    This is the goal of learning patterns since patterns make the code efficient, testable, and scalable. More you can have a chance to interpret the requirements to patterns, better you will be good at. These stages are an iterative process, which can develop your skill incrementally.
+  </p>
+
+  <h2>2. Design Patterns Dictionary</h2>
+
+  <p>
+    The purpose of this pattern dictionary is to capture all the patterns that have a consensus amongst the IT industry. To aggregate all the discussions and the pattern items, I had ransacked the Internet for several days and collected the names and URLs that represent the concept well. It was recorded in a CSV file for further processing. You can also download the CSV file from the link below:
+  </p>
+
+  <p>
+    <a target="_blank" href="./oop_pattern_dictionary.csv">Design Pattern Dictionary in CSV</a>
+  </p>
+
+  <p>
+    Currently, there are close to 250 items so far, but the number will grow over time as I discover more patterns. There is a tag of the pattern if it is classified to a certain category. Click the name to see the explanation.
+  </p>
+
+  <ul>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Abstract_Document_Pattern">Abstract Document Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Abstract_factory_pattern">Abstract Factory Pattern</a>&nbsp;<code>Gof - Creational</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Action–domain–responder">Action Domain Responder Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Active_object">Active Object Pattern</a>&nbsp;<code>Concurrency</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Active_record_pattern">Active Record Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Actor_model">Actor Pattern</a>&nbsp;<code>Concurrency</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/acyclic-visitor/">Acyclic Visitor Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/uiki/Adapter_pattern">Adapter Pattern a.k.a. Wrapper Pattern</a>&nbsp;<code>Gof - Structural</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/aggregator-microservices/">Aggregator Microservices Pattern</a></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/ambassador">Ambassador Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/anti-corruption-layer">Anti-Corruption Layer Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Asynchronous_method_invocation">Async Method Invocation Pattern</a></li>
+    <li><a target="_blank" href="http://blog.arungupta.me/microservice-design-patterns/">Asynchronous Messaging Microservice Design Pattern</a></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/category/availability">Availability Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/backends-for-frontends">Backends for Frontends Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Balking_pattern">Balking Pattern</a>&nbsp;<code>Concurrency</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Barrier_(computer_science)">Barrier Pattern</a>&nbsp;<code>Concurrency</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Binding_properties_pattern">Binding Properties Pattern</a>&nbsp;<code>Concurrency</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Blackboard_design_pattern">Blackboard Pattern</a>&nbsp;<code>Behavioral</code></li>
+    <li><a target="_blank" href="http://foobarnbaz.com/2010/10/06/borg-pattern/">Borg Pattern</a></li>
+    <li><a target="_blank" href="http://blog.arungupta.me/microservice-design-patterns/">Branch Microservice Design Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Bridge_pattern">Bridge Pattern</a>&nbsp;<code>Gof - Structural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Broker_pattern">Broker Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Builder_pattern">Builder Pattern</a>&nbsp;<code>Gof - Creational</code></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/bulkhead">Bulkhead Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Business_delegate_pattern">Business Delegate Pattern</a>&nbsp;<code>J2EE - Business Layer Design Pattern</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/cqrs/">CQRS Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/cache-aside">Cache-Aside Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/caching/">Caching Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Callback_(computer_programming)">Callback Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Chain-of-responsibility_pattern">Chain of Responsibility Pattern</a>&nbsp;<code>GoF - Behavioral</code></li>
+    <li><a target="_blank" href="http://blog.arungupta.me/microservice-design-patterns/">Chained Microservice Design Pattern</a></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/circuit-breaker">Circuit Breaker Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/claim-check">Claim Check Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Client-server_model">Client–Server Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Closure_(computer_programming)">Closure Pattern</a>&nbsp;<code>Functional</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/collection-pipeline/">Collection-Pipeline Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Command_pattern">Command Pattern a.k.a. Action Pattern</a>&nbsp;<code>GoF - Behavioral</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Command_pattern">Command Pattern</a>&nbsp;<code>Behavioral</code></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs">Command and Query Responsibility Segregation (CQRS) Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/commander/">Commander Pattern</a></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/compensating-transaction">Compensating Transaction Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/competing-consumers">Competing Consumers Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://community.oracle.com/docs/DOC-995305">Completable Future Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Component-based_software_engineering">Component-Based Software Engineering Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Composite_entity_pattern">Composite Entity Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Composite_pattern">Composite Pattern</a>&nbsp;<code>Gof - Structural</code></li>
+    <li><a target="_blank" href="https://www.dineshonjava.com/composite-view-design-pattern/">Composite View Pattern</a>&nbsp;<code>J2EE - Presentation Layer Design</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Compute_kernel">Compute Kernel Pattern</a>&nbsp;<code>Concurrency</code></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/compute-resource-consolidation">Compute Resource Consolidation Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/converter/">Converter Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Coroutine">Coroutine Pattern</a>&nbsp;<code>Concurrency</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern">Curiously Recurring Template Pattern CRTP</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Currying">Currying Pattern</a>&nbsp;<code>Functional</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Data_access_object">Data Access Object Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/data-bus/">Data Bus Pattern</a></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/category/data-management">Data Management Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Data_mapper_pattern">Data Mapper Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Data_transfer_object">Data Transfer Object Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Decorator_pattern">Decorator Pattern</a>&nbsp;<code>Gof - Structural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Delegation_pattern">Delegation Pattern</a>&nbsp;<code>Structural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Dependency_injection">Dependency Injection Pattern</a>&nbsp;<code>Creational</code></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/category/design-implementation">Design and Implementation Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/dirty-flag/">Dirty Flag Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Domain-driven_design">Domain-Driven Design Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/double-checked-locking/">Double Checked Locking Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Double_dispatch">Double Dispatch Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Double-checked_locking">Double-Checked Locking Pattern</a>&nbsp;<code>Concurrency</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/eip-aggregator/">EIP Aggregator Pattern</a></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/eip-message-channel/">EIP Message Channel Pattern</a></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/eip-publish-subscribe/">EIP Publish Subscribe Pattern</a></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/eip-splitter/">EIP Splitter Pattern</a></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/eip-wire-tap/">EIP Wire Tap Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Entity-component-system">Entity Component System Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/event-aggregator/">Event Aggregator Pattern</a></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/event-driven-architecture/">Event Driven Architecture Pattern</a></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/event-queue/">Event Queue Pattern</a></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing">Event Sourcing Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Asynchronous_method_invocation">Event-Based Asynchronous Pattern</a>&nbsp;<code>Concurrency</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Event-driven_architecture">Event-Driven Architecture Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/event-asynchronous/">Event-Based Asynchronous Pattern</a></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/execute-around/">Execute Around Pattern</a></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/extension-objects/">Extension objects Pattern</a></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/external-configuration-store">External Configuration Store Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Facade_pattern">Facade Pattern</a>&nbsp;<code>Gof - Structural</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/factory-kit/">Factory Kit Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Factory_method_pattern">Factory Method Pattern</a>&nbsp;<code>Gof - Creational</code></li>
+    <li><a target="_blank" href="https://www.tutorialspoint.com/design_pattern/factory_pattern.htm">Factory Pattern</a></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/feature-toggle/">Feature Toggle Pattern</a></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/federated-identity">Federated Identity Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Fiber_(computer_science)">Fiber Pattern</a>&nbsp;<code>Concurrency</code></li>
+    <li><a target="_blank" href="https://www.tutorialspoint.com/design_pattern/filter_pattern">Filter Pattern a.k.a. Criteria Pattern</a>&nbsp;<code>Gof - Structural</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/fluentinterface/">Fluent Interface Pattern</a></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/flux/">Flux Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Flyweight_pattern">Flyweight Pattern</a>&nbsp;<code>Gof - Structural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Front_controller">Front Controller Pattern</a>&nbsp;<code>Structural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Function_composition_(computer_science)">Function Composition Pattern</a>&nbsp;<code>Functional</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Function_object">Functor Pattern</a>&nbsp;<code>Functional</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Futex">Futex Pattern</a>&nbsp;<code>Concurrency</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Futures_and_promises">Futures and Promises Pattern</a>&nbsp;<code>Concurrency</code></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/gatekeeper">Gatekeeper Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/gateway-aggregation">Gateway Aggregation Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/gateway-offloading">Gateway Offloading Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/gateway-routing">Gateway Routing Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Generator_(computer_programming)">Generator Pattern</a>&nbsp;<code>Functional</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Guarded_suspension">Guarded Suspension Pattern</a>&nbsp;<code>Concurrency</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/half-sync-half-async/">Half-Sync/Half-Async Pattern</a></li>
+    <li><a target="_blank" href="https://www.cs.vu.nl/~eliens/online/tutorials/objects/patterns/handle.html">Handle/Body Pattern</a></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/health-endpoint-monitoring">Health Endpoint Monitoring Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/hexagonal/">Hexagonal Architecture Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Identity_map_pattern">Identity Map Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Immutable_object">Immutable Object Pattern</a>&nbsp;<code>Concurrency</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Implicit_invocation">Implicit Invocation Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/index-table">Index Table Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Intercepting_filter_pattern">Intercepting Filter Pattern</a>&nbsp;<code>J2EE - Presentation Layer Design</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Interceptor_pattern">Interceptor Pattern</a>&nbsp;<code>GoF - Behavioral</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Inversion_of_control">Inversion of Control Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Iterator_pattern">Iterator Pattern</a>&nbsp;<code>GoF - Behavioral</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/JSP_model_2_architecture">JSP Model 2 Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Join-pattern">Join Pattern</a>&nbsp;<code>Concurrency</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/layers/">Layers Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Lazy_initialization">Lazy Initialization Pattern</a>&nbsp;<code>Creational</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Lazy_loading">Lazy Loading Pattern</a></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/leader-election">Leader Election Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Lock_pattern">Lock Pattern</a>&nbsp;<code>Concurrency</code></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/category/management-monitoring">Management and Monitoring Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Mangler_pattern">Mangler Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/MapReduce">MapReduce Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Marker_interface_pattern">Marker Interface Pattern</a>&nbsp;<code>Structural</code></li>
+    <li><a target="_blank" href="http://www.cs.sjsu.edu/~pearce/modules/lectures/oop/templates/threads/index.htm">Master-Slave Pattern</a></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/master-worker-pattern/">Master-Worker Pattern</a></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/materialized-view">Materialized View Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Mediator_pattern">Mediator Pattern</a>&nbsp;<code>GoF - Behavioral</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Memento_pattern">Memento Pattern</a>&nbsp;<code>GoF - Behavioral</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Message-oriented_middleware">Message-Oriented Middleware Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Messaging_pattern">Messaging Pattern</a>&nbsp;<code>Concurrency</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Method_chaining">Method Chaining Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Microservices">Microservices Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Mock_object">Mock Object Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Model-view-adapter">Model-View-Adapter Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Model-view-controller">Model-View-Controller Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Model-view-presenter">Model-View-Presenter Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Model-view-viewmodel">Model-View-View-Model Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Module_pattern">Module Pattern</a>&nbsp;<code>Structural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Monad_(functional_programming)">Monad Pattern</a>&nbsp;<code>Functional</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Monitor_(synchronization)">Monitor Pattern</a>&nbsp;<code>Concurrency</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/monostate/">MonoState Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Monolithic_application">Monolithic Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://www.codeproject.com/Tips/692285/Monostate-pattern">Monostate Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Multitier_architecture">Multitier Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Multiton_pattern">Multiton Pattern</a>&nbsp;<code>Creational</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/mute-idiom/">Mute Idiom Pattern</a></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/mutex/">Mutex Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Naked_objects">Naked Objects Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Nuclear_computation">Nuclear Pattern</a>&nbsp;<code>Concurrency</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Null_object_pattern">Null Object Pattern</a>&nbsp;<code>GoF - Behavioral</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/object-mother/">Object Mother Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Object_pool_pattern">Object Pool Pattern</a>&nbsp;<code>Gof - Creational</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Object_request_broker">Object Request Broker Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://martinfowler.com/bliki/ObjectMother.html">Object-Mother Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Observer_pattern">Observer Pattern</a>&nbsp;<code>GoF - Behavioral</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/page-object/">Page Object Pattern</a></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/partial-response/">Partial Response Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Peer-to-peer">Peer-to-Peer Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/category/performance-scalability">Performance and Scalability Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/pipes-and-filters">Pipes and Filters Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/poison-pill/">Poison Pill Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Presentation-abstraction-control">Presentation Abstraction Control Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/priority-queue">Priority Queue Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/private-class-data/">Private Class Data Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Proactor_pattern">Proactor Pattern</a>&nbsp;<code>Concurrency</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/producer-consumer/">Producer Consumer Pattern</a></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/promise/">Promise Pattern</a></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/property/">Property Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Prototype_pattern">Prototype Pattern</a>&nbsp;<code>Gof - Creational</code></li>
+    <li><a target="_blank" href="http://blog.arungupta.me/microservice-design-patterns/">Proxy Microservice Design Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Proxy_pattern">Proxy Pattern a.k.a Surrogate Pattern</a>&nbsp;<code>Gof - Structural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Publish-subscribe_pattern">Publish–Subscribe Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/publisher-subscriber">Publisher/Subscriber Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/queue-based-load-leveling">Queue-Based Load Leveling Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Resource_acquisition_is_initialization">Resource Acquisition Is Initialization Pattern</a>&nbsp;<code>Creational</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Reactor_pattern">Reactor Pattern</a>&nbsp;<code>Concurrency</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Readers–writer_lock">Read Write Lock Pattern</a>&nbsp;<code>Concurrency</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/reader-writer-lock/">Reader Writer Lock Pattern</a></li>
+    <li><a target="_blank" href="https://www.martinfowler.com/eaaCatalog/registry.html">Registry Pattern</a></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/repository/">Repository Pattern</a></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/category/resiliency">Resiliency Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/resource-acquisition-is-initialization/">Resource Acquisition Is Initialization Pattern</a></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/retry/">Retry Pattern</a></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/scheduler-agent-supervisor">Scheduler Agent Supervisor Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Scheduler_pattern">Scheduler Pattern</a>&nbsp;<code>Concurrency</code></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/category/security">Security Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/semaphore/">Semaphore Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Servant_(design_pattern)">Servant Pattern</a>&nbsp;<code>Behavioral</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/serverless/">Serverless Pattern</a></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/service-layer/">Service Layer Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Service_locator_pattern">Service Locator Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Service-oriented_architecture">Service-Oriented Architecture Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://www.oracle.com/technetwork/java/sessionfacade-141285.html">Session Facade Pattern</a>&nbsp;<code>J2EE - Business Layer Design</code></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/sharding">Sharding Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="http://blog.arungupta.me/microservice-design-patterns/">Shared Data Microservice Design Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Shared-nothing_architecture">Shared-Nothing Architecture Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/sidecar">Sidecar Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Singleton_pattern">Singleton Pattern</a>&nbsp;<code>Gof - Creational</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Space-based_architecture">Space-Based Architecture Pattern</a>&nbsp;<code>Architectural</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/spatial-partition/">Spatial Partition Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Specification_pattern">Specification Pattern</a>&nbsp;<code>Behavioral</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/State_pattern">State Pattern</a>&nbsp;<code>GoF - Behavioral</code></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/static-content-hosting">Static Content Hosting Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/step-builder/">Step Builder Pattern</a></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/strangler">Strangler Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Strategy_pattern">Strategy Pattern</a>&nbsp;<code>GoF - Behavioral</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Template_method_pattern">Template Method Pattern</a>&nbsp;<code>Behavioral</code></li>
+    <li><a target="_blank" href="https://www.tutorialspoint.com/design_pattern/template_pattern.htm">Template Pattern</a>&nbsp;<code>GoF - Behavioral</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/template-method/">Template method Pattern</a></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/tls/">Thread Local Storage Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Thread_pool_pattern">Thread Pool Pattern</a>&nbsp;<code>Concurrency</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Thread-local_storage">Thread-Local Storage Pattern</a>&nbsp;<code>Concurrency</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/throttling/">Throttling Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/tolerant-reader/">Tolerant Reader Pattern</a></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/trampoline/">Trampoline Pattern</a></li>
+    <li><a target="_blank" href="https://www.tonymarston.net/php-mysql/transaction-patterns.html">Transaction Pattern</a></li>
+    <li><a target="_blank" href="https://www.tutorialspoint.com/design_pattern/transfer_object_pattern.htm">Transfer Object Pattern</a>&nbsp;<code>J2EE - Business Layer Design</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Twin_pattern">Twin Pattern</a>&nbsp;<code>Structural</code></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Type_Tunnel_pattern">Type Tunnel Pattern</a></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/typeobjectpattern/">Type-object Pattern</a></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/unit-of-work/">Unit Of Work Pattern</a></li>
+    <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/architecture/patterns/valet-key">Valet Key Pattern</a>&nbsp;<code>Cloud - Distributed Systems</code></li>
+    <li><a target="_blank" href="https://java-design-patterns.com/patterns/value-object/">Value Object Pattern</a></li>
+    <li><a target="_blank" href="https://www.oracle.com/technetwork/java/viewhelper-139885.html">View Helper Pattern</a>&nbsp;<code>J2EE - Presentation Layer Design</code></li>
+    <li><a target="_blank" href="https://cpppatterns.com/patterns/virtual-constructor.html">Virtual Constructor Pattern</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Visitor_pattern">Visitor Pattern</a>&nbsp;<code>GoF - Behavioral</code></li>
+    <li><a target="_blank" href="https://www.dineshonjava.com/web-service-broker/">Web Service Broker Pattern</a>&nbsp;<code>J2EE - Integration Layer Design</code></li>
+  </ul>
+
+  <h2>0. Conclusion</h2>
+
+  <p>
+    There is an infinite number of patterns in the world. The patterns should be made on-the-fly based on the specific situations encountered, rather than being made for the later use.
+  </p>
+
+  <p>
+    The main reason to study patterns in the way in which the article describes is to train your brain to see the patterns and create the programmable vocabularies and idioms for the real world. Also, this training should stop until you retire as a software engineer -- probably at the end of life.
+  </p>
+
+  <h2>Appendix A. References</h2>
+
+  <div class="csl-bib-body" style="line-height: 1.35; ">
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[1]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Abstract Document Pattern,” <i>Wikipedia</i>. 05-May-2019.</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=encyclopediaArticle&amp;rft.title=Abstract%20Document%20Pattern&amp;rft.rights=Creative%20Commons%20Attribution-ShareAlike%20License&amp;rft.description=An%20object-oriented%20structural%20design%20pattern%20for%20organizing%20objects%20in%20loosely%20typed%20key-value%20stores%20and%20exposing%20the%20data%20using%20typed%20views.%20The%20purpose%20of%20the%20pattern%20is%20to%20achieve%20a%20high%20degree%20of%20flexibility%20between%20components%20in%20a%20strongly%20typed%20language%20where%20new%20properties%20can%20be%20added%20to%20the%20object-tree%20on%20the%20fly%2C%20without%20losing%20the%20support%20of%20type-safety.%20The%20pattern%20makes%20use%20of%20traits%20to%20separate%20different%20properties%20of%20a%20class%20into%20different%20interfaces.%20The%20term%20%22document%22%20is%20inspired%20from%20document-oriented%20databases.&amp;rft.identifier=https%3A%2F%2Fen.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DAbstract_Document_Pattern%26oldid%3D895549913&amp;rft.date=2019-05-05&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[2]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Abstract factory pattern,” <i>Wikipedia</i>. 03-Aug-2019.</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=encyclopediaArticle&amp;rft.title=Abstract%20factory%20pattern&amp;rft.rights=Creative%20Commons%20Attribution-ShareAlike%20License&amp;rft.description=The%20abstract%20factory%20pattern%20provides%20a%20way%20to%20encapsulate%20a%20group%20of%20individual%20factories%20that%20have%20a%20common%20theme%20without%20specifying%20their%20concrete%20classes.%20In%20normal%20usage%2C%20the%20client%20software%20creates%20a%20concrete%20implementation%20of%20the%20abstract%20factory%20and%20then%20uses%20the%20generic%20interface%20of%20the%20factory%20to%20create%20the%20concrete%20objects%20that%20are%20part%20of%20the%20theme.%20The%20client%20doesn't%20know%20(or%20care)%20which%20concrete%20objects%20it%20gets%20from%20each%20of%20these%20internal%20factories%2C%20since%20it%20uses%20only%20the%20generic%20interfaces%20of%20their%20products.%20This%20pattern%20separates%20the%20details%20of%20implementation%20of%20a%20set%20of%20objects%20from%20their%20general%20usage%20and%20relies%20on%20object%20composition%2C%20as%20object%20creation%20is%20implemented%20in%20methods%20exposed%20in%20the%20factory%20interface.An%20example%20of%20this%20would%20be%20an%20abstract%20factory%20class%20DocumentCreator%20that%20provides%20interfaces%20to%20create%20a%20number%20of%20products%20(e.g.%20createLetter()%20and%20createResume()).%20The%20system%20would%20have%20any%20number%20of%20derived%20concrete%20versions%20of%20the%20DocumentCreator%20class%20like%20FancyDocumentCreator%20or%20ModernDocumentCreator%2C%20each%20with%20a%20different%20implementation%20of%20createLetter()%20and%20createResume()%20that%20would%20create%20a%20corresponding%20object%20like%20FancyLetter%20or%20ModernResume.%20Each%20of%20these%20products%20is%20derived%20from%20a%20simple%20abstract%20class%20like%20Letter%20or%20Resume%20of%20which%20the%20client%20is%20aware.%20The%20client%20code%20would%20get%20an%20appropriate%20instance%20of%20the%20DocumentCreator%20and%20call%20its%20factory%20methods.%20Each%20of%20the%20resulting%20objects%20would%20be%20created%20from%20the%20same%20DocumentCreator%20implementation%20and%20would%20share%20a%20common%20theme%20(they%20would%20all%20be%20fancy%20or%20modern%20objects).%20The%20client%20would%20only%20need%20to%20know%20how%20to%20handle%20the%20abstract%20Letter%20or%20Resume%20class%2C%20not%20the%20specific%20version%20that%20it%20got%20from%20the%20concrete%20factory.%0AA%20factory%20is%20the%20location%20of%20a%20concrete%20class%20in%20the%20code%20at%20which%20objects%20are%20constructed.%20The%20intent%20in%20employing%20the%20pattern%20is%20to%20insulate%20the%20creation%20of%20objects%20from%20their%20usage%20and%20to%20create%20families%20of%20related%20objects%20without%20having%20to%20depend%20on%20their%20concrete%20classes.%20This%20allows%20for%20new%20derived%20types%20to%20be%20introduced%20with%20no%20change%20to%20the%20code%20that%20uses%20the%20base%20class.%0AUse%20of%20this%20pattern%20makes%20it%20possible%20to%20interchange%20concrete%20implementations%20without%20changing%20the%20code%20that%20uses%20them%2C%20even%20at%20runtime.%20However%2C%20employment%20of%20this%20pattern%2C%20as%20with%20similar%20design%20patterns%2C%20may%20result%20in%20unnecessary%20complexity%20and%20extra%20work%20in%20the%20initial%20writing%20of%20code.%20Additionally%2C%20higher%20levels%20of%20separation%20and%20abstraction%20can%20result%20in%20systems%20that%20are%20more%20difficult%20to%20debug%20and%20maintain.&amp;rft.identifier=https%3A%2F%2Fen.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DAbstract_factory_pattern%26oldid%3D909210011&amp;rft.date=2019-08-03&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[3]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Acyclic Visitor.” [Online]. Available: <a href="https://java-design-patterns.com/patterns/acyclic-visitor/">https://java-design-patterns.com/patterns/acyclic-visitor/</a>. [Accessed: 16-Aug-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Acyclic%20Visitor&amp;rft.identifier=https%3A%2F%2Fjava-design-patterns.com%2Fpatterns%2Facyclic-visitor%2F"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[4]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Adapter pattern,” <i>Wikipedia</i>. 12-Aug-2019.</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=encyclopediaArticle&amp;rft.title=Adapter%20pattern&amp;rft.rights=Creative%20Commons%20Attribution-ShareAlike%20License&amp;rft.description=In%20software%20engineering%2C%20the%20adapter%20pattern%20is%20a%20software%20design%20pattern%20(also%20known%20as%20wrapper%2C%20an%20alternative%20naming%20shared%20with%20the%20decorator%20pattern)%20that%20allows%20the%20interface%20of%20an%20existing%20class%20to%20be%20used%20as%20another%20interface.%20It%20is%20often%20used%20to%20make%20existing%20classes%20work%20with%20others%20without%20modifying%20their%20source%20code.%0AAn%20example%20is%20an%20adapter%20that%20converts%20the%20interface%20of%20a%20Document%20Object%20Model%20of%20an%20XML%20document%20into%20a%20tree%20structure%20that%20can%20be%20displayed.&amp;rft.identifier=https%3A%2F%2Fen.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DAdapter_pattern%26oldid%3D910524712&amp;rft.date=2019-08-12&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[5]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">dragon119, “Anti-Corruption Layer pattern - Cloud Design Patterns.” [Online]. Available: <a href="https://docs.microsoft.com/en-us/azure/architecture/patterns/anti-corruption-layer">https://docs.microsoft.com/en-us/azure/architecture/patterns/anti-corruption-layer</a>. [Accessed: 16-Aug-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Anti-Corruption%20Layer%20pattern%20-%20Cloud%20Design%20Patterns&amp;rft.description=Implement%20a%20fa%C3%A7ade%20or%20adapter%20layer%20between%20a%20modern%20application%20and%20a%20legacy%20system.&amp;rft.identifier=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Farchitecture%2Fpatterns%2Fanti-corruption-layer&amp;rft.aulast=dragon119&amp;rft.au=dragon119&amp;rft.language=en-us"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[6]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Asynchronous method invocation,” <i>Wikipedia</i>. 26-Jun-2019.</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=encyclopediaArticle&amp;rft.title=Asynchronous%20method%20invocation&amp;rft.rights=Creative%20Commons%20Attribution-ShareAlike%20License&amp;rft.description=In%20multithreaded%20computer%20programming%2C%20asynchronous%20method%20invocation%20(AMI)%2C%20also%20known%20as%20asynchronous%20method%20calls%20or%20the%20asynchronous%20pattern%20is%20a%20design%20pattern%20in%20which%20the%20call%20site%20is%20not%20blocked%20while%20waiting%20for%20the%20called%20code%20to%20finish.%20Instead%2C%20the%20calling%20thread%20is%20notified%20when%20the%20reply%20arrives.%20Polling%20for%20a%20reply%20is%20an%20undesired%20option.&amp;rft.identifier=https%3A%2F%2Fen.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DAsynchronous_method_invocation%26oldid%3D903596065&amp;rft.date=2019-06-26&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[7]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Balking pattern,” <i>Wikipedia</i>. 26-Jul-2019.</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=encyclopediaArticle&amp;rft.title=Balking%20pattern&amp;rft.rights=Creative%20Commons%20Attribution-ShareAlike%20License&amp;rft.description=The%20balking%20pattern%20is%20a%20software%20design%20pattern%20that%20only%20executes%20an%20action%20on%20an%20object%20when%20the%20object%20is%20in%20a%20particular%20state.%20For%20example%2C%20if%20an%20object%20reads%20ZIP%20files%20and%20a%20calling%20method%20invoke%20s%20a%20get%20method%20on%20the%20object%20when%20the%20ZIP%20file%20is%20not%20open%2C%20the%20object%20would%20%22balk%22%20at%20the%20request.%20%20In%20the%20Java%20programming%20language%2C%20for%20example%2C%20an%20IllegalStateException%20might%20be%20thrown%20under%20these%20circumstances.%0AThere%20are%20some%20specialists%20in%20this%20field%20who%20consider%20balking%20more%20of%20an%20anti-pattern%20than%20a%20design%20pattern.%20%20If%20an%20object%20cannot%20support%20its%20API%2C%20it%20should%20either%20limit%20the%20API%20so%20that%20the%20offending%20call%20is%20not%20available%2C%20or%20so%20that%20the%20call%20can%20be%20made%20without%20limitation%20it%20should%3A%0A%0ABe%20created%20in%20a%20%22sane%20state%22%0ANot%20make%20itself%20available%20until%20it%20is%20in%20a%20sane%20state%0ABecome%20a%20facade%20and%20answer%20back%20an%20object%20that%20is%20in%20a%20sane%20state&amp;rft.identifier=https%3A%2F%2Fen.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DBalking_pattern%26oldid%3D907952286&amp;rft.date=2019-07-26&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[8]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Bridge pattern,” <i>Wikipedia</i>. 13-Aug-2019.</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=encyclopediaArticle&amp;rft.title=Bridge%20pattern&amp;rft.rights=Creative%20Commons%20Attribution-ShareAlike%20License&amp;rft.description=The%20bridge%20pattern%20is%20a%20design%20pattern%20used%20in%20software%20engineering%20that%20is%20meant%20to%20%22decouple%20an%20abstraction%20from%20its%20implementation%20so%20that%20the%20two%20can%20vary%20independently%22%2C%20introduced%20by%20the%20Gang%20of%20Four.%20The%20bridge%20uses%20encapsulation%2C%20aggregation%2C%20and%20can%20use%20inheritance%20to%20separate%20responsibilities%20into%20different%20classes.%0AWhen%20a%20class%20varies%20often%2C%20the%20features%20of%20object-oriented%20programming%20become%20very%20useful%20because%20changes%20to%20a%20program's%20code%20can%20be%20made%20easily%20with%20minimal%20prior%20knowledge%20about%20the%20program.%20The%20bridge%20pattern%20is%20useful%20when%20both%20the%20class%20and%20what%20it%20does%20vary%20often.%20The%20class%20itself%20can%20be%20thought%20of%20as%20the%20abstraction%20and%20what%20the%20class%20can%20do%20as%20the%20implementation.%20The%20bridge%20pattern%20can%20also%20be%20thought%20of%20as%20two%20layers%20of%20abstraction.%0AWhen%20there%20is%20only%20one%20fixed%20implementation%2C%20this%20pattern%20is%20known%20as%20the%20Pimpl%20idiom%20in%20the%20C%2B%2B%20world.%0AThe%20bridge%20pattern%20is%20often%20confused%20with%20the%20adapter%20pattern%2C%20and%20is%20often%20implemented%20using%20the%20object%20adapter%20pattern%2C%20e.g.%20in%20the%20Java%20code%20below.%0AVariant%3A%20The%20implementation%20can%20be%20decoupled%20even%20more%20by%20deferring%20the%20presence%20of%20the%20implementation%20to%20the%20point%20where%20the%20abstraction%20is%20utilized.&amp;rft.identifier=https%3A%2F%2Fen.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DBridge_pattern%26oldid%3D910705389&amp;rft.date=2019-08-13&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[9]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Builder pattern,” <i>Wikipedia</i>. 29-Jul-2019.</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=encyclopediaArticle&amp;rft.title=Builder%20pattern&amp;rft.rights=Creative%20Commons%20Attribution-ShareAlike%20License&amp;rft.description=The%20Builder%20is%20a%20design%20pattern%20designed%20to%20provide%20a%20flexible%20solution%20to%20various%20object%20creation%20problems%20in%20object-oriented%20programming.%20The%20intent%20of%20the%20Builder%20design%20pattern%20is%20to%20separate%20the%20construction%20of%20a%20complex%20object%20from%20its%20representation.%20It%20is%20one%20of%20the%20Gang%20of%20Four%20design%20patterns.&amp;rft.identifier=https%3A%2F%2Fen.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DBuilder_pattern%26oldid%3D908443430&amp;rft.date=2019-07-29&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[10]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Business delegate pattern,” <i>Wikipedia</i>. 14-Nov-2018.</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=encyclopediaArticle&amp;rft.title=Business%20delegate%20pattern&amp;rft.rights=Creative%20Commons%20Attribution-ShareAlike%20License&amp;rft.description=Business%20delegate%20is%20a%20Java%20EE%20design%20pattern.%0A%20This%20pattern%20is%20directing%20to%20reduce%20the%20coupling%20in%20between%20business%20services%20and%20the%20connected%20presentation%20tier%2C%20and%20to%20hide%20the%20implementation%20details%20of%20services%20(including%20lookup%20and%20accessibility%20of%20EJB%20architecture).%20Business%20delegates%20acts%20as%20an%20adaptor%20to%20invoke%20business%20objects%20from%20the%20presentation%20tier.&amp;rft.identifier=https%3A%2F%2Fen.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DBusiness_delegate_pattern%26oldid%3D868853577&amp;rft.date=2018-11-14&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[11]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Callback (computer programming),” <i>Wikipedia</i>. 12-Aug-2019.</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=encyclopediaArticle&amp;rft.title=Callback%20(computer%20programming)&amp;rft.rights=Creative%20Commons%20Attribution-ShareAlike%20License&amp;rft.description=In%20computer%20programming%2C%20a%20callback%2C%20also%20known%20as%20a%20%22call-after%22%20function%2C%20is%20any%20executable%20code%20that%20is%20passed%20as%20an%20argument%20to%20other%20code%20that%20is%20expected%20to%20call%20back%20(execute)%20the%20argument%20at%20a%20given%20time.%20This%20execution%20may%20be%20immediate%20as%20in%20a%20synchronous%20callback%2C%20or%20it%20might%20happen%20at%20a%20later%20time%20as%20in%20an%20asynchronous%20callback.%20%0AProgramming%20languages%20support%20callbacks%20in%20different%20ways%2C%20often%20implementing%20them%20with%20subroutines%2C%20lambda%20expressions%2C%20blocks%2C%20or%20function%20pointers.&amp;rft.identifier=https%3A%2F%2Fen.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DCallback_(computer_programming)%26oldid%3D910506280&amp;rft.date=2019-08-12&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[12]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Chain-of-responsibility pattern,” <i>Wikipedia</i>. 09-Jul-2019.</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=encyclopediaArticle&amp;rft.title=Chain-of-responsibility%20pattern&amp;rft.rights=Creative%20Commons%20Attribution-ShareAlike%20License&amp;rft.description=In%20object-oriented%20design%2C%20the%20chain-of-responsibility%20pattern%20is%20a%20design%20pattern%20consisting%20of%20a%20source%20of%20command%20objects%20and%20a%20series%20of%20processing%20objects.%20%20Each%20processing%20object%20contains%20logic%20that%20defines%20the%20types%20of%20command%20objects%20that%20it%20can%20handle%3B%20the%20rest%20are%20passed%20to%20the%20next%20processing%20object%20in%20the%20chain.%20A%20mechanism%20also%20exists%20for%20adding%20new%20processing%20objects%20to%20the%20end%20of%20this%20chain.%20Thus%2C%20the%20chain%20of%20responsibility%20is%20an%20object%20oriented%20version%20of%20the%20if%20...%20else%20if%20...%20else%20if%20.......%20else%20...%20endif%20idiom%2C%20with%20the%20benefit%20that%20the%20condition%E2%80%93action%20blocks%20can%20be%20dynamically%20rearranged%20and%20reconfigured%20at%20runtime.%0AIn%20a%20variation%20of%20the%20standard%20chain-of-responsibility%20model%2C%20some%20handlers%20may%20act%20as%20dispatchers%2C%20capable%20of%20sending%20commands%20out%20in%20a%20variety%20of%20directions%2C%20forming%20a%20tree%20of%20responsibility.%20In%20some%20cases%2C%20this%20can%20occur%20recursively%2C%20with%20processing%20objects%20calling%20higher-up%20processing%20objects%20with%20commands%20that%20attempt%20to%20solve%20some%20smaller%20part%20of%20the%20problem%3B%20in%20this%20case%20recursion%20continues%20until%20the%20command%20is%20processed%2C%20or%20the%20entire%20tree%20has%20been%20explored.%20An%20XML%20interpreter%20might%20work%20in%20this%20manner.%0AThis%20pattern%20promotes%20the%20idea%20of%20loose%20coupling.%0AThe%20chain-of-responsibility%20pattern%20is%20structurally%20nearly%20identical%20to%20the%20decorator%20pattern%2C%20the%20difference%20being%20that%20for%20the%20decorator%2C%20all%20classes%20handle%20the%20request%2C%20while%20for%20the%20chain%20of%20responsibility%2C%20exactly%20one%20of%20the%20classes%20in%20the%20chain%20handles%20the%20request.&amp;rft.identifier=https%3A%2F%2Fen.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DChain-of-responsibility_pattern%26oldid%3D905475462&amp;rft.date=2019-07-09&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[13]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“CompletableFuture for Asynchronous Programming ... |&nbsp;Oracle Community.” [Online]. Available: <a href="https://community.oracle.com/docs/DOC-995305">https://community.oracle.com/docs/DOC-995305</a>. [Accessed: 16-Aug-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=CompletableFuture%20for%20Asynchronous%20Programming%20...%20%7C%C2%A0Oracle%20Community&amp;rft.identifier=https%3A%2F%2Fcommunity.oracle.com%2Fdocs%2FDOC-995305"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[14]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Composite pattern,” <i>Wikipedia</i>. 08-Jul-2019.</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=encyclopediaArticle&amp;rft.title=Composite%20pattern&amp;rft.rights=Creative%20Commons%20Attribution-ShareAlike%20License&amp;rft.description=In%20software%20engineering%2C%20the%20composite%20pattern%20is%20a%20partitioning%20design%20pattern.%20The%20composite%20pattern%20describes%20a%20group%20of%20objects%20that%20is%20treated%20the%20same%20way%20as%20a%20single%20instance%20of%20the%20same%20type%20of%20object.%20The%20intent%20of%20a%20composite%20is%20to%20%22compose%22%20objects%20into%20tree%20structures%20to%20represent%20part-whole%20hierarchies.%20Implementing%20the%20composite%20pattern%20lets%20clients%20treat%20individual%20objects%20and%20compositions%20uniformly.&amp;rft.identifier=https%3A%2F%2Fen.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DComposite_pattern%26oldid%3D905286476&amp;rft.date=2019-07-08&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[15]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Composite View Design Pattern - Core J2EE Patterns,” <i>Dinesh on Java</i>, 24-Dec-2017. .</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=blogPost&amp;rft.title=Composite%20View%20Design%20Pattern%20-%20Core%20J2EE%20Patterns&amp;rft.description=Among%20the%20core%20J2EE%20design%20patterns%2C%20the%20Composite%20View%20Design%20Pattern%20is%20known%20to%20compel%20the%20developers%20the%20most.%20The%20Composite%20View%20Pattern%20is%20responsible%20for%20building%20composite%20views%20from%20more%20than%20one%20sub%20views.%20The%20composite%20view%20pattern%20allows%20the%20content%20and%20layout%20to%20be%20plugged%20into%20the%20framework.&amp;rft.identifier=https%3A%2F%2Fwww.dineshonjava.com%2Fcomposite-view-design-pattern%2F&amp;rft.date=2017-12-24&amp;rft.language=en-US"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[16]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Creational Design Patterns - Javatpoint,” <i>www.javatpoint.com</i>. [Online]. Available: <a href="https://www.javatpoint.com/creational-design-patterns">https://www.javatpoint.com/creational-design-patterns</a>. [Accessed: 22-Jun-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Creational%20Design%20Patterns%20-%20Javatpoint&amp;rft.description=Creational%20Design%20Patterns%20with%20Patterns%2C%20design%2C%20Creational%20Design%2C%20Abstract%20Factory%20Pattern%2C%20singleton%20design%20patterns%2C%20Adapter%2C%20Visitor%20Pattern%2C%20Template%20Pattern%2C%20Command%20Pattern%2C%20State%20Pattern%2C%20java%20etc.&amp;rft.identifier=https%3A%2F%2Fwww.javatpoint.com%2Fcreational-design-patterns&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[17]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Curiously recurring template pattern,” <i>Wikipedia</i>. 03-Jun-2019.</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=encyclopediaArticle&amp;rft.title=Curiously%20recurring%20template%20pattern&amp;rft.rights=Creative%20Commons%20Attribution-ShareAlike%20License&amp;rft.description=The%20curiously%20recurring%20template%20pattern%20(CRTP)%20%20is%20an%20idiom%20in%20C%2B%2B%20in%20which%20a%20class%20X%20derives%20from%20a%20class%20template%20instantiation%20using%20X%20itself%20as%20template%20argument.%20More%20generally%20it%20is%20known%20as%20F-bound%20polymorphism%2C%20and%20it%20is%20a%20form%20of%20F-bounded%20quantification.&amp;rft.identifier=https%3A%2F%2Fen.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DCuriously_recurring_template_pattern%26oldid%3D900121441&amp;rft.date=2019-06-03&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[18]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Decorator pattern,” <i>Wikipedia</i>. 07-Aug-2019.</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=encyclopediaArticle&amp;rft.title=Decorator%20pattern&amp;rft.rights=Creative%20Commons%20Attribution-ShareAlike%20License&amp;rft.description=In%20object-oriented%20programming%2C%20the%20decorator%20pattern%20is%20a%20design%20pattern%20that%20allows%20behavior%20to%20be%20added%20to%20an%20individual%20object%2C%20dynamically%2C%20without%20affecting%20the%20behavior%20of%20other%20objects%20from%20the%20same%20class.%20The%20decorator%20pattern%20is%20often%20useful%20for%20adhering%20to%20the%20Single%20Responsibility%20Principle%2C%20as%20it%20allows%20functionality%20to%20be%20divided%20between%20classes%20with%20unique%20areas%20of%20concern.%20The%20decorator%20pattern%20is%20structurally%20nearly%20identical%20to%20the%20chain%20of%20responsibility%20pattern%2C%20the%20difference%20being%20that%20in%20a%20chain%20of%20responsibility%2C%20exactly%20one%20of%20the%20classes%20handles%20the%20request%2C%20while%20for%20the%20decorator%2C%20all%20classes%20handle%20the%20request.&amp;rft.identifier=https%3A%2F%2Fen.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DDecorator_pattern%26oldid%3D909702968&amp;rft.date=2019-08-07&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[19]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Delegation pattern,” <i>Wikipedia</i>. 17-Jun-2019.</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=encyclopediaArticle&amp;rft.title=Delegation%20pattern&amp;rft.rights=Creative%20Commons%20Attribution-ShareAlike%20License&amp;rft.description=In%20software%20engineering%2C%20the%20delegation%20pattern%20is%20an%20object-oriented%20design%20pattern%20that%20allows%20object%20composition%20to%20achieve%20the%20same%20code%20reuse%20as%20inheritance.%0AIn%20delegation%2C%20an%20object%20handles%20a%20request%20by%20delegating%20to%20a%20second%20object%20(the%20delegate).%20%20The%20delegate%20is%20a%20helper%20object%2C%20but%20with%20the%20original%20context.%20With%20language-level%20support%20for%20delegation%2C%20this%20is%20done%20implicitly%20by%20having%20self%20in%20the%20delegate%20refer%20to%20the%20original%20(sending)%20object%2C%20not%20the%20delegate%20(receiving%20object).%20In%20the%20delegate%20pattern%2C%20this%20is%20instead%20accomplished%20by%20explicitly%20passing%20the%20original%20object%20to%20the%20delegate%2C%20as%20an%20argument%20to%20a%20method.%20Note%20that%20%22delegation%22%20is%20often%20used%20loosely%20to%20refer%20to%20the%20distinct%20concept%20of%20forwarding%2C%20where%20the%20sending%20object%20simply%20uses%20the%20corresponding%20member%20on%20the%20receiving%20object%2C%20evaluated%20in%20the%20context%20of%20the%20receiving%20object%2C%20not%20the%20original%20object.%0ANote%20that%20this%20article%20uses%20%22sending%20object%2Freceiving%20object%22%20for%20the%20two%20objects%2C%20rather%20than%20%22receiving%20object%2Fdelegate%22%2C%20emphasizing%20which%20objects%20send%20and%20receive%20the%20delegation%20call%2C%20not%20the%20original%20call.&amp;rft.identifier=https%3A%2F%2Fen.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DDelegation_pattern%26oldid%3D902260637&amp;rft.date=2019-06-17&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[20]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Delegation pattern,” <i>Wikipedia</i>. 17-Jun-2019.</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=encyclopediaArticle&amp;rft.title=Delegation%20pattern&amp;rft.rights=Creative%20Commons%20Attribution-ShareAlike%20License&amp;rft.description=In%20software%20engineering%2C%20the%20delegation%20pattern%20is%20an%20object-oriented%20design%20pattern%20that%20allows%20object%20composition%20to%20achieve%20the%20same%20code%20reuse%20as%20inheritance.%0AIn%20delegation%2C%20an%20object%20handles%20a%20request%20by%20delegating%20to%20a%20second%20object%20(the%20delegate).%20%20The%20delegate%20is%20a%20helper%20object%2C%20but%20with%20the%20original%20context.%20With%20language-level%20support%20for%20delegation%2C%20this%20is%20done%20implicitly%20by%20having%20self%20in%20the%20delegate%20refer%20to%20the%20original%20(sending)%20object%2C%20not%20the%20delegate%20(receiving%20object).%20In%20the%20delegate%20pattern%2C%20this%20is%20instead%20accomplished%20by%20explicitly%20passing%20the%20original%20object%20to%20the%20delegate%2C%20as%20an%20argument%20to%20a%20method.%20Note%20that%20%22delegation%22%20is%20often%20used%20loosely%20to%20refer%20to%20the%20distinct%20concept%20of%20forwarding%2C%20where%20the%20sending%20object%20simply%20uses%20the%20corresponding%20member%20on%20the%20receiving%20object%2C%20evaluated%20in%20the%20context%20of%20the%20receiving%20object%2C%20not%20the%20original%20object.%0ANote%20that%20this%20article%20uses%20%22sending%20object%2Freceiving%20object%22%20for%20the%20two%20objects%2C%20rather%20than%20%22receiving%20object%2Fdelegate%22%2C%20emphasizing%20which%20objects%20send%20and%20receive%20the%20delegation%20call%2C%20not%20the%20original%20call.&amp;rft.identifier=https%3A%2F%2Fen.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DDelegation_pattern%26oldid%3D902260637&amp;rft.date=2019-06-17&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[21]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Dependency injection,” <i>Wikipedia</i>. 09-Aug-2019.</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=encyclopediaArticle&amp;rft.title=Dependency%20injection&amp;rft.rights=Creative%20Commons%20Attribution-ShareAlike%20License&amp;rft.description=In%20software%20engineering%2C%20dependency%20injection%20is%20a%20technique%20whereby%20one%20object%20supplies%20the%20dependencies%20of%20another%20object.%20A%20%22dependency%22%20is%20an%20object%20that%20can%20be%20used%2C%20for%20example%20as%20a%20service.%20Instead%20of%20a%20client%20specifying%20which%20service%20it%20will%20use%2C%20something%20tells%20the%20client%20what%20service%20to%20use.%20The%20%22injection%22%20refers%20to%20the%20passing%20of%20a%20dependency%20(a%20service)%20into%20the%20object%20(a%20client)%20that%20would%20use%20it.%20The%20service%20is%20made%20part%20of%20the%20client's%20state.%20%20Passing%20the%20service%20to%20the%20client%2C%20rather%20than%20allowing%20a%20client%20to%20build%20or%20find%20the%20service%2C%20is%20the%20fundamental%20requirement%20of%20the%20pattern.%0AThe%20intent%20behind%20dependency%20injection%20is%20to%20achieve%20Separation%20of%20Concerns%20of%20construction%20and%20use%20of%20objects.%20This%20can%20increase%20readability%20and%20code%20reuse.%0ADependency%20injection%20is%20one%20form%20of%20the%20broader%20technique%20of%20inversion%20of%20control.%20The%20client%20delegates%20the%20responsibility%20of%20providing%20its%20dependencies%20to%20external%20code%20(the%20injector).%20The%20client%20is%20not%20allowed%20to%20call%20the%20injector%20code%3B%20it%20is%20the%20injecting%20code%20that%20constructs%20the%20services%20and%20calls%20the%20client%20to%20inject%20them.%20%20This%20means%20the%20client%20code%20does%20not%20need%20to%20know%20about%20the%20injecting%20code%2C%20how%20to%20construct%20the%20services%20or%20even%20which%20actual%20services%20it%20is%20using%3B%20the%20client%20only%20needs%20to%20know%20about%20the%20intrinsic%20interfaces%20of%20the%20services%20because%20these%20define%20how%20the%20client%20may%20use%20the%20services.%20%20This%20separates%20the%20responsibilities%20of%20use%20and%20construction.&amp;rft.identifier=https%3A%2F%2Fen.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DDependency_injection%26oldid%3D910131552&amp;rft.date=2019-08-09&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[22]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Design Patterns - Filter Pattern.” [Online]. Available: <a href="https://www.tutorialspoint.com/design_pattern/filter_pattern">https://www.tutorialspoint.com/design_pattern/filter_pattern</a>. [Accessed: 16-Aug-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Design%20Patterns%20-%20Filter%20Pattern&amp;rft.identifier=https%3A%2F%2Fwww.tutorialspoint.com%2Fdesign_pattern%2Ffilter_pattern"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[23]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Design Patterns in Java,” <i>Stack Abuse</i>, 15-Feb-2019. [Online]. Available: <a href="https://stackabuse.com/design-patterns-in-java/">https://stackabuse.com/design-patterns-in-java/</a>. [Accessed: 22-Jun-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Design%20Patterns%20in%20Java&amp;rft.description=There%20are%20three%20main%20design%20pattern%20categories%3A%20Creational%20Patterns%2C%20Structural%20Patterns%20and%20Behavioral%20Patterns%2C%20but%20we'll%20also%20dive%20into%20J2EE%20Patterns.&amp;rft.identifier=https%3A%2F%2Fstackabuse.com%2Fdesign-patterns-in-java%2F&amp;rft.date=2019-02-15&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[24]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Design patterns in java,” <i>Java Beginners Tutorial</i>. .</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=blogPost&amp;rft.title=Design%20patterns%20in%20java&amp;rft.description=Design%20patterns%20in%20java%20are%20best%20practices%20which%20are%20used%20to%20resolve%20some%20know%20issues.%C2%A0%20Design%20patterns%20can%20be%20divided%20in%204%20different%20types.%20Here%20we%20have%20listed%20down%20some%20of%20widely%20used%20design%20pattern%20in%20Java.&amp;rft.identifier=https%3A%2F%2Fjavabeginnerstutorial.com%2Fdesign-patterns-in-java%2F&amp;rft.language=en-US"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[25]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Design Patterns in Java,” <i>HowToDoInJava</i>. [Online]. Available: <a href="https://howtodoinjava.com/gang-of-four-java-design-patterns/">https://howtodoinjava.com/gang-of-four-java-design-patterns/</a>. [Accessed: 22-Jun-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Design%20Patterns%20in%20Java&amp;rft.description=Design%20patterns%2C%20as%20name%20suggest%2C%20are%20solutions%20for%20most%20commonly%20(and%20frequently)%20occurred%20problems%20while%20designing%20a%20software.%20These%20patterns%20are%20mostly%20%E2%80%9Cevolved%E2%80%9D%20rather%20than%20%E2%80%9Cdiscovered%E2%80%9D.%20Being%20so%20much%20of%20importance%2C%20let%E2%80%99s%20learn%20these%20design%20patterns%20(in%20context%20of%20java)%20in%20more%20detail.&amp;rft.identifier=https%3A%2F%2Fhowtodoinjava.com%2Fgang-of-four-java-design-patterns%2F&amp;rft.language=en-US"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[26]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Design Patterns in Java.” [Online]. Available: <a href="https://refactoring.guru/design-patterns/java">https://refactoring.guru/design-patterns/java</a>. [Accessed: 22-Jun-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Design%20Patterns%20in%20Java&amp;rft.description=The%20catalog%20of%20annotated%20code%20examples%20of%20all%20design%20patterns%2C%20written%20in%20Java.&amp;rft.identifier=https%3A%2F%2Frefactoring.guru%2Fdesign-patterns%2Fjava&amp;rft.language=en"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[27]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Design Patterns in Java - Tutorial.” [Online]. Available: <a href="https://www.vogella.com/tutorials/DesignPatterns/article.html">https://www.vogella.com/tutorials/DesignPatterns/article.html</a>. [Accessed: 22-Jun-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Design%20Patterns%20in%20Java%20-%20Tutorial&amp;rft.identifier=https%3A%2F%2Fwww.vogella.com%2Ftutorials%2FDesignPatterns%2Farticle.html"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[28]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">tutorialspoint.com, “Design Patterns in Java Tutorial,” <i>www.tutorialspoint.com</i>. [Online]. Available: <a href="https://www.tutorialspoint.com/design_pattern/">https://www.tutorialspoint.com/design_pattern/</a>. [Accessed: 22-Jun-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Design%20Patterns%20in%20Java%20Tutorial&amp;rft.description=Design%20Patterns%20Tutorial%20for%20Beginners%20-%20Learn%20Design%20Patterns%20in%20simple%20and%20easy%20steps%20starting%20from%20basic%20to%20advanced%20concepts%20with%20examples%20including%20java%20design%20patterns%20starting%20from%20its%20Factory%20Pattern%2C%20Abstract%20Factory%2C%20Singleton%2C%20Builder%2C%20Prototype%2C%20Adapter%2C%20Bridge%2C%20Filter%2C%20Composite%2C%20Decorator%2C%20Facade%2C%20Flyweight%2C%20Proxy%2C%20Command%2C%20Interpreter%2C%20Iterator%2C%20Mediator%2C%20Memento%2C%20Observer%2C%20State%2C%20Null%20Object%2CStrategy%2C%20Template%2C%20Visitor%2C%20MVC%2C%20Front%20Controller%20etc.&amp;rft.identifier=https%3A%2F%2Fwww.tutorialspoint.com%2Fdesign_pattern%2F&amp;rft.aulast=tutorialspoint.com&amp;rft.au=tutorialspoint.com"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[29]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“foobarnbaz.com - Borg Pattern.” [Online]. Available: <a href="http://foobarnbaz.com/2010/10/06/borg-pattern/">http://foobarnbaz.com/2010/10/06/borg-pattern/</a>. [Accessed: 16-Aug-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=foobarnbaz.com%20-%20Borg%20Pattern&amp;rft.identifier=http%3A%2F%2Ffoobarnbaz.com%2F2010%2F10%2F06%2Fborg-pattern%2F"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[30]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Java Design Patterns - Example Tutorial,” <i>JournalDev</i>, 05-Aug-2013. .</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=blogPost&amp;rft.title=Java%20Design%20Patterns%20-%20Example%20Tutorial&amp;rft.description=Java%20Design%20Patterns%20example%20tutorial%20-%20Creational%2C%20Structural%2C%20Behavioral%20patterns%20explained%2C%20download%20pdf%2C%20singleton%2C%20factory%2C%20builder%2C%20facade%20and%20more.&amp;rft.identifier=https%3A%2F%2Fwww.journaldev.com%2F1827%2Fjava-design-patterns-example-tutorial&amp;rft.date=2013-08-05&amp;rft.language=en-US"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[31]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Java Design Patterns Programming Reference and Examples.” [Online]. Available: <a href="http://www.fluffycat.com/Java-Design-Patterns/">http://www.fluffycat.com/Java-Design-Patterns/</a>. [Accessed: 22-Jun-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Java%20Design%20Patterns%20Programming%20Reference%20and%20Examples&amp;rft.identifier=http%3A%2F%2Fwww.fluffycat.com%2FJava-Design-Patterns%2F"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[32]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Java Design Patterns Tutorial - Java Design Pattern Introduction.” [Online]. Available: <a href="http://www.java2s.com/Tutorials/Java/Java_Design_Patterns/index.htm">http://www.java2s.com/Tutorials/Java/Java_Design_Patterns/index.htm</a>. [Accessed: 22-Jun-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Java%20Design%20Patterns%20Tutorial%20-%20Java%20Design%20Pattern%20Introduction&amp;rft.identifier=http%3A%2F%2Fwww.java2s.com%2FTutorials%2FJava%2FJava_Design_Patterns%2Findex.htm"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[33]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">M. Kordelakos, “Java Design Patterns Tutorials,” <i>Java Code Geeks</i>. .</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=blogPost&amp;rft.title=Java%20Design%20Patterns%20Tutorials&amp;rft.description=In%20this%20detailed%20Resource%20page%2C%20we%20feature%20an%20abundance%20of%20Java%20Design%20Patterns%20Tutorials!Design...&amp;rft.identifier=https%3A%2F%2Fwww.javacodegeeks.com%2Fjava-design-patterns-tutorials&amp;rft.aufirst=Michail&amp;rft.aulast=Kordelakos&amp;rft.au=Michail%20Kordelakos&amp;rft.language=en-US"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[34]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Java Fundamentals Tutorial: Design Patterns.” [Online]. Available: <a href="https://www.protechtraining.com/content/java_fundamentals_tutorial-design_patterns">https://www.protechtraining.com/content/java_fundamentals_tutorial-design_patterns</a>. [Accessed: 22-Jun-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Java%20Fundamentals%20Tutorial%3A%20Design%20Patterns&amp;rft.identifier=https%3A%2F%2Fwww.protechtraining.com%2Fcontent%2Fjava_fundamentals_tutorial-design_patterns"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[35]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">arungupta, “Microservice Design Patterns,” <i>Miles to go 4.0 ...</i>, 10-Apr-2015. .</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=blogPost&amp;rft.title=Microservice%20Design%20Patterns&amp;rft.description=This%20blog%20will%20discuss%20some%20of%20the%20microservice%20design%20patterns%20-%20Aggregator%2C%20Proxy%2C%20Branched%2C%20Chained%2C%20Shared%20Data%2C%20Asynchronous%20Messaging.&amp;rft.identifier=http%3A%2F%2Fblog.arungupta.me%2Fmicroservice-design-patterns%2F&amp;rft.au=undefined&amp;rft.date=2015-04-10"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[36]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Patterns.” [Online]. Available: <a href="https://java-design-patterns.com/patterns/">https://java-design-patterns.com/patterns/</a>. [Accessed: 22-Jun-2019].</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Patterns&amp;rft.identifier=https%3A%2F%2Fjava-design-patterns.com%2Fpatterns%2F"></span>
+    <div class="csl-entry" style="clear: left; ">
+      <div class="csl-left-margin" style="float: left; padding-right: 0.5em;text-align: right; width: 2em;">[37]</div><div class="csl-right-inline" style="margin: 0 .4em 0 2.5em;">“Software Design Patterns,” <i>GeeksforGeeks</i>. .</div>
+    </div>
+    <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=blogPost&amp;rft.title=Software%20Design%20Patterns&amp;rft.description=Design%20patterns%20are%20used%20to%20represent%20some%20of%20the%20best%20practices%20adapted%C2%A0by%20experienced%20object-oriented%20software%20developers.%20A%20design%20pattern%20systematically%20names%2C%20motivates%2C%20and%20explains%20a%E2%80%A6%20Read%20More%20%C2%BB&amp;rft.identifier=https%3A%2F%2Fwww.geeksforgeeks.org%2Fsoftware-design-patterns%2F&amp;rft.language=en-US"></span>
+  </div>
+
+</body>
+</html>
