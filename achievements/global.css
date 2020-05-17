@@ -1,0 +1,6 @@
+@import "../libraries/uikit-3.4.6/css/uikit.min.css";
+
+body {
+  margin-right: 10%;
+  margin-left: 10%;
+}

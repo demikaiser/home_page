@@ -1,0 +1,45 @@
+@import "../libraries/uikit-3.4.6/css/uikit.min.css";
+
+.dkdv__homepage--nav {
+  margin-right: 10%;
+  margin-left: 10%;
+}
+
+.dkdv__homepage--contents {
+  margin-right: 10%;
+  margin-left: 10%;
+}
+
+.dkdv__homepage--footer {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #f0f0f0;
+  color: #777777;
+  text-align: center;
+}
+
+.dkdv__homepage--button-back-to-top {
+  background-color: #990000; /* button color */
+  color: white; /* text/arrow color */
+  z-index: 999;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 50px;
+  height: 50px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  /* round button */
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  font-weight: 600;
+  letter-spacing: 2px;
+  font-size: 12px;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.6;
+  padding-left: 2px;
+  padding-top: 4px;
+}
