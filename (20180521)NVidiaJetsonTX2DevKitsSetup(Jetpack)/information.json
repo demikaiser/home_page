@@ -1,5 +1,0 @@
-{
-  "title": "NVIDIA Jetson TX2 Dev Kits Setup (Jetpack)",
-  "subtitle": "Embedded Machine Learning Starter Kits",
-  "description": "A brief overview (installation and performance benchmark provided by NVIDIA) of TensorRT, an execution plug-in for TensorFlow to improve the performance of deep learning models."
-}
