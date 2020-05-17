@@ -15,8 +15,8 @@ let json = {
 }
 
 // Fill in the information and update the target file.
-fs.readdir("../achievements/portfolios", (err, items) => {
-  for (let i=0; i<items.length; i++) {
+fs.readdir("./achievements/portfolios", (err, items) => {
+  for (let i=0; i < items.length; i++) {
 
     let infoJson = JSON.parse(fs.readFileSync("../achievements/portfolios/" + items[i] + "/information.json"));
 
@@ -33,7 +33,7 @@ fs.readdir("../achievements/portfolios", (err, items) => {
   json.data = json.data.reverse();
 
   // Write to the file.
-  fs.writeFileSync('../temporary/portfoliosInfo.json', JSON.stringify(json));
+  fs.writeFileSync('./temporary/portfoliosInfo.json', JSON.stringify(json));
 });
 
 
