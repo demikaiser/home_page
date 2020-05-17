@@ -18,7 +18,7 @@ let json = {
 fs.readdir("./achievements/blogs", (err, items) => {
   for (let i=0; i < items.length; i++) {
 
-    let infoJson = JSON.parse(fs.readFileSync("../achievements/blogs/" + items[i] + "/information.json"));
+    let infoJson = JSON.parse(fs.readFileSync("./achievements/blogs/" + items[i] + "/information.json"));
 
     json.data.push({
       title: infoJson.title,
