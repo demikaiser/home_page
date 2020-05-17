@@ -1,7 +1,9 @@
 
 
 
-
+# 
+node ./scripts/makePathInfoJsonForBlogs.js
+node ./scripts/makePathInfoJsonForPortfolios.js
 
 
 
