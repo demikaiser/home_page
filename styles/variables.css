@@ -1,0 +1,46 @@
+:root {
+
+  /* Colors: Chromatic Container */
+  --color-container-chromatic-0: #ffffff;
+  --color-container-chromatic-1: #ffffff;
+  --color-container-chromatic-2: #ffffff;
+  --color-container-chromatic-3: #ffffff;
+  --color-container-chromatic-4: #ffffff;
+  --color-container-chromatic-5: #ffffff;
+  --color-container-chromatic-6: #ffffff;
+  --color-container-chromatic-7: #ffffff;
+  --color-container-chromatic-8: #ffffff;
+  --color-container-chromatic-9: #ffffff;
+
+  /* Colors: Achromatic Container */
+  --color-container-achromatic-0: #ffffff;
+  --color-container-achromatic-1: #f7f7f7;
+  --color-container-achromatic-2: #f0f0f0;
+  --color-container-achromatic-3: #d3d3d3;
+  --color-container-achromatic-4: #c0c0c0;
+  --color-container-achromatic-5: #a9a9a9;
+  --color-container-achromatic-6: #808080;
+  --color-container-achromatic-7: #696969;
+  --color-container-achromatic-8: #708090;
+  --color-container-achromatic-9: #000000;
+
+  /* Colors: Fonts Normal */
+  --color-font-normal-0: #ffffff;
+  --color-font-normal-1: #dddddd;
+  --color-font-normal-2: #bbbbbb;
+  --color-font-normal-3: #999999;
+  --color-font-normal-4: #777777;
+  --color-font-normal-5: #555555;
+  --color-font-normal-6: #333333;
+  --color-font-normal-7: #222222;
+  --color-font-normal-8: #111111;
+  --color-font-normal-9: #000000;
+
+  /* Colors: Fonts Accent */
+  --color-font-accent-0: #000000;
+  --color-font-accent-1: #000000;
+  --color-font-accent-2: #000000;
+  --color-font-accent-3: #000000;
+  --color-font-accent-4: #000000;
+
+}

@@ -1,0 +1,18 @@
+.dkdv__homepage--nav {
+  margin-right: 10%;
+  margin-left: 10%;
+}
+
+.dkdv__homepage--contents {
+  margin-right: 10%;
+  margin-left: 10%;
+}
+
+.dkdv__homepage--footer {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--color-container-achromatic-2);
+  color: var(--color-font-normal-4);
+  text-align: center;
+}
