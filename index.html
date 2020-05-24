@@ -11,6 +11,9 @@
   <!-- JQuery -->
   <script src="./libraries/jquery-3.5.1/jquery-3.5.1.min.js"></script>
 
+  <!-- lax.js -->
+  <script src="./libraries/lax-js-20200518/lax.min.js"></script>
+
 </head>
 <body>
 
@@ -26,7 +29,7 @@
       </div>
       <div class="uk-navbar-center">
         <ul class="uk-navbar-nav"> 
-          <li class="uk-active"><a href="./index.html" uk-icon="icon: star; ratio: 1.5"></a></li>
+          <li><a href="./index.html"><img width="50px" src="./assets/brands/logo-small.png"/></a></li>
         </ul>
       </div>
       <div class="uk-navbar-right">
@@ -41,44 +44,129 @@
 
   <!-- Contents -->
   <br/>
-  <div class="dkdv__homepage--contents">
+  <div class="dkdv__homepage--introduction">
 
+    <!-- Section 0: Overview -->
+    <section id="dkdv__homepage--parallax-section-0">
 
-    <div class="uk-height-large uk-background-cover uk-overflow-hidden uk-light uk-flex uk-flex-top" style="background-image: url('./assets/images/MePlayingViolin.jpg');">
-      <div class="uk-width-1-2@m uk-text-center uk-margin-auto uk-margin-auto-vertical">
-          <h1 uk-parallax="opacity: 0,1; y: -100,0; scale: 2,1; viewport: 0.5;">Headline</h1>
-          <p uk-parallax="opacity: 0,1; y: 100,0; scale: 0.5,1; viewport: 0.5;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <div id="hello" style="position: relative;">
+        <img src="./assets/brands/diamond_yellow_original.png"
+            id="" 
+            class="lax"
+            style="position: absolute; 
+                  width: 15%; z-index: 0;
+                  top: 17%; left: 50%;
+                  transform-origin: bottom center;
+                  transform: translate(-50%, 0%) rotateZ(0deg);
+                  "
+            data-lax-anchor="self"
+            data-lax-translate-y="500 0, 1500 3000"
+        />
+        <img src="./assets/brands/diamond_red_original.png"
+            id="" 
+            class="lax"
+            style="position: absolute; 
+                  width: 15%; z-index: 0;
+                  top: 17%; left: 50%;
+                  transform-origin: bottom center;
+                  transform: translate(-50%, 0%) rotateZ(72deg);
+                  "
+            data-lax-anchor="self"
+            data-lax-translate-y="500 0, 1500 3000"
+        />
+        <img src="./assets/brands/diamond_purple_original.png"
+            id="" 
+            class="lax"
+            style="position: absolute; 
+                  width: 15%; z-index: 0;
+                  top: 17%; left: 50%;
+                  transform-origin: bottom center;
+                  transform: translate(-50%, 0%) rotateZ(144deg);
+                  "
+            data-lax-anchor="self"
+            data-lax-translate-y="0 0, 500 -300"
+            data-lax-opacity="0 1, 500 0"
+        />
+        <img src="./assets/brands/diamond_blue_original.png"
+            id="" 
+            class="lax"
+            style="position: absolute; 
+                  width: 15%; z-index: 0;
+                  top: 17%; left: 50%;
+                  transform-origin: bottom center;
+                  transform: translate(-50%, 0%) rotateZ(216deg);
+                  "
+            data-lax-anchor="self"
+            data-lax-translate-y="0 0, 500 -300"
+            data-lax-opacity="0 1, 500 0"
+        />
+        <img src="./assets/brands/diamond_green_original.png"
+            id="" 
+            class="lax"
+            style="position: absolute; 
+                  width: 15%; z-index: 0;
+                  top: 17%; left: 50%;
+                  transform-origin: bottom center;
+                  transform: translate(-50%, 0%) rotateZ(288deg);
+                  "
+            data-lax-anchor="self"
+            data-lax-translate-y="0 0, 500 -300"
+            data-lax-opacity="0 1, 500 0"
+        />
       </div>
-    </div>
+
+    </section>
+
+    <!-- Section 1: Diamond Yellow - Inspiration -->
+    <section id="dkdv__homepage--parallax-section-1">
+      <h1 id="dkdv__homepage--parallax-font-1" 
+          class="lax uk-text-bold uk-text-center"
+          data-lax-preset="spin fadeIn">
+        Hello! This is bold text.
+      </h1>
+    </section>
+
+    <!-- Section 2: Diamond Red - Philosophy -->
+    <section id="dkdv__homepage--parallax-section-2">
+    </section>
+
+    <!-- Section 3: Diamond Purple - Design -->
+    <section id="dkdv__homepage--parallax-section-3">
+    </section>
+
+    <!-- Section 4: Diamond Blue - Science & Technology -->
+    <section id="dkdv__homepage--parallax-section-4">
+    </section>
+
+    <!-- Section 5: Diamond Green - Engineering -->
+    <section id="dkdv__homepage--parallax-section-5">
+    </section>
+
+    <!-- Section 6: Summary -->
+    <section id="dkdv__homepage--parallax-section-6">
 
 
-    <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
-      <div class="uk-card-media-left uk-cover-container">
-          <img src="./assets/images/MePlayingViolin.jpg" alt="" uk-cover>
-          <canvas width="600" height="400"></canvas>
-      </div>
-      <div>
-          <div class="uk-card-body">
-              <h3 class="uk-card-title">Media Left</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-          </div>
-      </div>
-    </div>
+    </section>
 
-    
-    <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
-      <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
-          <img src="./assets/images/MeWithSharonGrace.jpeg" alt="" uk-cover>
-          <canvas width="600" height="400"></canvas>
-      </div>
-      <div>
-          <div class="uk-card-body">
-              <h3 class="uk-card-title">Media Right</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-          </div>
-      </div>
-    </div>
-
+    <!-- Footer -->
+    <section class="dkdv__homepage--footer">
+      <br/><br/><br/>
+      <p>
+        <span id="dkdv__homepage--date-string"></span><a href="mailto:demikaiser13@gmail.com">DemiKaiser Da Vinci</a><span> a.k.a Jake J. Choi @ </span>
+        <script> 
+          // Display the calculated copyright string.
+          (function() { $("#dkdv__homepage--date-string").html("&copy; Copyright ~" + new Date().getFullYear() + " "); }) ();
+        </script>
+        <a href="http://www.k-souls.com" target="_blank" rel="noopener noreferrer">K-SOULS</a> Co. <br /> <span>Powered by </span>
+        <a href="https://getuikit.com/" target="_blank" rel="noopener noreferrer">UIkit</a><span>, </span>
+        <a href="https://jquery.com/" target="_blank" rel="noopener noreferrer">JQuery</a><span>, </span>
+        <a href="https://d3js.org/" target="_blank" rel="noopener noreferrer">D3</a><span>, </span>
+        <a href="https://threejs.org/" target="_blank" rel="noopener noreferrer">Three.js</a><span>, </span>
+        <a href="https://www.tensorflow.org/js" target="_blank" rel="noopener noreferrer">Tensorflow</a><span>, and </span>
+        <a href="http://phaser.io/" target="_blank" rel="noopener noreferrer">Phaser</a>.
+      </p>
+      <br/><br/><br/>
+    </section>
 
   </div>
   <br/>
@@ -89,28 +177,28 @@
     <br />TOP
   </a>
 
-  <!-- Footer -->
-  <div class="dkdv__homepage--footer">
-    <br/>
-    <p>
-      <span id="dkdv__homepage--date-string"></span><a href="mailto:demikaiser13@gmail.com">DemiKaiser Da Vinci</a><span> a.k.a Jake J. Choi @ </span>
-      <script> 
-        // Display the calculated copyright string.
-        (function() { $("#dkdv__homepage--date-string").html("&copy; Copyright ~" + new Date().getFullYear() + " "); }) ();
-      </script>
-      <a href="http://www.k-souls.com" target="_blank" rel="noopener noreferrer">K-SOULS</a> Co. <br /> <span>Powered by </span>
-      <a href="https://getuikit.com/" target="_blank" rel="noopener noreferrer">UIkit</a><span>, </span>
-      <a href="https://jquery.com/" target="_blank" rel="noopener noreferrer">JQuery</a><span>, </span>
-      <a href="https://d3js.org/" target="_blank" rel="noopener noreferrer">D3</a><span>, </span>
-      <a href="https://threejs.org/" target="_blank" rel="noopener noreferrer">Three.js</a><span>, </span>
-      <a href="https://www.tensorflow.org/js" target="_blank" rel="noopener noreferrer">Tensorflow</a><span>, and </span>
-      <a href="http://phaser.io/" target="_blank" rel="noopener noreferrer">Phaser</a>.
-    </p>
-    <br/>
-  </div>
-
   <!-- Scripts -->
   <script>
+
+    /* Initialize lax.js. */
+    window.onload = function() {
+      lax.setup() // init
+
+      const updateLax = () => {
+        lax.update(window.scrollY)
+        window.requestAnimationFrame(updateLax)
+      }
+
+      window.requestAnimationFrame(updateLax)
+    }
+
+
+    /* Temp */
+    window.onscroll = () => {
+
+      console.log("scroll: " + window.scrollY);
+    }
+
   </script>
 
 </body>

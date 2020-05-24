@@ -1,5 +1,5 @@
 .dkdv__homepage--button-back-to-top {
-  background-color: #990000; /* button color */
+  background-color: var(--color-container-achromatic-5); /* button color */
   color: var(--color-font-normal-0); /* text/arrow color */
   z-index: 999;
   position: fixed;
